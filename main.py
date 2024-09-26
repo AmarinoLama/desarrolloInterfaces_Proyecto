@@ -12,7 +12,7 @@ class Main(QtWidgets.QMainWindow):
         '''
         ZONA DE EVENTOS DEL MENUBAR
         '''
-        var.ui.actionSalir.triggered.connect(eventos.Eventos.mensajeSalir())
+        var.ui.actionSalir.triggered.connect(eventos.Eventos.mensajeSalir)
 
 
 
