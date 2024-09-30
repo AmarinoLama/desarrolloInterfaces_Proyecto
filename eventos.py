@@ -1,7 +1,12 @@
 import sys
 from PyQt6 import QtWidgets
 
+import conexion
+import var
+
+
 class Eventos():
+
     def mensajeSalir(self=None):
         mbox = QtWidgets.QMessageBox()
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
@@ -17,3 +22,8 @@ class Eventos():
             sys.exit()
         else:
             mbox.hide()
+
+    def cargarProv(self):
+        var.ui.cmbProvinciacli.clear()
+        listado = conexion.Conexion.listaProv(self)
+        var.ui.cmbProvinciacli.addItems(listado)
