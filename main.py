@@ -1,3 +1,4 @@
+import clientes
 import conexion
 import eventos
 import styles
@@ -20,6 +21,18 @@ class Main(QtWidgets.QMainWindow):
         '''
 
         var.ui.actionSalir.triggered.connect(eventos.Eventos.mensajeSalir)
+
+        '''
+        EVENTOS DE BOTONES
+        '''
+
+        var.ui.btnGrabarcli.clicked.connect(clientes.Clientes.altaCliente)
+
+        '''
+        EVENTOS DE CAJAS DE TEXTO
+        '''
+
+        var.ui.txtDnicli.editingFinished.connect(lambda : eventos.Eventos.validarDNIcli(var.ui.txtDnicli.text()))
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
