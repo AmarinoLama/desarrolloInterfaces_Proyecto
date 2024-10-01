@@ -32,7 +32,7 @@ class Main(QtWidgets.QMainWindow):
         EVENTOS DE CAJAS DE TEXTO
         '''
 
-        var.ui.txtDnicli.editingFinished.connect(lambda : eventos.Eventos.validarDNIcli(var.ui.txtDnicli.text()))
+        var.ui.txtDnicli.editingFinished.connect(lambda : clientes.Clientes.checkDNI(var.ui.txtDnicli.text()))
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
