@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../Downloads/_123049.ico</normaloff>../../Downloads/_123049.ico</iconset>
+    <normaloff>../img/_123049.ico</normaloff>../img/_123049.ico</iconset>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -302,7 +302,7 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>img/calendar.png</normaloff>img/calendar.png</iconset>
+              <normaloff>../img/calendar.png</normaloff>../img/calendar.png</iconset>
             </property>
            </widget>
           </item>
