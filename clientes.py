@@ -3,11 +3,13 @@ from multiprocessing.connection import Client
 
 from PyQt6 import QtWidgets
 
+import conexion
 import eventos
 import var
 
 class Clientes:
 
+    @staticmethod
     def checkDNI(dni):
         try:
             dni = str(dni).upper()
@@ -23,10 +25,14 @@ class Clientes:
         except Exception as e:
             print("error en check cliente ", e)
 
+    @staticmethod
     def altaCliente(self):
-        nuevo = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDireccioncli.text(), var.ui.cmbProvinciacli.currentText(), var.ui.cmbMunicipiocli.currentText()]
-        print(nuevo)
+        nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDireccioncli.text(), var.ui.cmbProvinciacli.currentText(), var.ui.cmbMunicipiocli.currentText()]
+        conexion.Conexion.altaCliente(nuevoCli)   # CAMBIE ESTO
+        print(nuevoCli)
 
+
+    @staticmethod
     def checkEmail(mail):
         try:
             mail = str(var.ui.txtEmailcli.text())
