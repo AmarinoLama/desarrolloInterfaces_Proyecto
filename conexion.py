@@ -1,5 +1,7 @@
 import os
 from PyQt6 import QtSql, QtWidgets
+from PyQt6.uic.properties import QtGui
+
 
 class Conexion:
 
@@ -33,7 +35,7 @@ class Conexion:
                 return False
             else:
                 QtWidgets.QMessageBox.information(None, 'Aviso', 'Conexión Base de Datos realizada',
-                                               QtWidgets.QMessageBox.StandardButton.Ok)
+                                                  QtWidgets.QMessageBox.StandardButton.Ok)
                 return True
         else:
             QtWidgets.QMessageBox.critical(None, 'Error', 'No se pudo abrir la base de datos.',
@@ -52,11 +54,48 @@ class Conexion:
 
     @staticmethod
     def listaMunicipios(provincia):
-        listamunicipios = []
-        query = QtSql.QSqlQuery()
-        query.prepare("SELECT * FROM municipios where idprov = (select idprov from provincias where provincia = :provincia)")
-        query.bindValue(":provincia", provincia)
-        if query.exec():
-            while query.next():
-                listamunicipios.append(query.value(1))
-        return listamunicipios
+        try:
+            listamunicipios = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM municipios where idprov = (select idprov from provincias where provincia = :provincia)")
+            query.bindValue(":provincia", provincia)
+            if query.exec():
+                while query.next():
+                    listamunicipios.append(query.value(1))
+            return listamunicipios
+        except Exception as e:
+            print("error lista municipios", e)
+
+    @staticmethod
+    def altaCliente(nuevocli):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("INSERT into CLIENTES VALUES (dnicli, altacli, apelcli, nomecli, emailcli, movilcli, dircli, provcli, municli)"
+                          "VALUES (:dnicli, :altacli, :apelcli, :nomecli, :emailcli, :movilcli, :dircli, :provcli, :municli)")
+            query.bindValue("dnicli", nuevocli[0])
+            query.bindValue("altacli", nuevocli[1])
+            query.bindValue("apelcli", nuevocli[2])
+            query.bindValue("nomecli", nuevocli[3])
+            query.bindValue("emailcli", nuevocli[4])
+            query.bindValue("movilcli", nuevocli[5])
+            query.bindValue("dircli", nuevocli[6])
+            query.bindValue("provcli", nuevocli[7])
+            query.bindValue("municli", nuevocli[8])
+            if query.exec():
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                mbox.setWindowTitle('Aviso')
+                mbox.setText('Cliente Alta en Base de Datos')
+                mbox.setStandardButtons(
+                    QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+            else:
+                QtWidgets.QMessageBox.critical(None, 'Error', 'Error al dar de alta el cliente',
+                                                QtWidgets.QMessageBox.StandardButton.Cancel)
+        except Exception as e:
+            print("error altaCliente", e)
+
+
+

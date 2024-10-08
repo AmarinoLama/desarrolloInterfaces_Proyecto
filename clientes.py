@@ -24,8 +24,8 @@ class Clientes:
             print("error en check cliente ", e)
 
     def altaCliente(self):
-        dni = var.ui.txtDnicli.text()
-        print(dni)
+        nuevo = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDireccioncli.text(), var.ui.cmbProvinciacli.currentText(), var.ui.cmbMunicipiocli.currentText()]
+        print(nuevo)
 
     def checkEmail(mail):
         try:

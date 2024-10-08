@@ -17,7 +17,7 @@ class Ui_dlgCalendar(object):
         dlgCalendar.setMinimumSize(QtCore.QSize(312, 185))
         dlgCalendar.setMaximumSize(QtCore.QSize(312, 185))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(".\\\\templates\\../img/_123049.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap("img/icono.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         dlgCalendar.setWindowIcon(icon)
         dlgCalendar.setModal(True)
         self.Calendar = QtWidgets.QCalendarWidget(parent=dlgCalendar)
