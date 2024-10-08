@@ -1,5 +1,6 @@
 import sys
 import time
+import re
 
 from PyQt6 import QtWidgets, QtSql
 from PyQt6.uic.properties import QtGui
@@ -31,7 +32,11 @@ class Eventos():
         listado = conexion.Conexion.listaProv(self)
         var.ui.cmbProvinciacli.addItems(listado)
 
-
+    def cargarMunicipios(self):
+         var.ui.cmbMunicipiocli.clear()
+         provincia = var.ui.cmbProvinciacli.currentText()
+         listado = conexion.Conexion.listaMunicipios(provincia)
+         var.ui.cmbMunicipiocli.addItems(listado)
 
     def validarDNIcli(dni):
         try:
@@ -72,8 +77,10 @@ class Eventos():
         except Exception as error:
             print("error en cargar fecha: ", error)
 
-    def cargarMunicipios(self):
-         var.ui.cmbMunicipiocli.clear()
-         provincia = var.ui.cmbProvinciacli.currentText()
-         listado = conexion.Conexion.listaMunicipios(provincia)
-         var.ui.cmbMunicipiocli.addItems(listado)
+    def validarMail(mail):
+        mail = mail.lower()
+        regex = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$'
+        if re.match(regex, mail):
+            return True
+        else:
+            return False
