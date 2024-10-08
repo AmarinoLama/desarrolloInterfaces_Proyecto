@@ -22,8 +22,8 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="3">
-     <spacer name="horizontalSpacer_6">
+    <item row="0" column="0">
+     <spacer name="horizontalSpacer_7">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -38,8 +38,8 @@
       </property>
      </spacer>
     </item>
-    <item row="0" column="0">
-     <spacer name="horizontalSpacer_7">
+    <item row="0" column="3">
+     <spacer name="horizontalSpacer_6">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -92,19 +92,10 @@
             </property>
            </spacer>
           </item>
-          <item row="2" column="4" colspan="3">
-           <widget class="QLineEdit" name="txtMovilcli">
-            <property name="minimumSize">
-             <size>
-              <width>120</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>150</width>
-              <height>16777215</height>
-             </size>
+          <item row="2" column="0" alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="lblEmailcli">
+            <property name="text">
+             <string>Email:</string>
             </property>
            </widget>
           </item>
@@ -131,10 +122,19 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0" alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="lblEmailcli">
-            <property name="text">
-             <string>Email:</string>
+          <item row="2" column="4" colspan="3">
+           <widget class="QLineEdit" name="txtMovilcli">
+            <property name="minimumSize">
+             <size>
+              <width>120</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -145,15 +145,15 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="7" alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="lblProvinciacli">
+          <item row="1" column="3" alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="lblNomCli">
             <property name="text">
-             <string>Provincia:</string>
+             <string>Nombre:</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="4" colspan="3">
-           <widget class="QLineEdit" name="txNomcli">
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="txtApelcli">
             <property name="minimumSize">
              <size>
               <width>350</width>
@@ -168,8 +168,8 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="txtApelcli">
+          <item row="1" column="4" colspan="3">
+           <widget class="QLineEdit" name="txNomcli">
             <property name="minimumSize">
              <size>
               <width>350</width>
@@ -207,10 +207,42 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="3" alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="lblNomCli">
+          <item row="0" column="4">
+           <widget class="QLineEdit" name="txtAltacli">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>21</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3" alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="lblMovilcli">
             <property name="text">
-             <string>Nombre:</string>
+             <string>Móvil:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1" colspan="4">
+           <widget class="QLineEdit" name="txtDireccioncli">
+            <property name="minimumSize">
+             <size>
+              <width>400</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>16777215</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -233,30 +265,14 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="1" colspan="4">
-           <widget class="QLineEdit" name="txtDireccioncli">
-            <property name="minimumSize">
-             <size>
-              <width>400</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>400</width>
-              <height>16777215</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="7" alignment="Qt::AlignHCenter">
+          <item row="1" column="8">
            <widget class="QLabel" name="lblMunicipiocli">
             <property name="text">
              <string>Municipio:</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="8">
+          <item row="1" column="9">
            <widget class="QComboBox" name="cmbMunicipiocli">
             <property name="minimumSize">
              <size>
@@ -266,14 +282,7 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="3" alignment="Qt::AlignHCenter">
-           <widget class="QLabel" name="lblMovilcli">
-            <property name="text">
-             <string>Móvil:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="8">
+          <item row="0" column="9">
            <widget class="QComboBox" name="cmbProvinciacli">
             <property name="minimumSize">
              <size>
@@ -283,8 +292,15 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="8">
+           <widget class="QLabel" name="lblProvinciacli">
+            <property name="text">
+             <string>Provincia:</string>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="5">
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="btnAltacli">
             <property name="minimumSize">
              <size>
               <width>30</width>
@@ -306,23 +322,7 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="4">
-           <widget class="QLineEdit" name="txtAltacli">
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>100</width>
-              <height>21</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="8">
+          <item row="2" column="9">
            <widget class="QCheckBox" name="chkHistoriacli">
             <property name="layoutDirection">
              <enum>Qt::LeftToRight</enum>
@@ -331,6 +331,71 @@
              <string>Historico</string>
             </property>
            </widget>
+          </item>
+          <item row="0" column="2">
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="7">
+           <spacer name="horizontalSpacer_9">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="2" column="7">
+           <spacer name="horizontalSpacer_10">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="3" column="7">
+           <spacer name="horizontalSpacer_11">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="7">
+           <spacer name="horizontalSpacer_8">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </item>

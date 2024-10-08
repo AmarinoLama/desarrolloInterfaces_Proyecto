@@ -1,5 +1,8 @@
 import sys
-from PyQt6 import QtWidgets
+import time
+
+from PyQt6 import QtWidgets, QtSql
+from PyQt6.uic.properties import QtGui
 
 import conexion
 import var
@@ -10,7 +13,7 @@ class Eventos():
     def mensajeSalir(self=None):
         mbox = QtWidgets.QMessageBox()
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
-        #mbox.setWindowIcon(QTGui.QIcon("./img/inmobiliaria.png"))
+        mbox.setWindowIcon(QtGui.QIcon('./img/_123049.ico'))
         mbox.setWindowTitle('Salir')
         mbox.setText('Desea usted Salir?')
         mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
@@ -27,6 +30,8 @@ class Eventos():
         var.ui.cmbProvinciacli.clear()
         listado = conexion.Conexion.listaProv(self)
         var.ui.cmbProvinciacli.addItems(listado)
+
+
 
     def validarDNIcli(dni):
         try:
@@ -48,3 +53,27 @@ class Eventos():
 
         except Exception as error:
             print("error en validar dni ", error)
+
+    def abrirCalendar(op):
+        try:
+            var.panel = op
+            var.uicalendar.show()
+        except Exception as error:
+            print("error en abrir calendar ", error)
+
+    def cargaFecha(qDate):
+        try:
+            data = ('{:02d}/{:02d}/{:4d}'.format(qDate.day(), qDate.month(), qDate.year()))
+            if var.panel == var.ui.panPrincipal.currentIndex():
+                var.ui.txtAltacli.setText(str(data))
+            time.sleep(0.5)
+            var.uicalendar.hide()
+            return data
+        except Exception as error:
+            print("error en cargar fecha: ", error)
+
+    def cargarMunicipios(self):
+         var.ui.cmbMunicipiocli.clear()
+         provincia = var.ui.cmbProvinciacli.currentText()
+         listado = conexion.Conexion.listaMunicipios(provincia)
+         var.ui.cmbMunicipiocli.addItems(listado)
