@@ -14,7 +14,7 @@ class Ui_venPrincipal(object):
         venPrincipal.setObjectName("venPrincipal")
         venPrincipal.resize(1127, 802)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(".\\\\templates\\../img/_123049.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap(".\\\\templates\\../img/icono.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         venPrincipal.setWindowIcon(icon)
         venPrincipal.setAutoFillBackground(False)
         self.centralwidget = QtWidgets.QWidget(parent=venPrincipal)

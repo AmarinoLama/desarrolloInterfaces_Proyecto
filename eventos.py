@@ -2,8 +2,8 @@ import sys
 import time
 import re
 
-from PyQt6 import QtWidgets, QtSql
-from PyQt6.uic.properties import QtGui
+from PyQt6 import QtWidgets, QtGui
+
 
 import conexion
 import var
@@ -14,7 +14,7 @@ class Eventos():
     def mensajeSalir(self=None):
         mbox = QtWidgets.QMessageBox()
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
-        #mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico')) # PONER UN ICONO .SVG
+        mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico')) # PONER UN ICONO .SVG
         mbox.setWindowTitle('Salir')
         mbox.setText('Desea usted Salir?')
         mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)

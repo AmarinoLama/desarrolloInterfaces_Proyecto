@@ -1,7 +1,5 @@
-from multiprocessing.connection import Client
 
-
-from PyQt6 import QtWidgets
+from PyQt6 import QtWidgets, QtGui
 
 import conexion
 import eventos
@@ -27,9 +25,37 @@ class Clientes:
 
     @staticmethod
     def altaCliente(self):
-        nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDireccioncli.text(), var.ui.cmbProvinciacli.currentText(), var.ui.cmbMunicipiocli.currentText()]
-        conexion.Conexion.altaCliente(nuevoCli)   # CAMBIE ESTO
-        print(nuevoCli)
+
+        try:
+            nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(),
+                        var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(),
+                        var.ui.txtDireccioncli.text(), var.ui.cmbProvinciacli.currentText(),
+                        var.ui.cmbMunicipiocli.currentText()]
+
+            if conexion.Conexion.altaCliente(nuevoCli):
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                mbox.setWindowTitle('Aviso')
+                mbox.setText('Cliente Alta en Base de Datos')
+                mbox.setStandardButtons(
+                    QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox.exec()
+                return True
+            else:
+                mbox = QtWidgets.QMessageBox()
+                mbox.setWindowTitle("Aviso")
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+                mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                mbox.setText("Error al dar de alta el cliente")
+                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Cancel)
+                mbox.exec()
+                return False
+
+        except Exception as e:
+            print("error altaCliente", e)
 
 
     @staticmethod
