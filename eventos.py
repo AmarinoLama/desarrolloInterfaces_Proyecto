@@ -84,3 +84,9 @@ class Eventos():
             return True
         else:
             return False
+
+    def resizeTablaClientes(self):
+        try:
+
+        except Exception as e:
+            print("error en resize tabla clientes: ", e)
