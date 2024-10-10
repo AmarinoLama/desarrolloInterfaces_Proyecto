@@ -43,6 +43,7 @@ class Clientes:
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
+                Clientes.cargaTablaClientes(self)
                 return True
             else:
                 mbox = QtWidgets.QMessageBox()
@@ -79,22 +80,21 @@ class Clientes:
     def cargaTablaClientes(self):
         try:
             listado = conexion.Conexion.listadoClientes(self)
-            print(listado)
             index = 0
             for registro in listado:
                 var.ui.tablaClientes.setRowCount(index + 1)
                 var.ui.tablaClientes.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[2])))
                 var.ui.tablaClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[3])))
-                var.ui.tablaClientes.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[5])))
+                var.ui.tablaClientes.setItem(index, 2, QtWidgets.QTableWidgetItem("    " + str(registro[5]) + "    "))
                 var.ui.tablaClientes.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[7])))
                 var.ui.tablaClientes.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[8])))
                 var.ui.tablaClientes.setItem(index, 5, QtWidgets.QTableWidgetItem(str(registro[9])))
-                var.ui.tablaClientes.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
-                var.ui.tablaClientes.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
+                var.ui.tablaClientes.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaClientes.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
                 var.ui.tablaClientes.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tablaClientes.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
-                var.ui.tablaClientes.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
-                var.ui.tablaClientes.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaClientes.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaClientes.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaClientes.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter.AlignVCenter)
                 index += 1
 
         except Exception as e:

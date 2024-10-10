@@ -19,6 +19,7 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.cargarProv(self)
         eventos.Eventos.cargarMunicipios(self)
         clientes.Clientes.cargaTablaClientes(self)
+        eventos.Eventos.resizeTablaClientes(self)
 
         '''
         EVENTOS DEL MENUBAR
