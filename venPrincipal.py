@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '.\\templates\\venPrincipal.ui'
+# Form implementation generated from reading ui file 'templates/venPrincipal.ui'
 #
 # Created by: PyQt6 UI code generator 6.7.1
 #
@@ -14,7 +14,7 @@ class Ui_venPrincipal(object):
         venPrincipal.setObjectName("venPrincipal")
         venPrincipal.resize(1127, 802)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(".\\\\templates\\../img/icono.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap("templates\\../img/icono.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         venPrincipal.setWindowIcon(icon)
         venPrincipal.setAutoFillBackground(False)
         self.centralwidget = QtWidgets.QWidget(parent=venPrincipal)
