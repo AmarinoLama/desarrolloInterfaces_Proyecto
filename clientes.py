@@ -18,7 +18,7 @@ class Clientes:
             else:
                 var.ui.txtDnicli.setStyleSheet('background-color:#FFC0CB;')
                 var.ui.txtDnicli.setText(None)
-                var.ui.txtEmailcli.setText("dni no válido")
+                var.ui.txtDnicli.setText("dni no válido")
                 var.ui.txtDnicli.setFocus()
         except Exception as e:
             print("error en check cliente ", e)
