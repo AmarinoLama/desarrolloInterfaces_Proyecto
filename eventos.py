@@ -4,10 +4,9 @@ import re
 
 from PyQt6 import QtWidgets, QtGui
 
-
 import conexion
+import conexionserver
 import var
-
 
 class Eventos():
 
@@ -30,12 +29,14 @@ class Eventos():
     def cargarProv(self):
         var.ui.cmbProvinciacli.clear()
         listado = conexion.Conexion.listaProv(self)
+        #listado = conexionserver.ConexionServer.listaProv(self)
         var.ui.cmbProvinciacli.addItems(listado)
 
     def cargarMunicipios(self):
          var.ui.cmbMunicipiocli.clear()
          provincia = var.ui.cmbProvinciacli.currentText()
          listado = conexion.Conexion.listaMunicipios(provincia)
+         #listado = conexionserver.ConexionServer.listaMuniProv(provincia)
          var.ui.cmbMunicipiocli.addItems(listado)
 
     def validarDNIcli(dni):

@@ -1,5 +1,6 @@
 import clientes
 import conexion
+import conexionserver
 import eventos
 import styles
 from venAux import Calendar
@@ -15,9 +16,14 @@ class Main(QtWidgets.QMainWindow):
         var.ui.setupUi(self)
         var.uicalendar = Calendar()
         self.setStyleSheet(styles.load_stylesheet())
-        conexion.Conexion.db_conexion(self)
-        eventos.Eventos.cargarProv(self)
         eventos.Eventos.cargarMunicipios(self)
+        conexion.Conexion.db_conexion(self)
+        #conexionserver.ConexionServer.crear_conexion(self)
+
+        '''
+        EVENTOS DE TABLAS
+        '''
+
         clientes.Clientes.cargaTablaClientes(self)
         eventos.Eventos.resizeTablaClientes(self)
 
@@ -42,9 +48,10 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtEmailcli.editingFinished.connect(lambda : clientes.Clientes.checkEmail(var.ui.txtEmailcli.text()))
 
         '''
-        EVENTOS COMOBOX
+        EVENTOS COMBOBOX
         '''
 
+        eventos.Eventos.cargarProv(self)
         var.ui.cmbProvinciacli.currentIndexChanged.connect(eventos.Eventos.cargarMunicipios)
 
 if __name__ == '__main__':
