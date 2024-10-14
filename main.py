@@ -3,7 +3,7 @@ import conexion
 import conexionserver
 import eventos
 import styles
-from venAux import Calendar
+from venAux import Calendar, FileDialogAbrir
 from venPrincipal import *
 import sys
 import var
@@ -15,6 +15,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui = Ui_venPrincipal()
         var.ui.setupUi(self)
         var.uicalendar = Calendar()
+        var.dlgabrir = FileDialogAbrir()
         self.setStyleSheet(styles.load_stylesheet())
         eventos.Eventos.cargarMunicipios(self)
         conexion.Conexion.db_conexion(self)
@@ -32,6 +33,8 @@ class Main(QtWidgets.QMainWindow):
         '''
 
         var.ui.actionSalir.triggered.connect(eventos.Eventos.mensajeSalir)
+        var.ui.actionCrear_Backup.triggered.connect(eventos.Eventos.crearBackup)
+        var.ui.actionCargar_Backup.triggered.connect(eventos.Eventos.restaurarBackup)
 
         '''
         EVENTOS DE BOTONES
