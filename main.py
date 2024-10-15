@@ -27,6 +27,7 @@ class Main(QtWidgets.QMainWindow):
 
         clientes.Clientes.cargaTablaClientes(self)
         eventos.Eventos.resizeTablaClientes(self)
+        var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
 
         '''
         EVENTOS DEL MENUBAR
@@ -42,6 +43,7 @@ class Main(QtWidgets.QMainWindow):
 
         var.ui.btnGrabarcli.clicked.connect(clientes.Clientes.altaCliente)
         var.ui.btnAltacli.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0))
+        var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifCliente)
 
         '''
         EVENTOS DE CAJAS DE TEXTO
