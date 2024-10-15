@@ -528,6 +528,11 @@
           </attribute>
           <column>
            <property name="text">
+            <string>DNI/NIE</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
             <string>Apellidos</string>
            </property>
           </column>
