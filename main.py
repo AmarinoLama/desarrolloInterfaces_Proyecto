@@ -42,8 +42,10 @@ class Main(QtWidgets.QMainWindow):
         '''
 
         var.ui.btnGrabarcli.clicked.connect(clientes.Clientes.altaCliente)
-        var.ui.btnAltacli.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0))
+        var.ui.btnAltacli.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0, 0))
+        var.ui.btnBajacli.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0, 1))
         var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifCliente)
+        var.ui.btnDelcli.clicked.connect(clientes.Clientes.bajaCliente)
 
         '''
         EVENTOS DE CAJAS DE TEXTO
@@ -58,6 +60,13 @@ class Main(QtWidgets.QMainWindow):
 
         eventos.Eventos.cargarProv(self)
         var.ui.cmbProvinciacli.currentIndexChanged.connect(eventos.Eventos.cargarMunicipios)
+
+        '''
+        EVENTOS TOOLBAR
+        '''
+
+        var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mensajeSalir)
+        var.ui.actionbarLimpiar.triggered.connect(eventos.Eventos.limpiarPanel)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

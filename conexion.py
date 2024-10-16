@@ -144,3 +144,17 @@ class Conexion:
                 return False
         except Exception as e:
             print("error modifCliente en conexion", e)
+
+    @staticmethod
+    def bajaCliente(datos):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("UPDATE clientes SET bajacli = :bajacli WHERE dnicli = :dni")
+            query.bindValue(":dni", str(datos[1]))
+            query.bindValue(":bajacli", str(datos[0]))
+            if query.exec():
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("error bajaCliente en conexion", e)
