@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1241</width>
-    <height>807</height>
+    <height>839</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -694,6 +694,20 @@
    <addaction name="menuAyuda"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionbarLimpiar"/>
+   <addaction name="separator"/>
+   <addaction name="actionbarSalir"/>
+  </widget>
   <action name="actionSalir">
    <property name="text">
     <string>Salir</string>
@@ -707,6 +721,27 @@
   <action name="actionCargar_Backup">
    <property name="text">
     <string>Cargar Backup</string>
+   </property>
+  </action>
+  <action name="actionbarSalir">
+   <property name="icon">
+    <iconset>
+     <normaloff>../img/user_account_off_door_arrow_leave_ui_exit_logout_icon_210826.ico</normaloff>../img/user_account_off_door_arrow_leave_ui_exit_logout_icon_210826.ico</iconset>
+   </property>
+   <property name="text">
+    <string>Salir</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+S</string>
+   </property>
+  </action>
+  <action name="actionbarLimpiar">
+   <property name="icon">
+    <iconset>
+     <normaloff>../img/reload3_78495.ico</normaloff>../img/reload3_78495.ico</iconset>
+   </property>
+   <property name="text">
+    <string>Limpiar</string>
    </property>
   </action>
  </widget>
