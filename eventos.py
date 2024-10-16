@@ -168,11 +168,13 @@ class Eventos():
 
     def limpiarPanel(self):
         objetosPanelcli = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli, var.ui.txtEmailcli,
-                    var.ui.txtMovilcli, var.ui.txtDireccioncli, var.ui.cmbProvinciacli, var.ui.cmbMunicipiocli]
+                    var.ui.txtMovilcli, var.ui.txtDireccioncli, var.ui.cmbProvinciacli, var.ui.cmbMunicipiocli, var.ui.txtBajacli]
 
         for i, dato in enumerate(objetosPanelcli):
             if i in (7, 8):
                 pass
-            dato.setText("")
+            else:
+                dato.setText("")
 
         eventos.Eventos.cargarProv(self)
+        var.ui.cmbMunicipiocli.clear()
