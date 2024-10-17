@@ -98,10 +98,22 @@ class Eventos():
     def validarMail(mail):
         mail = mail.lower()
         regex = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$'
-        if re.match(regex, mail):
+        if re.match(regex, mail) or mail == "":
             return True
         else:
             return False
+
+    def validarTelefono(telefono):
+        try:
+            regex = r'^[6-7]\d{8}$'
+            if re.match(regex, telefono):
+                return True
+            else:
+                return False
+        except Exception as error:
+            print("error en validar telefono: ", error)
+            return False
+
 
     def resizeTablaClientes(self):
         try:

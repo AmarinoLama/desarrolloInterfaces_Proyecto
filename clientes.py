@@ -78,6 +78,20 @@ class Clientes:
             print("error check cliente", error)
 
     @staticmethod
+    def checkTelefono(telefono):
+        try:
+            telefono = str(var.ui.txtMovilcli.text())
+            if eventos.Eventos.validarTelefono(telefono):
+                var.ui.txtMovilcli.setStyleSheet('background-color: rgb(255, 255, 255);')
+            else:
+                var.ui.txtMovilcli.setStyleSheet('background-color:#FFC0CB; font-style: italic;')
+                var.ui.txtMovilcli.setText(None)
+                var.ui.txtMovilcli.setText("telefono no válido")
+                var.ui.txtMovilcli.setFocus()
+        except Exception as error:
+            print("error check cliente", error)
+
+    @staticmethod
     def cargaTablaClientes(self):
         try:
             listado = conexion.Conexion.listadoClientes(self)
