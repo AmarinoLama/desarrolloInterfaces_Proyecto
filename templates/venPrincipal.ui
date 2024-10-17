@@ -83,6 +83,9 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 252, 220);</string>
+            </property>
            </widget>
           </item>
           <item row="2" column="0">
@@ -137,6 +140,9 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 252, 220);</string>
+            </property>
            </widget>
           </item>
           <item row="0" column="9">
@@ -152,6 +158,9 @@
               <width>100</width>
               <height>21</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 252, 220);</string>
             </property>
            </widget>
           </item>
@@ -222,6 +231,9 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 252, 220);</string>
+            </property>
            </widget>
           </item>
           <item row="1" column="0" alignment="Qt::AlignHCenter">
@@ -285,8 +297,16 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <underline>false</underline>
+             </font>
+            </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(255, 252, 220);</string>
+            </property>
+            <property name="dragEnabled">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -415,6 +435,9 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 252, 220);</string>
+            </property>
            </widget>
           </item>
           <item row="2" column="4">
@@ -431,6 +454,9 @@
               <height>16777215</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 252, 220);</string>
+            </property>
            </widget>
           </item>
           <item row="3" column="4">
@@ -446,6 +472,9 @@
               <width>120</width>
               <height>16777215</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 252, 220);</string>
             </property>
            </widget>
           </item>
@@ -584,6 +613,9 @@
             <width>860</width>
             <height>510</height>
            </size>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
           </property>
           <property name="selectionBehavior">
            <enum>QAbstractItemView::SelectRows</enum>

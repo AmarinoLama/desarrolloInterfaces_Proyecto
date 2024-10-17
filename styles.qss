@@ -33,6 +33,11 @@ QHeaderView::section {
     border: 1px solid black;
 }
 
+QTableWidget::item:selected {
+    background-color: #eaf7fb;
+    color: black;
+}
+
 QToolBar {
     background-color: #eeeeee;
 }
