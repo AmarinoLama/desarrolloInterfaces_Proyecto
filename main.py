@@ -19,6 +19,7 @@ class Main(QtWidgets.QMainWindow):
         self.setStyleSheet(styles.load_stylesheet())
         eventos.Eventos.cargarMunicipios(self)
         conexion.Conexion.db_conexion(self)
+        var.historico = 0
         #conexionserver.ConexionServer.crear_conexion(self)
 
         '''
@@ -68,6 +69,12 @@ class Main(QtWidgets.QMainWindow):
 
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mensajeSalir)
         var.ui.actionbarLimpiar.triggered.connect(eventos.Eventos.limpiarPanel)
+
+        '''
+        EVENTOS DE CHECKBOX
+        '''
+
+        var.ui.chkHistoriacli.stateChanged.connect(clientes.Clientes.historicoCli)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_venPrincipal(object):
     def setupUi(self, venPrincipal):
         venPrincipal.setObjectName("venPrincipal")
-        venPrincipal.resize(1241, 839)
+        venPrincipal.resize(1241, 841)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("./templates\\../img/icono.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         venPrincipal.setWindowIcon(icon)
@@ -293,7 +293,7 @@ class Ui_venPrincipal(object):
         self.lblAltacli.setText(_translate("venPrincipal", "Fecha Alta:"))
         self.btnGrabarcli.setText(_translate("venPrincipal", "Grabar"))
         self.btnModifcli.setText(_translate("venPrincipal", "Modificar"))
-        self.btnDelcli.setText(_translate("venPrincipal", "Eliminar"))
+        self.btnDelcli.setText(_translate("venPrincipal", "Baja"))
         item = self.tablaClientes.horizontalHeaderItem(0)
         item.setText(_translate("venPrincipal", "DNI/NIE"))
         item = self.tablaClientes.horizontalHeaderItem(1)

@@ -1,10 +1,11 @@
-
+from datetime import datetime
 from PyQt6 import QtWidgets, QtGui, QtCore
 
 import conexion
 import conexionserver
 import eventos
 import var
+
 
 class Clientes:
 
@@ -95,7 +96,8 @@ class Clientes:
     def cargaTablaClientes(self):
         try:
             listado = conexion.Conexion.listadoClientes(self)
-            #listado = conexionserver.ConexionServer.listadoClientes(self)
+            if listado is None:
+                listado = []
             index = 0
             for registro in listado:
                 var.ui.tablaClientes.setRowCount(index + 1)
@@ -114,7 +116,6 @@ class Clientes:
                 var.ui.tablaClientes.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
                 var.ui.tablaClientes.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter.AlignVCenter)
                 index += 1
-
         except Exception as e:
             print("error cargaTablaClientes", e)
 
@@ -140,7 +141,7 @@ class Clientes:
             modifCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(),
                         var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(),
                         var.ui.txtDireccioncli.text(), var.ui.cmbProvinciacli.currentText(),
-                        var.ui.cmbMunicipiocli.currentText()]
+                        var.ui.cmbMunicipiocli.currentText(), var.ui.txtBajacli.text()]
             if conexion.Conexion.modifCliente(modifCli):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
@@ -170,7 +171,10 @@ class Clientes:
     @staticmethod
     def bajaCliente(self):
         try:
-            datos = [var.ui.txtBajacli.text(), var.ui.txtDnicli.text()]
+            now = datetime.now()
+            formatted_date = now.strftime("%d/%m/%Y")
+            var.ui.txtBajacli.setText(formatted_date)
+            datos = [formatted_date, var.ui.txtDnicli.text()] #CAMBIADO
             if conexion.Conexion.bajaCliente(datos):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
@@ -196,3 +200,14 @@ class Clientes:
             Clientes.cargaTablaClientes(self)
         except Exception as e:
             print("error bajaCliente en clientes", e)
+
+    @staticmethod
+    def historicoCli(self):
+        try:
+            if var.ui.chkHistoriacli.isChecked():
+                var.historico = 0
+            else:
+                var.historico = 1
+            Clientes.cargaTablaClientes(self)
+        except Exception as e:
+            print("checkbox historico error ", e)

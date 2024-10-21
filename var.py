@@ -8,3 +8,4 @@ global ui
 global uicalendar
 global op
 global dlgabrir
+global historico
