@@ -98,8 +98,8 @@ class Conexion:
     def listadoClientes(self):
             try:
                 listado = []
-                historico = var.ui.chkHistoriacli.isChecked()
-                if (historico):
+
+                if (var.historico == 1):
                     query = QtSql.QSqlQuery()
                     query.prepare("SELECT * FROM clientes order by apelcli, nomecli ASC")
                     if query.exec():
@@ -145,7 +145,7 @@ class Conexion:
                         query = QtSql.QSqlQuery()
                         query.prepare(
                             "UPDATE clientes SET altacli = :altacli, apelcli = :apelcli, nomecli = :nomecli, emailcli = :emailcli, "
-                            " movilcli = :movilcli, dircli = :dircli, provcli = :provcli, municli = :municli WHERE dnicli = :dnicli")
+                            " movilcli = :movilcli, dircli = :dircli, provcli = :provcli, municli = :municli, bajacli = :bajacli WHERE dnicli = :dnicli")
                         query.bindValue(":dnicli", str(registro[0]))
                         query.bindValue(":altacli", str(registro[1]))
                         query.bindValue(":apelcli", str(registro[2]))

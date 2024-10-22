@@ -126,7 +126,7 @@ class Clientes:
             datos = [dato.text() for dato in fila]
             registro = conexion.Conexion.datosOneCliente(str(datos[0]))
             listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli, var.ui.txtEmailcli,
-                       var.ui.txtMovilcli, var.ui.txtDireccioncli, var.ui.cmbProvinciacli, var.ui.cmbMunicipiocli] #hay que modificarlo después
+                       var.ui.txtMovilcli, var.ui.txtDireccioncli, var.ui.cmbProvinciacli, var.ui.cmbMunicipiocli, var.ui.txtBajacli]
             for i in range(len(listado)):
                 if i in (7,8):
                     listado[i].setCurrentText(registro[i])
@@ -205,9 +205,9 @@ class Clientes:
     def historicoCli(self):
         try:
             if var.ui.chkHistoriacli.isChecked():
-                var.historico = 0
-            else:
                 var.historico = 1
+            else:
+                var.historico = 0
             Clientes.cargaTablaClientes(self)
         except Exception as e:
             print("checkbox historico error ", e)
