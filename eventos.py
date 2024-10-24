@@ -190,3 +190,9 @@ class Eventos():
 
         eventos.Eventos.cargarProv(self)
         var.ui.cmbMunicipiocli.clear()
+
+    def abrirCalendar(self):
+        try:
+            var.dlggestion.show()
+        except Exception as error:
+            print("error en abrir gestion propiedades ", error)

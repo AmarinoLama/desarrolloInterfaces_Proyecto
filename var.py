@@ -9,3 +9,4 @@ global uicalendar
 global op
 global dlgabrir
 global historico
+global dlggestion

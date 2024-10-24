@@ -16,6 +16,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.setupUi(self)
         var.uicalendar = Calendar()
         var.dlgabrir = FileDialogAbrir()
+        var.dlggestion = var.dlggestion()
         self.setStyleSheet(styles.load_stylesheet())
         eventos.Eventos.cargarMunicipios(self)
         conexion.Conexion.db_conexion(self)
@@ -37,6 +38,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionSalir.triggered.connect(eventos.Eventos.mensajeSalir)
         var.ui.actionCrear_Backup.triggered.connect(eventos.Eventos.crearBackup)
         var.ui.actionCargar_Backup.triggered.connect(eventos.Eventos.restaurarBackup)
+        var.ui.actionTipo_Propiedades.triggered.connect(eventos.Eventos.abrirTipoProp)
 
         '''
         EVENTOS DE BOTONES

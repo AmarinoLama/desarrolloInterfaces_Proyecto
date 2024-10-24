@@ -1,7 +1,12 @@
 from datetime import datetime
+
+from PyQt6.QtWidgets import QDialog
+
 from dlgCalendar import *
 import var
 import eventos
+from dlgGestionProp import Ui_dlg_TipoProp
+
 
 class Calendar(QtWidgets.QDialog):
     def __init__(self):
@@ -18,3 +23,9 @@ class Calendar(QtWidgets.QDialog):
 class FileDialogAbrir(QtWidgets.QFileDialog):
     def __init__(self):
         super(FileDialogAbrir, self).__init__()
+
+class dlg_Tipo_prop(QtWidgets, QDialog):
+    def __init__(self):
+        super(dlg_Tipo_prop, self).__init__()
+        var.dlggestion = Ui_dlg_TipoProp()
+        var.dlggestion.setupUi(self)

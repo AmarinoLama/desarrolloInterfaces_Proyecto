@@ -1582,7 +1582,14 @@
      <string>Ayuda</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuGesti_n">
+    <property name="title">
+     <string>Gestión</string>
+    </property>
+    <addaction name="actionTipo_Propiedades"/>
+   </widget>
    <addaction name="menuArchivo"/>
+   <addaction name="menuGesti_n"/>
    <addaction name="menuHerramientas"/>
    <addaction name="menuAyuda"/>
   </widget>
@@ -1635,6 +1642,11 @@
    </property>
    <property name="text">
     <string>Limpiar</string>
+   </property>
+  </action>
+  <action name="actionTipo_Propiedades">
+   <property name="text">
+    <string>Tipo Propiedades</string>
    </property>
   </action>
  </widget>
