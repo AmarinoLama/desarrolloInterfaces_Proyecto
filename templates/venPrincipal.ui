@@ -444,13 +444,13 @@
            <widget class="QComboBox" name="cmbProvinciacli">
             <property name="minimumSize">
              <size>
-              <width>120</width>
+              <width>150</width>
               <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>120</width>
+              <width>150</width>
               <height>16777215</height>
              </size>
             </property>
@@ -463,13 +463,13 @@
            <widget class="QComboBox" name="cmbMunicipiocli">
             <property name="minimumSize">
              <size>
-              <width>120</width>
+              <width>150</width>
               <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>120</width>
+              <width>150</width>
               <height>16777215</height>
              </size>
             </property>
@@ -681,7 +681,79 @@
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
            <layout class="QGridLayout" name="gridLayout_5">
-            <item row="1" column="8">
+            <item row="1" column="6">
+             <spacer name="horizontalSpacer_17">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="2" column="6">
+             <spacer name="horizontalSpacer_18">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="6">
+             <spacer name="horizontalSpacer_16">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="2" column="11">
+             <widget class="QLineEdit" name="txtCpPro">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>100</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 252, 220);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="10">
+             <widget class="QLabel" name="lblCpPro">
+              <property name="text">
+               <string>Código Postal:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QLabel" name="lblMunicipioPro">
+              <property name="text">
+               <string>Municipio:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="11">
              <widget class="QLineEdit" name="txtPublicacionPro">
               <property name="maximumSize">
                <size>
@@ -691,31 +763,17 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="3" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="lblMunicipioPro">
-              <property name="text">
-               <string>Municipio:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="2">
-             <widget class="QComboBox" name="cmbTipoPro">
-              <property name="maximumSize">
-               <size>
-                <width>300</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 252, 220);</string>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="2">
              <widget class="QLineEdit" name="txtDireccionPro">
+              <property name="minimumSize">
+               <size>
+                <width>450</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
-                <width>300</width>
+                <width>450</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -724,7 +782,7 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="9">
+            <item row="1" column="12">
              <widget class="QPushButton" name="btnPublicacionPro">
               <property name="minimumSize">
                <size>
@@ -747,15 +805,8 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="1" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="lblTipoPro">
-              <property name="text">
-               <string>Tipo:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="4">
-             <widget class="QLineEdit" name="txtSuperficiePro">
+            <item row="2" column="2">
+             <widget class="QComboBox" name="cmbTipoPro">
               <property name="maximumSize">
                <size>
                 <width>150</width>
@@ -767,24 +818,23 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="4">
-             <widget class="QComboBox" name="cmbMunicipioPro">
+            <item row="2" column="5">
+             <widget class="QLineEdit" name="txtSuperficiePro">
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">background-color: rgb(255, 252, 220);</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="7" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="lblPublicacionPro">
+            <item row="2" column="1">
+             <widget class="QLabel" name="lblTipoPro">
               <property name="text">
-               <string>Publicación:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="3" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="lblSuperficiePro">
-              <property name="text">
-               <string>Superficie:</string>
+               <string>Tipo:</string>
               </property>
              </widget>
             </item>
@@ -801,52 +851,94 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="1" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="lblCodigoPro">
-              <property name="text">
-               <string>Código:</string>
+            <item row="1" column="5">
+             <widget class="QComboBox" name="cmbMunicipioPro">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>0</height>
+               </size>
               </property>
-             </widget>
-            </item>
-            <item row="0" column="3" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="lblProvinciaPro">
-              <property name="text">
-               <string>Provincia:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="4">
-             <widget class="QComboBox" name="cmbProvinciaPro">
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 252, 220);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="7" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="lblFechabajaPro">
-              <property name="text">
-               <string>Fecha Baja:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="lblDireccionPro">
-              <property name="text">
-               <string>Dirección:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="8">
-             <widget class="QLineEdit" name="txtFechabajaPro">
               <property name="maximumSize">
                <size>
                 <width>150</width>
                 <height>16777215</height>
                </size>
               </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 252, 220);</string>
+              </property>
              </widget>
             </item>
-            <item row="0" column="9">
+            <item row="2" column="4">
+             <widget class="QLabel" name="lblSuperficiePro">
+              <property name="text">
+               <string>Superficie:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="10">
+             <widget class="QLabel" name="lblPublicacionPro">
+              <property name="text">
+               <string>Publicación:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="lblCodigoPro">
+              <property name="text">
+               <string>Código:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <widget class="QLabel" name="lblProvinciaPro">
+              <property name="text">
+               <string>Provincia:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="10">
+             <widget class="QLabel" name="lblFechabajaPro">
+              <property name="text">
+               <string>Fecha Baja:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="5">
+             <widget class="QComboBox" name="cmbProvinciaPro">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 252, 220);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="lblDireccionPro">
+              <property name="text">
+               <string>Dirección:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="7">
+             <widget class="QLabel" name="lblHabitacionesPro">
+              <property name="text">
+               <string>Habitaciones:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="12">
              <widget class="QPushButton" name="btnBajaPro">
               <property name="minimumSize">
                <size>
@@ -869,48 +961,43 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="6">
+            <item row="0" column="8">
              <widget class="QSpinBox" name="spbHabitacionesPro">
+              <property name="minimumSize">
+               <size>
+                <width>70</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
-                <width>40</width>
+                <width>70</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="11">
+             <widget class="QLineEdit" name="txtFechabajaPro">
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
                 <height>16777215</height>
                </size>
               </property>
              </widget>
             </item>
-            <item row="0" column="5" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="lblHabitacionesPro">
-              <property name="text">
-               <string>Habitaciones:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="6">
-             <widget class="QSpinBox" name="spbBanosPro">
-              <property name="maximumSize">
-               <size>
-                <width>40</width>
-                <height>16777215</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="5" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="lblBanosPro">
-              <property name="text">
-               <string>Baños:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="5" alignment="Qt::AlignRight">
+            <item row="2" column="7" alignment="Qt::AlignRight">
              <widget class="QLabel" name="lblPrecioPro">
               <property name="text">
                <string>Precio:</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="6">
+            <item row="2" column="8">
              <widget class="QLineEdit" name="txtPrecioPro">
               <property name="maximumSize">
                <size>
@@ -923,42 +1010,132 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="7">
-             <widget class="QLabel" name="lblCpPro">
+            <item row="1" column="7" alignment="Qt::AlignRight">
+             <widget class="QLabel" name="lblBanosPro">
               <property name="text">
-               <string>Código Postal:</string>
+               <string>Baños:</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="8">
-             <widget class="QLineEdit" name="txtCpPro">
+            <item row="1" column="8">
+             <widget class="QSpinBox" name="spbBanosPro">
+              <property name="minimumSize">
+               <size>
+                <width>70</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
-                <width>150</width>
+                <width>70</width>
                 <height>16777215</height>
                </size>
               </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 252, 220);</string>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
+            </item>
+            <item row="0" column="3">
+             <spacer name="horizontalSpacer_13">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="3">
+             <spacer name="horizontalSpacer_14">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="2" column="3">
+             <spacer name="horizontalSpacer_15">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="9">
+             <spacer name="horizontalSpacer_19">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="9">
+             <spacer name="horizontalSpacer_20">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="2" column="9">
+             <spacer name="horizontalSpacer_21">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </item>
           <item>
+           <spacer name="verticalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>10</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <layout class="QGridLayout" name="gridLayout_6">
-            <item row="0" column="1" rowspan="4">
-             <widget class="QTextEdit" name="textEdit">
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>200</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QLabel" name="label_17">
+            <item row="0" column="3">
+             <widget class="QLabel" name="lblTipooperacionPro">
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
@@ -971,38 +1148,31 @@
              </widget>
             </item>
             <item row="0" column="0">
-             <widget class="QLabel" name="label">
+             <widget class="QLabel" name="lblDescricionPro">
               <property name="text">
                <string>Descripción:</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="4">
-             <widget class="QCheckBox" name="checkBox_3">
+            <item row="0" column="1" rowspan="4">
+             <widget class="QTextEdit" name="artxtDescripcionPro">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>200</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5">
+             <widget class="QCheckBox" name="cbxIntercambioPro">
               <property name="text">
                <string>Intercambio</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="2">
-             <widget class="QRadioButton" name="radioButton">
-              <property name="text">
-               <string>Disponible</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="3">
-             <widget class="QCheckBox" name="checkBox_2">
-              <property name="text">
-               <string>Alquiler</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="2">
-             <widget class="QLabel" name="label_13">
+            <item row="2" column="3">
+             <widget class="QLabel" name="lblEstadoPro">
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
@@ -1014,33 +1184,82 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="2">
-             <widget class="QCheckBox" name="checkBox">
+            <item row="1" column="3">
+             <widget class="QCheckBox" name="cbxVentaPro">
               <property name="text">
                <string>Venta</string>
               </property>
              </widget>
             </item>
+            <item row="1" column="4">
+             <widget class="QCheckBox" name="cbxAlquilerPro">
+              <property name="text">
+               <string>Alquiler</string>
+              </property>
+             </widget>
+            </item>
             <item row="3" column="3">
-             <widget class="QRadioButton" name="radioButton_2">
+             <widget class="QRadioButton" name="rbtnDisponiblePro">
+              <property name="text">
+               <string>Disponible</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="5">
+             <widget class="QRadioButton" name="rbtnAlquiladoPro">
+              <property name="text">
+               <string>Alquilado</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="4">
+             <widget class="QRadioButton" name="rbtnVendidoPro">
               <property name="text">
                <string>Vendido</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="4">
-             <widget class="QRadioButton" name="radioButton_3">
-              <property name="text">
-               <string>Alquilado</string>
+            <item row="4" column="1">
+             <spacer name="verticalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
               </property>
-             </widget>
+              <property name="sizeType">
+               <enum>QSizePolicy::Preferred</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>10</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="2">
+             <spacer name="horizontalSpacer_22">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Preferred</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_5">
             <item>
-             <widget class="QLabel" name="label_15">
+             <widget class="QLabel" name="lblPropietarioPro">
               <property name="maximumSize">
                <size>
                 <width>65</width>
@@ -1053,7 +1272,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit_6">
+             <widget class="QLineEdit" name="txtPropietarioPro">
               <property name="maximumSize">
                <size>
                 <width>500</width>
@@ -1081,15 +1300,15 @@
               </property>
              </spacer>
             </item>
-            <item>
-             <widget class="QLabel" name="label_16">
+            <item alignment="Qt::AlignRight">
+             <widget class="QLabel" name="lblMovilPro">
               <property name="text">
                <string>Móvil Propietario:</string>
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_7">
+            <item alignment="Qt::AlignLeft">
+             <widget class="QLineEdit" name="txtMovilPro">
               <property name="maximumSize">
                <size>
                 <width>150</width>
@@ -1107,7 +1326,7 @@
                <enum>Qt::Horizontal</enum>
               </property>
               <property name="sizeType">
-               <enum>QSizePolicy::Preferred</enum>
+               <enum>QSizePolicy::Expanding</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -1118,7 +1337,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QCheckBox" name="chkHistoriacli_4">
+             <widget class="QCheckBox" name="chkHistoricoPro">
               <property name="layoutDirection">
                <enum>Qt::LeftToRight</enum>
               </property>
@@ -1130,6 +1349,22 @@
            </layout>
           </item>
          </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Preferred</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -1150,7 +1385,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="btnGrabarcli_2">
+           <widget class="QPushButton" name="btnGrabarPro">
             <property name="minimumSize">
              <size>
               <width>100</width>
@@ -1169,7 +1404,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btnModifcli_2">
+           <widget class="QPushButton" name="btnModificarPro">
             <property name="minimumSize">
              <size>
               <width>100</width>
@@ -1188,7 +1423,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btnDelcli_2">
+           <widget class="QPushButton" name="btnEliminarPro">
             <property name="minimumSize">
              <size>
               <width>100</width>
@@ -1244,15 +1479,50 @@
          </widget>
         </item>
         <item>
-         <widget class="QTableWidget" name="tableWidget">
+         <widget class="QTableWidget" name="tablaPropiedades">
           <column>
            <property name="text">
-            <string>a</string>
+            <string>Código</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>b</string>
+            <string>Provincia</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Municipio</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Tipo Propiedad</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Superficie</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Habitaciones</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Baños</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Precio</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Código Postal</string>
            </property>
           </column>
          </widget>
