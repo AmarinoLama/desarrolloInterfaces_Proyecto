@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1203</width>
+    <width>1302</width>
     <height>841</height>
    </rect>
   </property>
@@ -681,283 +681,10 @@
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
            <layout class="QGridLayout" name="gridLayout_5">
-            <item row="1" column="6">
-             <spacer name="horizontalSpacer_17">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="2" column="6">
-             <spacer name="horizontalSpacer_18">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="0" column="6">
-             <spacer name="horizontalSpacer_16">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="2" column="11">
-             <widget class="QLineEdit" name="txtCpPro">
-              <property name="minimumSize">
-               <size>
-                <width>100</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>100</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 252, 220);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="10">
-             <widget class="QLabel" name="lblCpPro">
-              <property name="text">
-               <string>Código Postal:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="4">
-             <widget class="QLabel" name="lblMunicipioPro">
-              <property name="text">
-               <string>Municipio:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="11">
-             <widget class="QLineEdit" name="txtPublicacionPro">
-              <property name="maximumSize">
-               <size>
-                <width>150</width>
-                <height>16777215</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2">
-             <widget class="QLineEdit" name="txtDireccionPro">
-              <property name="minimumSize">
-               <size>
-                <width>450</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>450</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 252, 220);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="12">
-             <widget class="QPushButton" name="btnPublicacionPro">
-              <property name="minimumSize">
-               <size>
-                <width>30</width>
-                <height>25</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>30</width>
-                <height>25</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../img/calendar.png</normaloff>../img/calendar.png</iconset>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="2">
-             <widget class="QComboBox" name="cmbTipoPro">
-              <property name="maximumSize">
-               <size>
-                <width>150</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 252, 220);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="5">
-             <widget class="QLineEdit" name="txtSuperficiePro">
-              <property name="maximumSize">
-               <size>
-                <width>120</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 252, 220);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLabel" name="lblTipoPro">
-              <property name="text">
-               <string>Tipo:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QLineEdit" name="txtCodigoPro">
-              <property name="maximumSize">
-               <size>
-                <width>150</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 252, 220);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="5">
-             <widget class="QComboBox" name="cmbMunicipioPro">
-              <property name="minimumSize">
-               <size>
-                <width>150</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>150</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 252, 220);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="4">
-             <widget class="QLabel" name="lblSuperficiePro">
-              <property name="text">
-               <string>Superficie:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="10">
-             <widget class="QLabel" name="lblPublicacionPro">
-              <property name="text">
-               <string>Publicación:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="lblCodigoPro">
-              <property name="text">
-               <string>Código:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="4">
-             <widget class="QLabel" name="lblProvinciaPro">
-              <property name="text">
-               <string>Provincia:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="10">
-             <widget class="QLabel" name="lblFechabajaPro">
-              <property name="text">
-               <string>Fecha Baja:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="5">
-             <widget class="QComboBox" name="cmbProvinciaPro">
-              <property name="minimumSize">
-               <size>
-                <width>150</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>150</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 252, 220);</string>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="1">
              <widget class="QLabel" name="lblDireccionPro">
               <property name="text">
                <string>Dirección:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="7">
-             <widget class="QLabel" name="lblHabitacionesPro">
-              <property name="text">
-               <string>Habitaciones:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="12">
-             <widget class="QPushButton" name="btnBajaPro">
-              <property name="minimumSize">
-               <size>
-                <width>30</width>
-                <height>25</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>30</width>
-                <height>25</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../img/calendar.png</normaloff>../img/calendar.png</iconset>
               </property>
              </widget>
             </item>
@@ -980,25 +707,44 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="11">
-             <widget class="QLineEdit" name="txtFechabajaPro">
-              <property name="maximumSize">
+            <item row="0" column="13">
+             <widget class="QPushButton" name="btnBajaPro">
+              <property name="minimumSize">
                <size>
-                <width>150</width>
-                <height>16777215</height>
+                <width>30</width>
+                <height>25</height>
                </size>
               </property>
-             </widget>
-            </item>
-            <item row="2" column="7" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="lblPrecioPro">
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>25</height>
+               </size>
+              </property>
               <property name="text">
-               <string>Precio:</string>
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>../img/calendar.png</normaloff>../img/calendar.png</iconset>
               </property>
              </widget>
             </item>
-            <item row="2" column="8">
-             <widget class="QLineEdit" name="txtPrecioPro">
+            <item row="0" column="7">
+             <widget class="QLabel" name="lblHabitacionesPro">
+              <property name="text">
+               <string>Habitaciones:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="5">
+             <widget class="QComboBox" name="cmbProvinciaPro">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>150</width>
@@ -1010,12 +756,92 @@
               </property>
              </widget>
             </item>
+            <item row="2" column="9">
+             <widget class="QLineEdit" name="txtPrecioVentaPro">
+              <property name="minimumSize">
+               <size>
+                <width>85</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>85</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="placeholderText">
+               <string>Precio Venta €</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="8">
+             <widget class="QLineEdit" name="txtPrecioAlquilerPro">
+              <property name="minimumSize">
+               <size>
+                <width>85</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>85</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Precio Alquiler €</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="12">
+             <widget class="QLineEdit" name="txtFechabajaPro">
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
             <item row="1" column="7" alignment="Qt::AlignRight">
              <widget class="QLabel" name="lblBanosPro">
               <property name="text">
                <string>Baños:</string>
               </property>
              </widget>
+            </item>
+            <item row="1" column="3">
+             <spacer name="horizontalSpacer_14">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="3">
+             <spacer name="horizontalSpacer_13">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
             <item row="1" column="8">
              <widget class="QSpinBox" name="spbBanosPro">
@@ -1036,8 +862,8 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="3">
-             <spacer name="horizontalSpacer_13">
+            <item row="2" column="10">
+             <spacer name="horizontalSpacer_21">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -1049,8 +875,80 @@
               </property>
              </spacer>
             </item>
-            <item row="1" column="3">
-             <spacer name="horizontalSpacer_14">
+            <item row="2" column="7" alignment="Qt::AlignRight">
+             <widget class="QLabel" name="lblPrecioPro">
+              <property name="text">
+               <string>Precio:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="10">
+             <spacer name="horizontalSpacer_19">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="2" column="12">
+             <widget class="QLineEdit" name="txtCpPro">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>100</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 252, 220);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="6">
+             <spacer name="horizontalSpacer_18">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="2" column="11">
+             <widget class="QLabel" name="lblCpPro">
+              <property name="text">
+               <string>Código Postal:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="10">
+             <spacer name="horizontalSpacer_20">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="6">
+             <spacer name="horizontalSpacer_17">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -1075,8 +973,8 @@
               </property>
              </spacer>
             </item>
-            <item row="0" column="9">
-             <spacer name="horizontalSpacer_19">
+            <item row="0" column="6">
+             <spacer name="horizontalSpacer_16">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -1088,31 +986,173 @@
               </property>
              </spacer>
             </item>
-            <item row="1" column="9">
-             <spacer name="horizontalSpacer_20">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
+            <item row="1" column="2">
+             <widget class="QLineEdit" name="txtDireccionPro">
+              <property name="minimumSize">
                <size>
-                <width>40</width>
-                <height>20</height>
+                <width>450</width>
+                <height>0</height>
                </size>
               </property>
-             </spacer>
+              <property name="maximumSize">
+               <size>
+                <width>450</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 252, 220);</string>
+              </property>
+             </widget>
             </item>
-            <item row="2" column="9">
-             <spacer name="horizontalSpacer_21">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+            <item row="1" column="4">
+             <widget class="QLabel" name="lblMunicipioPro">
+              <property name="text">
+               <string>Municipio:</string>
               </property>
-              <property name="sizeHint" stdset="0">
+             </widget>
+            </item>
+            <item row="1" column="13">
+             <widget class="QPushButton" name="btnPublicacionPro">
+              <property name="minimumSize">
                <size>
-                <width>40</width>
+                <width>30</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>../img/calendar.png</normaloff>../img/calendar.png</iconset>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="12">
+             <widget class="QLineEdit" name="txtPublicacionPro">
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QComboBox" name="cmbTipoPro">
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 252, 220);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLabel" name="lblTipoPro">
+              <property name="text">
+               <string>Tipo:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5">
+             <widget class="QLineEdit" name="txtSuperficiePro">
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 252, 220);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
+             <widget class="QLabel" name="lblSuperficiePro">
+              <property name="text">
+               <string>Superficie:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5">
+             <widget class="QComboBox" name="cmbMunicipioPro">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 252, 220);</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="11">
+             <widget class="QLabel" name="lblFechabajaPro">
+              <property name="text">
+               <string>Fecha Baja:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="lblCodigoPro">
+              <property name="text">
+               <string>Código:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <widget class="QLabel" name="lblProvinciaPro">
+              <property name="text">
+               <string>Provincia:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="11">
+             <widget class="QLabel" name="lblPublicacionPro">
+              <property name="text">
+               <string>Publicación:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="lblCodigoProp">
+              <property name="minimumSize">
+               <size>
+                <width>120</width>
+                <height>2</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
                 <height>20</height>
                </size>
               </property>
-             </spacer>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 252, 220);</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -1560,7 +1600,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1203</width>
+     <width>1302</width>
      <height>21</height>
     </rect>
    </property>

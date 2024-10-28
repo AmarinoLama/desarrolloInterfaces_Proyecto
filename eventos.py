@@ -196,3 +196,9 @@ class Eventos():
             var.dlggestion.show()
         except Exception as error:
             print("error en abrir gestion propiedades ", error)
+
+    def abrirTipoProp(self):
+        try:
+            var.dlggestion.show()
+        except Exception as error:
+            print("error en abrir gestion propiedades ", error)

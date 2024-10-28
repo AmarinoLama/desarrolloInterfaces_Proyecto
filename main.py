@@ -2,8 +2,9 @@ import clientes
 import conexion
 import conexionserver
 import eventos
+import propiedades
 import styles
-from venAux import Calendar, FileDialogAbrir
+from venAux import *
 from venPrincipal import *
 import sys
 import var
@@ -16,7 +17,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.setupUi(self)
         var.uicalendar = Calendar()
         var.dlgabrir = FileDialogAbrir()
-        var.dlggestion = var.dlggestion()
+        var.dlggestion = dlgGestionProp()
         self.setStyleSheet(styles.load_stylesheet())
         eventos.Eventos.cargarMunicipios(self)
         conexion.Conexion.db_conexion(self)
@@ -49,6 +50,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnBajacli.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0, 1))
         var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifCliente)
         var.ui.btnDelcli.clicked.connect(clientes.Clientes.bajaCliente)
+        var.ui.btnGrabarPro.clicked.connect(propiedades.Propiedades.altaPropiedad)
 
         '''
         EVENTOS DE CAJAS DE TEXTO
