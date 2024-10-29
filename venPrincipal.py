@@ -558,6 +558,7 @@ class Ui_venPrincipal(object):
         self.toolBar.addAction(self.actionbarLimpiar)
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.actionbarSalir)
+        self.toolBar.addSeparator()
 
         self.retranslateUi(venPrincipal)
         self.panPrincipal.setCurrentIndex(1)

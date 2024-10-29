@@ -1647,6 +1647,7 @@
    <addaction name="actionbarLimpiar"/>
    <addaction name="separator"/>
    <addaction name="actionbarSalir"/>
+   <addaction name="separator"/>
   </widget>
   <action name="actionSalir">
    <property name="text">
