@@ -771,7 +771,7 @@
                </size>
               </property>
               <property name="placeholderText">
-               <string>Precio Venta €</string>
+               <string>Venta €</string>
               </property>
              </widget>
             </item>
@@ -796,7 +796,7 @@
                <string/>
               </property>
               <property name="placeholderText">
-               <string>Precio Alquiler €</string>
+               <string>Alquiler €</string>
               </property>
              </widget>
             </item>

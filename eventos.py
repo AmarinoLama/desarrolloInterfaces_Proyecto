@@ -90,6 +90,8 @@ class Eventos():
                 var.ui.txtBajacli.setText(str(data))
             elif var.btn == 2:
                 var.ui.txtPublicacionPro .setText(str(data))
+            elif var.btn == 3:
+                var.ui.txtFechabajaPro.setText(str(data))
             time.sleep(0.125)
             var.uicalendar.hide()
             return data
@@ -197,3 +199,12 @@ class Eventos():
             var.dlggestion.show()
         except Exception as error:
             print("error en abrir gestion propiedades ", error)
+
+    def cargarTipoPropiedad(self):
+        try:
+            registro = conexion.Conexion.cargarTipoProp()
+            if registro:
+                var.ui.cmbTipoPro.clear()
+                var.ui.cmbTipoPro.addItems(registro)
+        except Exception as error:
+            print("Error en cargar tipo propiedad: ", error)

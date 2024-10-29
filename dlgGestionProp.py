@@ -21,7 +21,7 @@ class Ui_dlg_Tipoprop(object):
         dlg_Tipoprop.setMinimumSize(QtCore.QSize(380, 289))
         dlg_Tipoprop.setMaximumSize(QtCore.QSize(380, 289))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("./templates\\../img/logo.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap("./templates\\../img/icono.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         dlg_Tipoprop.setWindowIcon(icon)
         dlg_Tipoprop.setModal(True)
         self.frame = QtWidgets.QFrame(parent=dlg_Tipoprop)

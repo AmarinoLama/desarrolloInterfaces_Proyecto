@@ -33,7 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../img/logo.svg</normaloff>../img/logo.svg</iconset>
+    <normaloff>../img/icono.ico</normaloff>../img/icono.ico</iconset>
   </property>
   <property name="modal">
    <bool>true</bool>

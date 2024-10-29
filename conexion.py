@@ -159,10 +159,7 @@ class Conexion:
                             query.bindValue(":bajacli", QtCore.QVariant())
                         else:
                             query.bindValue(":bajacli", str(registro[9]))
-                        if query.exec():
-                            return True
-                        else:
-                            return False
+                        return query.exec()
                     else:
                         return False
                 else:
@@ -177,9 +174,39 @@ class Conexion:
             query.prepare("UPDATE clientes SET bajacli = :bajacli WHERE dnicli = :dni")
             query.bindValue(":dni", str(datos[1]))
             query.bindValue(":bajacli", str(datos[0]))
-            if query.exec():
-                return True
-            else:
-                return False
+            return query.exec()
         except Exception as e:
             print("error bajaCliente en conexion", e)
+
+    @staticmethod
+    def altaTipoPropiedad(tipo):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("INSERT INTO tipoprop (tipo) VALUES (:tipo)")
+            query.bindValue(":tipo", tipo)
+            return query.exec()
+        except Exception as error:
+            print("Error en alta tipo propiedad: ", error)
+
+    @staticmethod
+    def bajaTipoPropiedad(tipo):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("DELETE FROM tipoprop WHERE tipo = :tipo")
+            query.bindValue(":tipo", tipo)
+            return query.exec()
+        except Exception as error:
+            print("Error en baja tipo propiedad: ", error)
+
+    @staticmethod
+    def cargarTipoProp():
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT tipo FROM tipoprop")
+            if query.exec():
+                registro = []
+                while query.next():
+                    registro.append(str(query.value(0)))
+                return registro
+        except Exception as e:
+            print("error cargarTipoProp en conexion", e)
