@@ -42,11 +42,32 @@ class Propiedades():
 
     def altaPropiedad(self):
         try:
-            proiedad = [var.ui.txtPublicacionPro.text(), var.ui.txtFechabajaPro.text(), var.ui.txtDireccionPro.text(),
-                        var.ui.cmbProvinciaPro.currentText(), var.ui.cmbMunicipioPro.currentText(), var.ui.cmbTipoPro.currentText(),
-                        var.ui.spbHabitacionesPro.text(), var.ui.spbBanosPro.text(), var.ui.txtSuperficiePro.text(),
-                        var.ui.txtPrecioAlquilerPro.text(), var.ui.txtPrecioVentaPro.text(), var.ui.txtCpPro.text(),
-                        var.ui.artxtDescripcionPro.toPlainText(), var.ui.txtPropietarioPro.text(), var.ui.txtMovilPro.text()]
-            print(proiedad)
+            # var.ui.txtFechabajaPro.text(), var.ui.txtPropietarioPro.text(), var.ui.txtMovilPro.text()
+            propiedad = [var.ui.txtPublicacionPro.text(), var.ui.txtDireccionPro.text(),
+                        var.ui.cmbProvinciaPro.currentText(), var.ui.cmbMunicipioPro.currentText(),
+                        var.ui.cmbTipoPro.currentText(), var.ui.spbHabitacionesPro.text(),
+                        var.ui.spbBanosPro.text(), var.ui.txtSuperficiePro.text(),
+                        var.ui.txtPrecioAlquilerPro.text(), var.ui.txtPrecioVentaPro.text(),
+                        var.ui.txtCpPro.text(), var.ui.artxtDescripcionPro.toPlainText()]
+            tipoper = []
+            if var.ui.cbxAlquilerPro.isChecked():
+                tipoper.append(var.ui.cbxAlquilerPro.text())
+            if var.ui.cbxVentaPro.isChecked():
+                tipoper.append(var.ui.cbxVentaPro.text())
+            if var.ui.cbxIntercambioPro.isChecked():
+                tipoper.append(var.ui.cbxIntercambioPro.text())
+            propiedad.append(tipoper)
+            if var.ui.rbtnDisponiblePro.isChecked():
+                propiedad.append(var.ui.rbtnDisponiblePro.text())
+            if var.ui.rbtnAlquiladoPro.isChecked():
+                propiedad.append(var.ui.rbtnAlquiladoPro.text())
+            if var.ui.rbtnVendidoPro.isChecked():
+                propiedad.append(var.ui.rbtnVendidoPro.text())
+
+            propiedad.append(var.ui.txtPropietarioPro.text())
+            propiedad.append(var.ui.txtMovilPro.text())
+
+            conexion.Conexion.altaPropiedad(propiedad)
+
         except Exception as error:
             print(error)

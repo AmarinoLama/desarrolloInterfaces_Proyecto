@@ -1527,22 +1527,12 @@
           </column>
           <column>
            <property name="text">
-            <string>Provincia</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
             <string>Municipio</string>
            </property>
           </column>
           <column>
            <property name="text">
             <string>Tipo Propiedad</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Superficie</string>
            </property>
           </column>
           <column>
@@ -1562,7 +1552,7 @@
           </column>
           <column>
            <property name="text">
-            <string>Código Postal</string>
+            <string>Tipo Operación</string>
            </property>
           </column>
          </widget>

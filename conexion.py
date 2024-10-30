@@ -210,3 +210,15 @@ class Conexion:
                 return registro
         except Exception as e:
             print("error cargarTipoProp en conexion", e)
+
+    @staticmethod
+    def altaPropiedad(propiedad):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare(" INSERT into PROPIEDADES (altaprop, dirprop, provprop, muniprop, tipoprop, habprop, banprop, "
+                          " superprop, prealquiprop, prevenprop, cpprop, obserprop, tipooper, estadoprop, nomeprop, movilprop) "
+                          " VALUES (:altaprop, :dirprop, :provprop, :muniprop, :tipoprop, :habprop, :banprop, :superprop, "
+                          " :prealquiprop, :prevenprop, :cpprop, :obserprop, :tipooper, :estadoprop, :nomeprop, :movilprop)")
+
+        except Exception as e:
+            print("error altaPropiedad en conexion", e)
