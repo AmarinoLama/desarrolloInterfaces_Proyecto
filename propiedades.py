@@ -1,3 +1,5 @@
+from PyQt6.uic.properties import QtCore
+
 import conexion
 import eventos
 import var
@@ -5,6 +7,19 @@ from PyQt6 import QtWidgets, QtGui
 
 
 class Propiedades():
+
+    def checkTelefono(telefono):
+        try:
+            telefono = str(var.ui.txtMovilPro.text())
+            if eventos.Eventos.validarTelefono(telefono):
+                var.ui.txtMovilPro.setStyleSheet('background-color: rgb(255, 252, 220);')
+            else:
+                var.ui.txtMovilPro.setStyleSheet('background-color:#FFC0CB; font-style: italic;')
+                var.ui.txtMovilPro.setText(None)
+                var.ui.txtMovilPro.setText("telefono no válido")
+                var.ui.txtMovilPro.setFocus()
+        except Exception as error:
+            print("error check cliente", error)
 
     def altaTipoPropiedad(self):
         try:
@@ -56,7 +71,7 @@ class Propiedades():
                 tipoper.append(var.ui.cbxVentaPro.text())
             if var.ui.cbxIntercambioPro.isChecked():
                 tipoper.append(var.ui.cbxIntercambioPro.text())
-            propiedad.append(tipoper)
+            propiedad.append(", ".join(tipoper))
             if var.ui.rbtnDisponiblePro.isChecked():
                 propiedad.append(var.ui.rbtnDisponiblePro.text())
             if var.ui.rbtnAlquiladoPro.isChecked():
@@ -68,6 +83,28 @@ class Propiedades():
             propiedad.append(var.ui.txtMovilPro.text())
 
             conexion.Conexion.altaPropiedad(propiedad)
+            Propiedades.cargarTablaPropiedades(self)
 
         except Exception as error:
             print(error)
+
+    @staticmethod
+    def cargarTablaPropiedades(self):
+        try:
+            listado = conexion.Conexion.listadoPropiedades(self)
+            if listado is None:
+                listado = []
+            index = 0
+            for registro in listado:
+                var.ui.tablaPropiedades.setRowCount(index + 1)
+                var.ui.tablaPropiedades.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
+                var.ui.tablaPropiedades.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[5])))
+                var.ui.tablaPropiedades.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[6])))
+                var.ui.tablaPropiedades.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[7])))
+                var.ui.tablaPropiedades.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[8])))
+                var.ui.tablaPropiedades.setItem(index, 5, QtWidgets.QTableWidgetItem(str(registro[10])))
+                var.ui.tablaPropiedades.setItem(index, 6, QtWidgets.QTableWidgetItem(str(registro[11])))
+                var.ui.tablaPropiedades.setItem(index, 7, QtWidgets.QTableWidgetItem(str(registro[14])))
+                index += 1
+        except Exception as e:
+            print("error cargaTablaClientes", e)

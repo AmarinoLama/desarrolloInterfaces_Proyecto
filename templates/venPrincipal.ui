@@ -1520,6 +1520,9 @@
         </item>
         <item>
          <widget class="QTableWidget" name="tablaPropiedades">
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
           <column>
            <property name="text">
             <string>Código</string>
@@ -1547,7 +1550,12 @@
           </column>
           <column>
            <property name="text">
-            <string>Precio</string>
+            <string>Precio Venta</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Precio Alquiler</string>
            </property>
           </column>
           <column>

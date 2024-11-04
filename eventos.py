@@ -47,12 +47,18 @@ class Eventos():
         var.ui.cmbProvinciacli.addItems(listado)
         var.ui.cmbProvinciaPro.addItems(listado)
 
-    def cargarMunicipios(self):
+    def cargarMunicipiosCli(self):
         var.ui.cmbMunicipiocli.clear()
         provincia = var.ui.cmbProvinciacli.currentText()
         listado = conexion.Conexion.listaMunicipios(provincia)
         #listado = conexionserver.ConexionServer.listaMuniProv(provincia)
         var.ui.cmbMunicipiocli.addItems(listado)
+
+    def cargarMunicipiosPro(self):
+        var.ui.cmbMunicipioPro.clear()
+        provincia = var.ui.cmbProvinciaPro.currentText()
+        listado = conexion.Conexion.listaMunicipios(provincia)
+        #listado = conexionserver.ConexionServer.listaMuniProv(provincia)
         var.ui.cmbMunicipioPro.addItems(listado)
 
     def validarDNIcli(dni):
@@ -139,7 +145,7 @@ class Eventos():
         try:
             header = var.ui.tablaPropiedades.horizontalHeader()
             for i in range(header.count()):
-                if (i in (1,2,5)):
+                if (i in (1,2)):
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
                 else:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)

@@ -219,6 +219,39 @@ class Conexion:
                           " superprop, prealquiprop, prevenprop, cpprop, obserprop, tipooper, estadoprop, nomeprop, movilprop) "
                           " VALUES (:altaprop, :dirprop, :provprop, :muniprop, :tipoprop, :habprop, :banprop, :superprop, "
                           " :prealquiprop, :prevenprop, :cpprop, :obserprop, :tipooper, :estadoprop, :nomeprop, :movilprop)")
+            query.bindValue(":altaprop", str(propiedad[0]))
+            query.bindValue(":dirprop", str(propiedad[1]))
+            query.bindValue(":provprop", str(propiedad[2]))
+            query.bindValue(":muniprop", str(propiedad[3]))
+            query.bindValue(":tipoprop", str(propiedad[4]))
+            query.bindValue(":habprop", str(propiedad[5]))
+            query.bindValue(":banprop", int(propiedad[6]))
+            query.bindValue(":superprop", int(propiedad[7]))
+            query.bindValue(":prealquiprop", float(propiedad[8]))
+            query.bindValue(":prevenprop", float(propiedad[9]))
+            query.bindValue(":cpprop", float(propiedad[10]))
+            query.bindValue(":obserprop", str(propiedad[11]))
+            query.bindValue(":tipooper", str(propiedad[12]))
+            query.bindValue(":estadoprop", str(propiedad[13]))
+            query.bindValue(":nomeprop", str(propiedad[14]))
+            query.bindValue(":movilprop", str(propiedad[15]))
+            return query.exec()
 
         except Exception as e:
             print("error altaPropiedad en conexion", e)
+
+    @staticmethod
+    def listadoPropiedades(self):
+        try:
+            listado = []
+
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM propiedades order by codigo ASC")
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+            return listado
+
+        except Exception as e:
+            print("Error al abrir el archivo")

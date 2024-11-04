@@ -1,8 +1,5 @@
 import clientes
 import conexion
-import conexionserver
-import eventos
-import propiedades
 import styles
 from venAux import *
 from venPrincipal import *
@@ -19,7 +16,6 @@ class Main(QtWidgets.QMainWindow):
         var.dlgabrir = FileDialogAbrir()
         var.dlggestion = dlgGestionProp()
         self.setStyleSheet(styles.load_stylesheet())
-        eventos.Eventos.cargarMunicipios(self)
         conexion.Conexion.db_conexion(self)
         var.historico = 0
         #conexionserver.ConexionServer.crear_conexion(self)
@@ -32,6 +28,7 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.resizeTablaClientes(self)
         eventos.Eventos.resizeTablaPropiedades(self)
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
+        propiedades.Propiedades.cargarTablaPropiedades(self)
 
         '''
         EVENTOS DEL MENUBAR
@@ -62,14 +59,15 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtDnicli.editingFinished.connect(lambda : clientes.Clientes.checkDNI(var.ui.txtDnicli.text()))
         var.ui.txtEmailcli.editingFinished.connect(lambda : clientes.Clientes.checkEmail(var.ui.txtEmailcli.text()))
         var.ui.txtMovilcli.editingFinished.connect(lambda : clientes.Clientes.checkTelefono(var.ui.txtMovilcli.text()))
+        var.ui.txtMovilPro.editingFinished.connect(lambda : propiedades.Propiedades.checkTelefono(var.ui.txtMovilPro.text()))
 
         '''
         EVENTOS COMBOBOX
         '''
 
         eventos.Eventos.cargarProv(self)
-        var.ui.cmbProvinciacli.currentIndexChanged.connect(eventos.Eventos.cargarMunicipios)
-        var.ui.cmbProvinciaPro.currentIndexChanged.connect(eventos.Eventos.cargarMunicipios)
+        var.ui.cmbProvinciacli.currentIndexChanged.connect(eventos.Eventos.cargarMunicipiosCli)
+        var.ui.cmbProvinciaPro.currentIndexChanged.connect(eventos.Eventos.cargarMunicipiosPro)
         eventos.Eventos.cargarTipoPropiedad(self)
 
         '''
