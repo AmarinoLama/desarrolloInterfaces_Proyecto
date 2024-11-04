@@ -255,3 +255,18 @@ class Conexion:
 
         except Exception as e:
             print("Error al abrir el archivo")
+
+    @staticmethod
+    def datosOnePropiedad(codigo):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM CLIENTES WHERE codigo = :codigo")
+            query.bindValue(":codigo", codigo)
+            if query.exec():
+                while query.next():
+                    for i in range(query.record().count()):
+                        registro.append(str(query.value(i)))
+            return registro
+        except Exception as e:
+            print("error datosOnePropiedad en conexion", e)

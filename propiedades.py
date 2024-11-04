@@ -81,7 +81,6 @@ class Propiedades():
 
             propiedad.append(var.ui.txtPropietarioPro.text())
             propiedad.append(var.ui.txtMovilPro.text())
-
             conexion.Conexion.altaPropiedad(propiedad)
             Propiedades.cargarTablaPropiedades(self)
 
@@ -108,3 +107,26 @@ class Propiedades():
                 index += 1
         except Exception as e:
             print("error cargaTablaClientes", e)
+
+    @staticmethod
+    def cargaOnePropiedad(self):
+        #todo arreglar esto
+        try:
+            fila = var.ui.tablaPropiedades.selectedItems()
+            datos = [dato.text() for dato in fila]
+            registro = conexion.Conexion.datosOnePropiedad(str(datos[0]))
+            listado = [var.ui.txtPublicacionPro, var.ui.txtDireccionPro,
+                       var.ui.cmbProvinciaPro, var.ui.cmbMunicipioPro,
+                       var.ui.cmbTipoPro, var.ui.spbHabitacionesPro,
+                       var.ui.spbBanosPro, var.ui.txtSuperficiePro,
+                       var.ui.txtPrecioAlquilerPro, var.ui.txtPrecioVentaPro,
+                       var.ui.txtCpPro, var.ui.artxtDescripcionPro]
+            for i in range(len(listado)):
+                if i in (2, 3, 4):
+                    listado[i].setCurrentText(registro[i])
+                elif i == 11:
+                    listado[i].setPlainText(registro[i])
+                else:
+                    listado[i].setText(registro[i])
+        except Exception as e:
+            print("error cargaOnePropiedad en propiedades", e)
