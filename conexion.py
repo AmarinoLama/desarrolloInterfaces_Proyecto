@@ -246,7 +246,7 @@ class Conexion:
             listado = []
 
             query = QtSql.QSqlQuery()
-            query.prepare("SELECT * FROM propiedades order by codigo ASC")
+            query.prepare("SELECT * FROM propiedades order by muniprop ASC")
             if query.exec():
                 while query.next():
                     fila = [query.value(i) for i in range(query.record().count())]
@@ -261,7 +261,7 @@ class Conexion:
         try:
             registro = []
             query = QtSql.QSqlQuery()
-            query.prepare("SELECT * FROM CLIENTES WHERE codigo = :codigo")
+            query.prepare("SELECT * FROM PROPIEDADES WHERE codigo = :codigo")
             query.bindValue(":codigo", codigo)
             if query.exec():
                 while query.next():

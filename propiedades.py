@@ -1,9 +1,9 @@
-from PyQt6.uic.properties import QtCore
+from PyQt6 import QtWidgets, QtGui, QtCore
 
 import conexion
 import eventos
 import var
-from PyQt6 import QtWidgets, QtGui
+
 
 
 class Propiedades():
@@ -101,12 +101,22 @@ class Propiedades():
                 var.ui.tablaPropiedades.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[6])))
                 var.ui.tablaPropiedades.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[7])))
                 var.ui.tablaPropiedades.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[8])))
-                var.ui.tablaPropiedades.setItem(index, 5, QtWidgets.QTableWidgetItem(str(registro[10])))
-                var.ui.tablaPropiedades.setItem(index, 6, QtWidgets.QTableWidgetItem(str(registro[11])))
+                var.ui.tablaPropiedades.setItem(index, 5, QtWidgets.QTableWidgetItem(
+                    str(registro[10]) + " €" if registro[10] else "- €"))
+                var.ui.tablaPropiedades.setItem(index, 6, QtWidgets.QTableWidgetItem(
+                    str(registro[11]) + " €" if registro[11] else "- €"))
                 var.ui.tablaPropiedades.setItem(index, 7, QtWidgets.QTableWidgetItem(str(registro[14])))
+
+                var.ui.tablaPropiedades.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 7).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
         except Exception as e:
-            print("error cargaTablaClientes", e)
+            print("error cargaTablaPropiedades", e)
+
 
     @staticmethod
     def cargaOnePropiedad(self):
@@ -115,18 +125,43 @@ class Propiedades():
             fila = var.ui.tablaPropiedades.selectedItems()
             datos = [dato.text() for dato in fila]
             registro = conexion.Conexion.datosOnePropiedad(str(datos[0]))
-            listado = [var.ui.txtPublicacionPro, var.ui.txtDireccionPro,
-                       var.ui.cmbProvinciaPro, var.ui.cmbMunicipioPro,
-                       var.ui.cmbTipoPro, var.ui.spbHabitacionesPro,
-                       var.ui.spbBanosPro, var.ui.txtSuperficiePro,
-                       var.ui.txtPrecioAlquilerPro, var.ui.txtPrecioVentaPro,
-                       var.ui.txtCpPro, var.ui.artxtDescripcionPro]
-            for i in range(len(listado)):
-                if i in (2, 3, 4):
-                    listado[i].setCurrentText(registro[i])
-                elif i == 11:
-                    listado[i].setPlainText(registro[i])
+            listado = [var.ui.lblCodigoProp, var.ui.txtPublicacionPro, var.ui.txtFechabajaPro,
+                        var.ui.txtDireccionPro, var.ui.cmbProvinciaPro, var.ui.cmbMunicipioPro,
+                        var.ui.cmbTipoPro, var.ui.spbHabitacionesPro, var.ui.spbBanosPro,
+                        var.ui.txtSuperficiePro, var.ui.txtPrecioAlquilerPro, var.ui.txtPrecioVentaPro,
+                        var.ui.txtCpPro, var.ui.artxtDescripcionPro, var.ui.cbxAlquilerPro,
+                        var.ui.rbtnDisponiblePro, var.ui.txtPropietarioPro, var.ui.txtMovilPro]
+
+
+            for i, casilla in enumerate(listado):
+                if isinstance(casilla, QtWidgets.QComboBox):
+                    casilla.setCurrentText(str(registro[i]))
+                elif isinstance(casilla, QtWidgets.QCheckBox):
+                    if ("Alquiler") in registro[i]:
+                        var.ui.cbxAlquilerPro.setChecked(True)
+                    else:
+                        var.ui.cbxAlquilerPro.setChecked(False)
+                    if ("Venta") in registro[i]:
+                        var.ui.cbxVentaPro.setChecked(True)
+                    else:
+                        var.ui.cbxVentaPro.setChecked(False)
+                    if ("Intercambio") in registro[i]:
+                        var.ui.cbxIntercambioPro.setChecked(True)
+                    else:
+                        var.ui.cbxIntercambioPro.setChecked(False)
+                elif isinstance(casilla, QtWidgets.QRadioButton):
+                    if registro[i] == "Vendido":
+                        var.ui.rbtnVendidoPro.setChecked(True)
+                    elif registro[i] == "Disponible":
+                        var.ui.rbtnDisponiblePro.setChecked(True)
+                    else:
+                        var.ui.rbtnAlquiladoPro.setChecked(True)
+                elif isinstance(casilla, QtWidgets.QSpinBox):
+                    casilla.setValue(int(registro[i]))
+                elif isinstance(casilla, QtWidgets.QTextEdit):
+                    casilla.setPlainText(str(registro[i]))
                 else:
-                    listado[i].setText(registro[i])
+                    casilla.setText(str(registro[i]))
+
         except Exception as e:
             print("error cargaOnePropiedad en propiedades", e)
