@@ -252,3 +252,6 @@ class Propiedades():
             Propiedades.cargarTablaPropiedades(self)
         except Exception as error:
             print("error bajaPropiedad en propiedades", error)
+
+    def filtrarPropiedades(self):
+        pass
