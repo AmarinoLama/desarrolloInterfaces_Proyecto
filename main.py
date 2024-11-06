@@ -79,6 +79,7 @@ class Main(QtWidgets.QMainWindow):
 
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mensajeSalir)
         var.ui.actionbarLimpiar.triggered.connect(eventos.Eventos.limpiarPanel)
+        var.ui.actionTipoPropiedad.triggered.connect(eventos.Eventos.abrirTipoProp)
 
         '''
         EVENTOS DE CHECKBOX

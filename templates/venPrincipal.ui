@@ -1650,10 +1650,11 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionTipoPropiedad"/>
+   <addaction name="separator"/>
    <addaction name="actionbarLimpiar"/>
    <addaction name="separator"/>
    <addaction name="actionbarSalir"/>
-   <addaction name="separator"/>
   </widget>
   <action name="actionSalir">
    <property name="text">
@@ -1694,6 +1695,15 @@
   <action name="actionTipo_Propiedades">
    <property name="text">
     <string>Tipo Propiedades</string>
+   </property>
+  </action>
+  <action name="actionTipoPropiedad">
+   <property name="icon">
+    <iconset>
+     <normaloff>../img/casa.ico</normaloff>../img/casa.ico</iconset>
+   </property>
+   <property name="text">
+    <string>TipoPropiedad</string>
    </property>
   </action>
  </widget>
