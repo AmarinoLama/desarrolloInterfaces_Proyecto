@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from PyQt6 import QtWidgets, QtGui, QtCore
 
 import conexion
@@ -106,6 +108,7 @@ class Propiedades():
                 var.ui.tablaPropiedades.setItem(index, 6, QtWidgets.QTableWidgetItem(
                     str(registro[11]) + " €" if registro[11] else "- €"))
                 var.ui.tablaPropiedades.setItem(index, 7, QtWidgets.QTableWidgetItem(str(registro[14])))
+                var.ui.tablaPropiedades.setItem(index, 8, QtWidgets.QTableWidgetItem(str(registro[2])))
 
                 var.ui.tablaPropiedades.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaPropiedades.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
@@ -113,6 +116,7 @@ class Propiedades():
                 var.ui.tablaPropiedades.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaPropiedades.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaPropiedades.item(index, 7).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaPropiedades.item(index, 8).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
         except Exception as e:
             print("error cargaTablaPropiedades", e)
@@ -165,3 +169,86 @@ class Propiedades():
 
         except Exception as e:
             print("error cargaOnePropiedad en propiedades", e)
+
+    def modifPropiedad(self):
+        try:
+            propiedad = [var.ui.txtPublicacionPro.text(), var.ui.txtDireccionPro.text(),
+                         var.ui.cmbProvinciaPro.currentText(), var.ui.cmbMunicipioPro.currentText(),
+                         var.ui.cmbTipoPro.currentText(), var.ui.spbHabitacionesPro.text(),
+                         var.ui.spbBanosPro.text(), var.ui.txtSuperficiePro.text(),
+                         var.ui.txtPrecioAlquilerPro.text(), var.ui.txtPrecioVentaPro.text(),
+                         var.ui.txtCpPro.text(), var.ui.artxtDescripcionPro.toPlainText()]
+            tipoper = []
+            if var.ui.cbxAlquilerPro.isChecked():
+                tipoper.append(var.ui.cbxAlquilerPro.text())
+            if var.ui.cbxVentaPro.isChecked():
+                tipoper.append(var.ui.cbxVentaPro.text())
+            if var.ui.cbxIntercambioPro.isChecked():
+                tipoper.append(var.ui.cbxIntercambioPro.text())
+            propiedad.append(", ".join(tipoper))
+            if var.ui.rbtnDisponiblePro.isChecked():
+                propiedad.append(var.ui.rbtnDisponiblePro.text())
+            if var.ui.rbtnAlquiladoPro.isChecked():
+                propiedad.append(var.ui.rbtnAlquiladoPro.text())
+            if var.ui.rbtnVendidoPro.isChecked():
+                propiedad.append(var.ui.rbtnVendidoPro.text())
+
+            propiedad.append(var.ui.txtPropietarioPro.text())
+            propiedad.append(var.ui.txtMovilPro.text())
+            propiedad.append(var.ui.lblCodigoProp.text())
+
+            if conexion.Conexion.modifPropiedades(propiedad):
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                mbox.setWindowTitle('Aviso')
+                mbox.setText('Datos de la propiedad modificados')
+                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox.exec()
+                Propiedades.cargarTablaPropiedades(self)
+            else:
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+                mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                mbox.setWindowTitle('Aviso')
+                mbox.setText('Error en actualizacion Datos de la propiedad')
+                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox.exec()
+            Propiedades.cargarTablaPropiedades(self)
+        except Exception as error:
+            print("error modifPropiedad en propiedades", error)
+
+    def bajaPropiedad(self):
+        try:
+            now = datetime.now()
+            formatted_date = now.strftime("%d/%m/%Y")
+            var.ui.txtFechabajaPro.setText(formatted_date)
+            datos = [formatted_date, var.ui.lblCodigoProp.text()]
+            if conexion.Conexion.bajaPropiedad(datos):
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                mbox.setWindowTitle('Aviso')
+                mbox.setText('Propiedad dada de baja')
+                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox.exec()
+                Propiedades.cargarTablaPropiedades(self)
+            else:
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+                mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                mbox.setWindowTitle('Aviso')
+                mbox.setText('Error en la baja de la propiedad')
+                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox.exec()
+            Propiedades.cargarTablaPropiedades(self)
+        except Exception as error:
+            print("error bajaPropiedad en propiedades", error)

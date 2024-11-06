@@ -52,6 +52,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifCliente)
         var.ui.btnDelcli.clicked.connect(clientes.Clientes.bajaCliente)
         var.ui.btnGrabarPro.clicked.connect(propiedades.Propiedades.altaPropiedad)
+        var.ui.btnModificarPro.clicked.connect(propiedades.Propiedades.modifPropiedad)
+        var.ui.btnEliminarPro.clicked.connect(propiedades.Propiedades.bajaPropiedad)
 
         '''
         EVENTOS DE CAJAS DE TEXTO
