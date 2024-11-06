@@ -1,6 +1,5 @@
 import os.path
 from datetime import datetime
-from fileinput import filename
 
 from PyQt6 import QtWidgets, QtGui
 
@@ -11,6 +10,7 @@ import re
 import clientes
 import conexion
 import eventos
+import propiedades
 import var
 import locale
 import zipfile
@@ -205,17 +205,43 @@ class Eventos():
             print("error en restaurar backup: ", error)
 
     def limpiarPanel(self):
-        objetosPanelcli = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli, var.ui.txtEmailcli,
-                    var.ui.txtMovilcli, var.ui.txtDireccioncli, var.ui.cmbProvinciacli, var.ui.cmbMunicipiocli, var.ui.txtBajacli]
+        objetosPanelcli = [
+            var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli, var.ui.txtEmailcli,
+            var.ui.txtMovilcli, var.ui.txtDireccioncli, var.ui.cmbProvinciacli, var.ui.cmbMunicipiocli,
+            var.ui.txtBajacli
+        ]
 
         for i, dato in enumerate(objetosPanelcli):
-            if i in (7, 8):
-                pass
-            else:
+            if i not in (7, 8):
                 dato.setText("")
 
         eventos.Eventos.cargarProv(self)
         var.ui.cmbMunicipiocli.clear()
+
+        objetospanelprop = [var.ui.txtPublicacionPro, var.ui.txtFechabajaPro, var.ui.txtDireccionPro,
+                            var.ui.txtSuperficiePro, var.ui.txtPrecioAlquilerPro,
+                            var.ui.txtPrecioVentaPro, var.ui.txtCpPro, var.ui.artxtDescripcionPro, var.ui.txtPropietarioPro,
+                            var.ui.txtMovilPro]
+
+        for i, dato in enumerate(objetospanelprop):
+            dato.setText("")
+
+        var.ui.cmbProvinciaPro.clear()
+        var.ui.cmbMunicipioPro.clear()
+        var.ui.cmbTipoPro.clear()
+        var.ui.spbHabitacionesPro.setValue(0)
+        var.ui.spbBanosPro.setValue(0)
+        var.ui.lblCodigoProp.setText("")
+        if var.ui.cbxAlquilerPro.isChecked():
+            var.ui.cbxAlquilerPro.setChecked(False)
+        if var.ui.cbxVentaPro.isChecked():
+            var.ui.cbxVentaPro.setChecked(False)
+        if var.ui.cbxIntercambioPro.isChecked():
+            var.ui.cbxIntercambioPro.setChecked(False)
+        eventos.Eventos.cargarProv(self)
+        eventos.Eventos.cargarTipoPropiedad(self)
+        clientes.Clientes.cargaTablaClientes(self)
+        propiedades.Propiedades.cargarTablaPropiedades(self)
 
     def abrirTipoProp(self):
         try:
