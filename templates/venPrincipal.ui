@@ -1654,6 +1654,8 @@
    <addaction name="separator"/>
    <addaction name="actionbarLimpiar"/>
    <addaction name="separator"/>
+   <addaction name="actionBuscar"/>
+   <addaction name="separator"/>
    <addaction name="actionbarSalir"/>
   </widget>
   <action name="actionSalir">
@@ -1704,6 +1706,15 @@
    </property>
    <property name="text">
     <string>TipoPropiedad</string>
+   </property>
+  </action>
+  <action name="actionBuscar">
+   <property name="icon">
+    <iconset>
+     <normaloff>../img/lupa.ico</normaloff>../img/lupa.ico</iconset>
+   </property>
+   <property name="text">
+    <string>Buscar</string>
    </property>
   </action>
  </widget>
