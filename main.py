@@ -1,5 +1,6 @@
 import clientes
 import conexion
+import propiedades
 import styles
 from venAux import *
 from venPrincipal import *
@@ -18,6 +19,7 @@ class Main(QtWidgets.QMainWindow):
         self.setStyleSheet(styles.load_stylesheet())
         conexion.Conexion.db_conexion(self)
         var.historico = 0
+        var.lupaState = 0
         #conexionserver.ConexionServer.crear_conexion(self)
 
         '''
@@ -29,7 +31,7 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.resizeTablaPropiedades(self)
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
         var.ui.tablaPropiedades.clicked.connect(propiedades.Propiedades.cargaOnePropiedad)
-        propiedades.Propiedades.cargarTablaPropiedades(self)
+        propiedades.Propiedades.cargarTablaPropiedades(self, 0)
 
         '''
         EVENTOS DEL MENUBAR
@@ -87,6 +89,7 @@ class Main(QtWidgets.QMainWindow):
         '''
 
         var.ui.chkHistoriacli.stateChanged.connect(clientes.Clientes.historicoCli)
+        var.ui.chkHistoricoPro.stateChanged.connect(propiedades.Propiedades.historicoProp)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

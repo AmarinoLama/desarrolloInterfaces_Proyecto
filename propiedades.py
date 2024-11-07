@@ -80,19 +80,23 @@ class Propiedades():
                 propiedad.append(var.ui.rbtnAlquiladoPro.text())
             if var.ui.rbtnVendidoPro.isChecked():
                 propiedad.append(var.ui.rbtnVendidoPro.text())
-
             propiedad.append(var.ui.txtPropietarioPro.text())
             propiedad.append(var.ui.txtMovilPro.text())
+
             conexion.Conexion.altaPropiedad(propiedad)
-            Propiedades.cargarTablaPropiedades(self)
+            Propiedades.cargarTablaPropiedades(self, 0)
 
         except Exception as error:
             print(error)
 
     @staticmethod
-    def cargarTablaPropiedades(self):
+    def cargarTablaPropiedades(self, contexto):
         try:
-            listado = conexion.Conexion.listadoPropiedades(self)
+            if contexto == 0:
+                listado = conexion.Conexion.listadoPropiedades(self)
+            elif contexto == 1:
+                datosNecesarios = [var.ui.cmbTipoPro.currentText(), var.ui.cmbMunicipioPro.currentText()]
+                listado = conexion.Conexion.listadoFiltrado(datosNecesarios)
             if listado is None:
                 listado = []
             index = 0
@@ -104,9 +108,9 @@ class Propiedades():
                 var.ui.tablaPropiedades.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[7])))
                 var.ui.tablaPropiedades.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[8])))
                 var.ui.tablaPropiedades.setItem(index, 5, QtWidgets.QTableWidgetItem(
-                    str(registro[10]) + " €" if registro[10] else "- €"))
+                    str(registro[10]) + " €" if str(registro[10]) else "- €"))
                 var.ui.tablaPropiedades.setItem(index, 6, QtWidgets.QTableWidgetItem(
-                    str(registro[11]) + " €" if registro[11] else "- €"))
+                    str(registro[11]) + " €" if str(registro[11]) else "- €"))
                 var.ui.tablaPropiedades.setItem(index, 7, QtWidgets.QTableWidgetItem(str(registro[14])))
                 var.ui.tablaPropiedades.setItem(index, 8, QtWidgets.QTableWidgetItem(str(registro[2])))
 
@@ -207,7 +211,7 @@ class Propiedades():
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
-                Propiedades.cargarTablaPropiedades(self)
+                Propiedades.cargarTablaPropiedades(self, 0)
             else:
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
@@ -218,7 +222,7 @@ class Propiedades():
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
-            Propiedades.cargarTablaPropiedades(self)
+            Propiedades.cargarTablaPropiedades(self, 0)
         except Exception as error:
             print("error modifPropiedad en propiedades", error)
 
@@ -238,7 +242,7 @@ class Propiedades():
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
-                Propiedades.cargarTablaPropiedades(self)
+                Propiedades.cargarTablaPropiedades(self, 0)
             else:
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
@@ -249,9 +253,34 @@ class Propiedades():
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
-            Propiedades.cargarTablaPropiedades(self)
+            Propiedades.cargarTablaPropiedades(self, 0)
         except Exception as error:
             print("error bajaPropiedad en propiedades", error)
 
+    def historicoProp(self):
+        try:
+            if var.ui.chkHistoricoPro.isChecked():
+                var.historico = 1
+            else:
+                var.historico = 0
+            Propiedades.cargarTablaPropiedades(self, 0)
+        except Exception as e:
+            print("checkbox historico error ", e)
+
     def filtrarPropiedades(self):
-        pass
+        if not var.ui.cmbTipoPro.currentText() or not var.ui.cmbMunicipioPro.currentText():
+            mbox = QtWidgets.QMessageBox()
+            mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+            mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+            mbox.setWindowTitle('Aviso')
+            mbox.setText('Los campos Tipo y Municipio han de contener algo')
+            mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+            mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+            mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+            mbox.exec()
+        elif var.lupaState == 0:
+            Propiedades.cargarTablaPropiedades(self, 1)
+            var.lupaState = 1
+        else:
+            Propiedades.cargarTablaPropiedades(self, 0)
+            var.lupaState = 0

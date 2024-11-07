@@ -1,6 +1,5 @@
 import os
-from PyQt6 import QtSql, QtWidgets, QtCore
-from PyQt6.QtGui import QIcon
+from PyQt6 import QtGui, QtSql, QtWidgets, QtCore
 from PyQt6.uic.properties import QtGui
 
 import var
@@ -214,6 +213,20 @@ class Conexion:
     @staticmethod
     def altaPropiedad(propiedad):
         try:
+            campos_obligatorios = [propiedad[1], propiedad[2], propiedad[3], propiedad[4], propiedad[7], propiedad[10],
+                                   propiedad[14], propiedad[15]]
+            if any(not campo for campo in campos_obligatorios) or propiedad[15] == "telefono no válido":
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+                mbox.setWindowTitle('Aviso')
+                mbox.setText(
+                    'Los campos Dirección, Provincia, Municipio, Tipo de Propiedad, Superficie, CP, Propietario y Teléfono son obligatorios y el teléfono no puede ser "telefono no válido".')
+                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox.exec()
+                return False
+
             query = QtSql.QSqlQuery()
             query.prepare(" INSERT into PROPIEDADES (altaprop, dirprop, provprop, muniprop, tipoprop, habprop, banprop, "
                           " superprop, prealquiprop, prevenprop, cpprop, obserprop, tipooper, estadoprop, nomeprop, movilprop) "
@@ -226,9 +239,9 @@ class Conexion:
             query.bindValue(":tipoprop", str(propiedad[4]))
             query.bindValue(":habprop", str(propiedad[5]))
             query.bindValue(":banprop", int(propiedad[6]))
-            query.bindValue(":superprop", int(propiedad[7]))
-            query.bindValue(":prealquiprop", float(propiedad[8]))
-            query.bindValue(":prevenprop", float(propiedad[9]))
+            query.bindValue(":superprop", float(propiedad[7]))
+            query.bindValue(":prealquiprop", float(propiedad[8]) if propiedad[8] else QtCore.QVariant())
+            query.bindValue(":prevenprop", float(propiedad[9]) if propiedad[9] else QtCore.QVariant())
             query.bindValue(":cpprop", str(propiedad[10]))
             query.bindValue(":obserprop", str(propiedad[11]))
             query.bindValue(":tipooper", str(propiedad[12]))
@@ -238,6 +251,14 @@ class Conexion:
             return query.exec()
 
         except Exception as e:
+            mbox = QtWidgets.QMessageBox()
+            mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+            mbox.setWindowTitle('Aviso')
+            mbox.setText('Error en dar de alta')
+            mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+            mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+            mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+            mbox.exec()
             print("error altaPropiedad en conexion", e)
 
     @staticmethod
@@ -245,13 +266,22 @@ class Conexion:
         try:
             listado = []
 
-            query = QtSql.QSqlQuery()
-            query.prepare("SELECT * FROM propiedades order by muniprop ASC")
-            if query.exec():
-                while query.next():
-                    fila = [query.value(i) for i in range(query.record().count())]
-                    listado.append(fila)
-            return listado
+            if(var.historico == 1):
+                query = QtSql.QSqlQuery()
+                query.prepare("SELECT * FROM propiedades order by muniprop ASC")
+                if query.exec():
+                    while query.next():
+                        fila = [query.value(i) for i in range(query.record().count())]
+                        listado.append(fila)
+                return listado
+            else:
+                query = QtSql.QSqlQuery()
+                query.prepare("SELECT * FROM propiedades WHERE bajaprop is null order by muniprop ASC")
+                if query.exec():
+                    while query.next():
+                        fila = [query.value(i) for i in range(query.record().count())]
+                        listado.append(fila)
+                return listado
 
         except Exception as e:
             print("Error al abrir el archivo")
@@ -274,6 +304,9 @@ class Conexion:
     @staticmethod
     def modifPropiedades(registro):
         try:
+            if registro[15] == "telefono no válido":
+                return False
+
             query = QtSql.QSqlQuery()
             query.prepare("select count(*) from propiedades where codigo = :codigo")
             query.bindValue(":codigo", str(registro[16]))
@@ -293,8 +326,8 @@ class Conexion:
                     query.bindValue(":habprop", str(registro[5]))
                     query.bindValue(":banprop", int(registro[6]))
                     query.bindValue(":superprop", float(registro[7]))
-                    query.bindValue(":prealquiprop", float(registro[8]))
-                    query.bindValue(":prevenprop", float(registro[9]))
+                    query.bindValue(":prealquiprop", float(registro[8]) if registro[8] else QtCore.QVariant())
+                    query.bindValue(":prevenprop", float(registro[9]) if registro[9] else QtCore.QVariant())
                     query.bindValue(":cpprop", str(registro[10]))
                     query.bindValue(":obserprop", str(registro[11]))
                     query.bindValue(":tipooper", str(registro[12]))
@@ -320,3 +353,19 @@ class Conexion:
             return query.exec()
         except Exception as e:
             print("error bajaPropiedad en conexion", e)
+
+    @staticmethod
+    def listadoFiltrado(datos):
+        try:
+            listado = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM propiedades WHERE tipoprop = :tipoprop and muniprop = :muniprop")
+            query.bindValue(":tipoprop", datos[0])
+            query.bindValue(":muniprop", datos[1])
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+            return listado
+        except Exception as e:
+            print("error listadoFiltrado en conexion", e)
