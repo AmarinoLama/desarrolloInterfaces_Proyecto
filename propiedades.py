@@ -182,78 +182,102 @@ class Propiedades():
                          var.ui.spbBanosPro.text(), var.ui.txtSuperficiePro.text(),
                          var.ui.txtPrecioAlquilerPro.text(), var.ui.txtPrecioVentaPro.text(),
                          var.ui.txtCpPro.text(), var.ui.artxtDescripcionPro.toPlainText()]
-            tipoper = []
-            if var.ui.cbxAlquilerPro.isChecked():
-                tipoper.append(var.ui.cbxAlquilerPro.text())
-            if var.ui.cbxVentaPro.isChecked():
-                tipoper.append(var.ui.cbxVentaPro.text())
-            if var.ui.cbxIntercambioPro.isChecked():
-                tipoper.append(var.ui.cbxIntercambioPro.text())
-            propiedad.append(", ".join(tipoper))
+
             if var.ui.rbtnDisponiblePro.isChecked():
-                propiedad.append(var.ui.rbtnDisponiblePro.text())
-            if var.ui.rbtnAlquiladoPro.isChecked():
-                propiedad.append(var.ui.rbtnAlquiladoPro.text())
-            if var.ui.rbtnVendidoPro.isChecked():
-                propiedad.append(var.ui.rbtnVendidoPro.text())
-
-            propiedad.append(var.ui.txtPropietarioPro.text())
-            propiedad.append(var.ui.txtMovilPro.text())
-            propiedad.append(var.ui.lblCodigoProp.text())
-
-            if conexion.Conexion.modifPropiedades(propiedad):
-                mbox = QtWidgets.QMessageBox()
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
-                mbox.setWindowTitle('Aviso')
-                mbox.setText('Datos de la propiedad modificados')
-                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
-                mbox.exec()
-                Propiedades.cargarTablaPropiedades(self, 0)
-            else:
+                var.ui.txtFechabajaPro.setText("")
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
                 mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
                 mbox.setWindowTitle('Aviso')
-                mbox.setText('Error en actualizacion Datos de la propiedad')
+                mbox.setText('No puedes modificar la baja de una propiedad disponible')
                 mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
-            Propiedades.cargarTablaPropiedades(self, 0)
+            else:
+                tipoper = []
+                if var.ui.cbxAlquilerPro.isChecked():
+                    tipoper.append(var.ui.cbxAlquilerPro.text())
+                if var.ui.cbxVentaPro.isChecked():
+                    tipoper.append(var.ui.cbxVentaPro.text())
+                if var.ui.cbxIntercambioPro.isChecked():
+                    tipoper.append(var.ui.cbxIntercambioPro.text())
+                propiedad.append(", ".join(tipoper))
+                if var.ui.rbtnDisponiblePro.isChecked():
+                    propiedad.append(var.ui.rbtnDisponiblePro.text())
+                if var.ui.rbtnAlquiladoPro.isChecked():
+                    propiedad.append(var.ui.rbtnAlquiladoPro.text())
+                if var.ui.rbtnVendidoPro.isChecked():
+                    propiedad.append(var.ui.rbtnVendidoPro.text())
+
+                propiedad.append(var.ui.txtPropietarioPro.text())
+                propiedad.append(var.ui.txtMovilPro.text())
+                propiedad.append(var.ui.lblCodigoProp.text())
+
+                if conexion.Conexion.modifPropiedades(propiedad):
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setText('Datos de la propiedad modificados')
+                    mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                    mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                    mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                    mbox.exec()
+                    Propiedades.cargarTablaPropiedades(self, 0)
+                else:
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+                    mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setText('Error en actualizacion Datos de la propiedad')
+                    mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                    mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                    mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                    mbox.exec()
+                Propiedades.cargarTablaPropiedades(self, 0)
         except Exception as error:
             print("error modifPropiedad en propiedades", error)
 
     def bajaPropiedad(self):
         try:
-            now = datetime.now()
-            formatted_date = now.strftime("%d/%m/%Y")
-            var.ui.txtFechabajaPro.setText(formatted_date)
-            datos = [formatted_date, var.ui.lblCodigoProp.text()]
-            if conexion.Conexion.bajaPropiedad(datos):
-                mbox = QtWidgets.QMessageBox()
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
-                mbox.setWindowTitle('Aviso')
-                mbox.setText('Propiedad dada de baja')
-                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
-                mbox.exec()
-                Propiedades.cargarTablaPropiedades(self, 0)
-            else:
+            if var.ui.rbtnDisponiblePro.isChecked():
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
                 mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
                 mbox.setWindowTitle('Aviso')
-                mbox.setText('Error en la baja de la propiedad')
+                mbox.setText('La propiedad no puede darse de baja si está disponible')
                 mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
-            Propiedades.cargarTablaPropiedades(self, 0)
+            else:
+                now = datetime.now()
+                formatted_date = now.strftime("%d/%m/%Y")
+                var.ui.txtFechabajaPro.setText(formatted_date)
+                datos = [formatted_date, var.ui.lblCodigoProp.text()]
+                if conexion.Conexion.bajaPropiedad(datos):
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setText('Propiedad dada de baja')
+                    mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                    mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                    mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                    mbox.exec()
+                    Propiedades.cargarTablaPropiedades(self, 0)
+                else:
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+                    mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setText('Error en la baja de la propiedad')
+                    mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                    mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                    mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                    mbox.exec()
+                Propiedades.cargarTablaPropiedades(self, 0)
         except Exception as error:
             print("error bajaPropiedad en propiedades", error)
 
