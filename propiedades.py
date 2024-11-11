@@ -97,6 +97,18 @@ class Propiedades():
             elif contexto == 1:
                 datosNecesarios = [var.ui.cmbTipoPro.currentText(), var.ui.cmbMunicipioPro.currentText()]
                 listado = conexion.Conexion.listadoFiltrado(datosNecesarios)
+                if len(listado) == 0:
+                    var.lupaState = 0
+                    var.ui.txtFechabajaPro.setText("")
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+                    mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setText('No se han encontrado propiedades con esos datos')
+                    mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                    mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                    mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                    mbox.exec()
             if listado is None:
                 listado = []
             index = 0
@@ -303,8 +315,8 @@ class Propiedades():
             mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
             mbox.exec()
         elif var.lupaState == 0:
-            Propiedades.cargarTablaPropiedades(self, 1)
             var.lupaState = 1
-        else:
-            Propiedades.cargarTablaPropiedades(self, 0)
+            Propiedades.cargarTablaPropiedades(self, 1)
+        elif var.lupaState == 1:
             var.lupaState = 0
+            Propiedades.cargarTablaPropiedades(self, 0)
