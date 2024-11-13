@@ -21,6 +21,8 @@ class Main(QtWidgets.QMainWindow):
         var.historico = 0
         var.lupaState = 0
         #conexionserver.ConexionServer.crear_conexion(self)
+        propiedades.Propiedades.manageCheckbox(self)
+        propiedades.Propiedades.manageRadioButtons(self)
 
         '''
         EVENTOS DE TABLAS
@@ -65,6 +67,9 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtEmailcli.editingFinished.connect(lambda : clientes.Clientes.checkEmail(var.ui.txtEmailcli.text()))
         var.ui.txtMovilcli.editingFinished.connect(lambda : clientes.Clientes.checkTelefono(var.ui.txtMovilcli.text()))
         var.ui.txtMovilPro.editingFinished.connect(lambda : propiedades.Propiedades.checkTelefono(var.ui.txtMovilPro.text()))
+        var.ui.txtPrecioAlquilerPro.textChanged.connect(lambda : propiedades.Propiedades.manageCheckbox(self))
+        var.ui.txtPrecioVentaPro.textChanged.connect(lambda : propiedades.Propiedades.manageCheckbox(self))
+        var.ui.txtFechabajaPro.textChanged.connect(lambda : propiedades.Propiedades.manageRadioButtons(self))
 
         '''
         EVENTOS COMBOBOX

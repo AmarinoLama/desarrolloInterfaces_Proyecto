@@ -317,7 +317,7 @@ class Conexion:
                         "UPDATE propiedades SET altaprop = :altaprop, dirprop = :dirprop, provprop = :provprop, muniprop = :muniprop, "
                         "tipoprop = :tipoprop, habprop = :habprop, banprop = :banprop, superprop = :superprop, prealquiprop = :prealquiprop, "
                         "prevenprop = :prevenprop, cpprop = :cpprop, obserprop = :obserprop, tipooper = :tipooper, estadoprop = :estadoprop, "
-                        "nomeprop = :nomeprop, movilprop = :movilprop WHERE codigo = :codigo")
+                        "nomeprop = :nomeprop, movilprop = :movilprop, bajaprop = :bajaprop WHERE codigo = :codigo")
                     query.bindValue(":altaprop", str(registro[0]))
                     query.bindValue(":dirprop", str(registro[1]))
                     query.bindValue(":provprop", str(registro[2]))
@@ -335,6 +335,7 @@ class Conexion:
                     query.bindValue(":nomeprop", str(registro[14]))
                     query.bindValue(":movilprop", str(registro[15]))
                     query.bindValue(":codigo", str(registro[16]))
+                    query.bindValue(":bajaprop", str(registro[17]))
                     return query.exec()
                 else:
                     return False

@@ -140,7 +140,6 @@ class Propiedades():
 
     @staticmethod
     def cargaOnePropiedad(self):
-        #todo arreglar esto
         try:
             fila = var.ui.tablaPropiedades.selectedItems()
             datos = [dato.text() for dato in fila]
@@ -182,7 +181,8 @@ class Propiedades():
                     casilla.setPlainText(str(registro[i]))
                 else:
                     casilla.setText(str(registro[i]))
-
+            Propiedades.manageCheckbox(self)
+            Propiedades.manageRadioButtons(self)
         except Exception as e:
             print("error cargaOnePropiedad en propiedades", e)
 
@@ -226,6 +226,23 @@ class Propiedades():
                 propiedad.append(var.ui.txtMovilPro.text())
                 propiedad.append(var.ui.lblCodigoProp.text())
 
+                # todo arreglar
+                if var.ui.txtFechabajaPro.text() == "":
+                    propiedad.append(datetime.min)
+                else:
+                    fecha_publicacion = datetime.strptime(var.ui.txtPublicacionPro.text(), "%d/%m/%Y")
+                    fecha_baja = datetime.strptime(var.ui.txtFechabajaPro.text(), "%d/%m/%Y")
+                    if fecha_baja > fecha_publicacion:
+                        propiedad.append(var.ui.txtFechabajaPro.text())
+                    else:
+                        mbox = QtWidgets.QMessageBox()
+                        mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+                        mbox.setWindowTitle('Error')
+                        mbox.setText('La fecha de baja debe ser posterior a la fecha de publicación')
+                        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                        mbox.exec()
+
+
                 if conexion.Conexion.modifPropiedades(propiedad):
                     mbox = QtWidgets.QMessageBox()
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
@@ -265,29 +282,38 @@ class Propiedades():
                 mbox.exec()
             else:
                 now = datetime.now()
-                formatted_date = now.strftime("%d/%m/%Y")
-                var.ui.txtFechabajaPro.setText(formatted_date)
-                datos = [formatted_date, var.ui.lblCodigoProp.text()]
-                if conexion.Conexion.bajaPropiedad(datos):
-                    mbox = QtWidgets.QMessageBox()
-                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                    mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
-                    mbox.setWindowTitle('Aviso')
-                    mbox.setText('Propiedad dada de baja')
-                    mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                    mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                    mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
-                    mbox.exec()
-                    Propiedades.cargarTablaPropiedades(self, 0)
+                fecha_baja = now.strftime("%d/%m/%Y")
+                var.ui.txtFechabajaPro.setText(fecha_baja)
+                datos = [fecha_baja, var.ui.lblCodigoProp.text()]
+                fecha_publicacion = datetime.strptime(var.ui.txtPublicacionPro.text(), "%d/%m/%Y")
+                if fecha_baja > fecha_publicacion:
+                    if conexion.Conexion.bajaPropiedad(datos):
+                        mbox = QtWidgets.QMessageBox()
+                        mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                        mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                        mbox.setWindowTitle('Aviso')
+                        mbox.setText('Propiedad dada de baja')
+                        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                        mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                        mbox.exec()
+                        Propiedades.cargarTablaPropiedades(self, 0)
+                    else:
+                        mbox = QtWidgets.QMessageBox()
+                        mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+                        mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                        mbox.setWindowTitle('Aviso')
+                        mbox.setText('Error en la baja de la propiedad')
+                        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                        mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                        mbox.exec()
                 else:
                     mbox = QtWidgets.QMessageBox()
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
-                    mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
-                    mbox.setWindowTitle('Aviso')
-                    mbox.setText('Error en la baja de la propiedad')
+                    mbox.setWindowTitle('Error')
+                    mbox.setText('La fecha de baja debe ser posterior a la fecha de publicación')
                     mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                    mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                    mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                     mbox.exec()
                 Propiedades.cargarTablaPropiedades(self, 0)
         except Exception as error:
@@ -320,3 +346,36 @@ class Propiedades():
         elif var.lupaState == 1:
             var.lupaState = 0
             Propiedades.cargarTablaPropiedades(self, 0)
+
+    def manageCheckbox(self):
+
+        var.ui.cbxAlquilerPro.setEnabled(False)
+        var.ui.cbxVentaPro.setEnabled(False)
+
+        if var.ui.txtPrecioAlquilerPro.text() == "":
+            var.ui.cbxAlquilerPro.setChecked(False)
+        else:
+            var.ui.cbxAlquilerPro.setChecked(True)
+
+        if var.ui.txtPrecioVentaPro.text() == "":
+            var.ui.cbxVentaPro.setChecked(False)
+        else:
+            var.ui.cbxVentaPro.setChecked(True)
+
+        if var.ui.txtPrecioAlquilerPro.text() == "" and var.ui.txtPrecioVentaPro.text() == "":
+            var.ui.cbxIntercambioPro.setChecked(True)
+
+    def manageRadioButtons(self):
+        if var.ui.txtFechabajaPro.text() == "":
+            var.ui.rbtnDisponiblePro.setEnabled(True)
+            var.ui.rbtnDisponiblePro.setChecked(True)
+            var.ui.rbtnAlquiladoPro.setChecked(False)
+            var.ui.rbtnVendidoPro.setChecked(False)
+            var.ui.rbtnAlquiladoPro.setEnabled(False)
+            var.ui.rbtnVendidoPro.setEnabled(False)
+        else:
+            var.ui.rbtnDisponiblePro.setChecked(False)
+            var.ui.rbtnDisponiblePro.setEnabled(False)
+            var.ui.rbtnAlquiladoPro.setChecked(True)
+            var.ui.rbtnAlquiladoPro.setEnabled(True)
+            var.ui.rbtnVendidoPro.setEnabled(True)

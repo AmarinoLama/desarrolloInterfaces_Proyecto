@@ -1620,8 +1620,17 @@
     <property name="title">
      <string>Herramientas</string>
     </property>
+    <widget class="QMenu" name="menuExportar_Datos">
+     <property name="title">
+      <string>Exportar Datos</string>
+     </property>
+     <addaction name="actionExportar_Clientes_CSV"/>
+     <addaction name="actionExportar_Clientes_JSON"/>
+    </widget>
     <addaction name="actionCrear_Backup"/>
     <addaction name="actionCargar_Backup"/>
+    <addaction name="separator"/>
+    <addaction name="menuExportar_Datos"/>
    </widget>
    <widget class="QMenu" name="menuAyuda">
     <property name="title">
@@ -1666,6 +1675,9 @@
   <action name="actionCrear_Backup">
    <property name="text">
     <string>Crear Backup</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
    </property>
   </action>
   <action name="actionCargar_Backup">
@@ -1715,6 +1727,16 @@
    </property>
    <property name="text">
     <string>Buscar</string>
+   </property>
+  </action>
+  <action name="actionExportar_Clientes_CSV">
+   <property name="text">
+    <string>Exportar Clientes CSV</string>
+   </property>
+  </action>
+  <action name="actionExportar_Clientes_JSON">
+   <property name="text">
+    <string>Exportar Clientes JSON</string>
    </property>
   </action>
  </widget>
