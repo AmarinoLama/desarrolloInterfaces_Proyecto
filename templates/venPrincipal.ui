@@ -1624,8 +1624,8 @@
      <property name="title">
       <string>Exportar Datos</string>
      </property>
-     <addaction name="actionExportar_Clientes_CSV"/>
-     <addaction name="actionExportar_Clientes_JSON"/>
+     <addaction name="action_exportCSVprop"/>
+     <addaction name="action_exportJSONprop"/>
     </widget>
     <addaction name="actionCrear_Backup"/>
     <addaction name="actionCargar_Backup"/>
@@ -1729,14 +1729,20 @@
     <string>Buscar</string>
    </property>
   </action>
-  <action name="actionExportar_Clientes_CSV">
+  <action name="action_exportCSVprop">
    <property name="text">
-    <string>Exportar Clientes CSV</string>
+    <string>Exportar Propiedades CSV</string>
+   </property>
+   <property name="toolTip">
+    <string>Exportar Propiedades CSV</string>
    </property>
   </action>
-  <action name="actionExportar_Clientes_JSON">
+  <action name="action_exportJSONprop">
    <property name="text">
-    <string>Exportar Clientes JSON</string>
+    <string>Exportar Propiedades JSON</string>
+   </property>
+   <property name="toolTip">
+    <string>Exportar Propiedades JSON</string>
    </property>
   </action>
  </widget>

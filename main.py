@@ -43,6 +43,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionCrear_Backup.triggered.connect(eventos.Eventos.crearBackup)
         var.ui.actionCargar_Backup.triggered.connect(eventos.Eventos.restaurarBackup)
         var.ui.actionTipo_Propiedades.triggered.connect(eventos.Eventos.abrirTipoProp)
+        var.ui.action_exportCSVprop.triggered.connect(eventos.Eventos.exportCSVprop)
+        var.ui.action_exportJSONprop.triggered.connect(eventos.Eventos.exportJSONprop)
 
         '''
         EVENTOS DE BOTONES

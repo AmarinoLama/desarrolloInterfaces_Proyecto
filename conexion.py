@@ -335,7 +335,7 @@ class Conexion:
                     query.bindValue(":nomeprop", str(registro[14]))
                     query.bindValue(":movilprop", str(registro[15]))
                     query.bindValue(":codigo", str(registro[16]))
-                    query.bindValue(":bajaprop", str(registro[17]))
+                    query.bindValue(":bajaprop", QtCore.QVariant() if registro[17] == "" else str(registro[17]))
                     return query.exec()
                 else:
                     return False

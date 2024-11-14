@@ -141,6 +141,8 @@ class Propiedades():
     @staticmethod
     def cargaOnePropiedad(self):
         try:
+            Propiedades.manageCheckbox(self)
+            Propiedades.manageRadioButtons(self)
             fila = var.ui.tablaPropiedades.selectedItems()
             datos = [dato.text() for dato in fila]
             registro = conexion.Conexion.datosOnePropiedad(str(datos[0]))
@@ -195,8 +197,7 @@ class Propiedades():
                          var.ui.txtPrecioAlquilerPro.text(), var.ui.txtPrecioVentaPro.text(),
                          var.ui.txtCpPro.text(), var.ui.artxtDescripcionPro.toPlainText()]
 
-            if var.ui.rbtnDisponiblePro.isChecked():
-                var.ui.txtFechabajaPro.setText("")
+            if var.ui.rbtnDisponiblePro.isChecked() and var.ui.txtFechabajaPro.text() != "":
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
                 mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
@@ -226,9 +227,8 @@ class Propiedades():
                 propiedad.append(var.ui.txtMovilPro.text())
                 propiedad.append(var.ui.lblCodigoProp.text())
 
-                # todo arreglar
                 if var.ui.txtFechabajaPro.text() == "":
-                    propiedad.append(datetime.min)
+                    propiedad.append("")
                 else:
                     fecha_publicacion = datetime.strptime(var.ui.txtPublicacionPro.text(), "%d/%m/%Y")
                     fecha_baja = datetime.strptime(var.ui.txtFechabajaPro.text(), "%d/%m/%Y")
@@ -241,7 +241,6 @@ class Propiedades():
                         mbox.setText('La fecha de baja debe ser posterior a la fecha de publicación')
                         mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
                         mbox.exec()
-
 
                 if conexion.Conexion.modifPropiedades(propiedad):
                     mbox = QtWidgets.QMessageBox()
