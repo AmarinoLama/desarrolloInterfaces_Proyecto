@@ -11,3 +11,4 @@ global dlgabrir
 global historico
 global dlggestion
 global lupaState
+global dlgAbout

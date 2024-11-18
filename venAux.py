@@ -3,6 +3,7 @@ from datetime import datetime
 from PyQt6.QtWidgets import QDialog
 
 import propiedades
+from dlgAbout import Ui_dlgAbout
 from dlgCalendar import *
 import var
 import eventos
@@ -32,3 +33,10 @@ class dlgGestionProp(QtWidgets.QDialog):
         self.ui.setupUi(self)
         self.ui.btnAnadirtipoprop.clicked.connect(propiedades.Propiedades.altaTipoPropiedad)
         self.ui.btnDeltipoprop.clicked.connect(propiedades.Propiedades.bajaTipoPropiedad)
+
+class dlgAbout(QtWidgets.QDialog):
+    def __init__(self):
+        super(dlgAbout, self).__init__()
+        self.ui = Ui_dlgAbout()
+        self.ui.setupUi(self)
+        self.ui.btnSalir.clicked.connect(self.close)

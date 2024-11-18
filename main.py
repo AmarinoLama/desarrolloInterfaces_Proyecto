@@ -16,6 +16,7 @@ class Main(QtWidgets.QMainWindow):
         var.uicalendar = Calendar()
         var.dlgabrir = FileDialogAbrir()
         var.dlggestion = dlgGestionProp()
+        var.dlgAbout = dlgAbout()
         self.setStyleSheet(styles.load_stylesheet())
         conexion.Conexion.db_conexion(self)
         var.historico = 0
@@ -45,6 +46,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionTipo_Propiedades.triggered.connect(eventos.Eventos.abrirTipoProp)
         var.ui.action_exportCSVprop.triggered.connect(eventos.Eventos.exportCSVprop)
         var.ui.action_exportJSONprop.triggered.connect(eventos.Eventos.exportJSONprop)
+        var.ui.actionAbout.triggered.connect(eventos.Eventos.abrirAbout)
 
         '''
         EVENTOS DE BOTONES

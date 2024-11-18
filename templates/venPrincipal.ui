@@ -1636,6 +1636,7 @@
     <property name="title">
      <string>Ayuda</string>
     </property>
+    <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuGesti_n">
     <property name="title">
@@ -1743,6 +1744,11 @@
    </property>
    <property name="toolTip">
     <string>Exportar Propiedades JSON</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>
