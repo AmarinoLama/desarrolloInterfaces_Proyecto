@@ -97,21 +97,8 @@ class Propiedades():
             elif contexto == 1:
                 datosNecesarios = [var.ui.cmbTipoPro.currentText(), var.ui.cmbMunicipioPro.currentText()]
                 listado = conexion.Conexion.listadoFiltrado(datosNecesarios)
-                if len(listado) == 0:
-                    var.lupaState = 0
-                    var.ui.txtFechabajaPro.setText("")
-                    mbox = QtWidgets.QMessageBox()
-                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
-                    mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
-                    mbox.setWindowTitle('Aviso')
-                    mbox.setText('No se han encontrado propiedades con esos datos')
-                    mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                    mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                    mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
-                    mbox.exec()
-            if listado is None:
-                listado = []
             index = 0
+            var.ui.tablaPropiedades.setRowCount(0)
             for registro in listado:
                 var.ui.tablaPropiedades.setRowCount(index + 1)
                 var.ui.tablaPropiedades.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
@@ -134,6 +121,9 @@ class Propiedades():
                 var.ui.tablaPropiedades.item(index, 7).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaPropiedades.item(index, 8).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
+            if len(listado) == 0:
+                var.ui.tablaPropiedades.setRowCount(1)
+                var.ui.tablaPropiedades.setItem(0, 2, QtWidgets.QTableWidgetItem("No hay propiedades"))
         except Exception as e:
             print("error cargaTablaPropiedades", e)
 
