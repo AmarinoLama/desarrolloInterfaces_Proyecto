@@ -271,8 +271,7 @@ class Propiedades():
                 mbox.exec()
             else:
                 now = datetime.now()
-                fecha_baja = now.strftime("%d/%m/%Y")
-                var.ui.txtFechabajaPro.setText(fecha_baja)
+                fecha_baja = datetime.strptime(var.ui.txtFechabajaPro.text(), "%d/%m/%Y")
                 datos = [fecha_baja, var.ui.lblCodigoProp.text()]
                 fecha_publicacion = datetime.strptime(var.ui.txtPublicacionPro.text(), "%d/%m/%Y")
                 if fecha_baja > fecha_publicacion:
