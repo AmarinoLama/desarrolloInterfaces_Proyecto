@@ -62,6 +62,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnGrabarPro.clicked.connect(propiedades.Propiedades.altaPropiedad)
         var.ui.btnModificarPro.clicked.connect(propiedades.Propiedades.modifPropiedad)
         var.ui.btnEliminarPro.clicked.connect(propiedades.Propiedades.bajaPropiedad)
+        var.ui.btnFiltrar.clicked.connect(lambda: clientes.Clientes.cargaClienteDni(self))
 
         '''
         EVENTOS DE CAJAS DE TEXTO
