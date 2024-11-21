@@ -75,7 +75,8 @@ class Clientes:
                     return
 
             try:
-                if conexion.Conexion.altaCliente(nuevoCli):
+                if conexionserver.ConexionServer.altaCliente(nuevoCli):
+                #if conexion.Conexion.altaCliente(nuevoCli):
                     mbox = QtWidgets.QMessageBox()
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     mbox.setWindowTitle("Aviso")
@@ -131,7 +132,8 @@ class Clientes:
     @staticmethod
     def cargaTablaClientes(self):
         try:
-            listado = conexion.Conexion.listadoClientes(self)
+            #listado = conexion.Conexion.listadoClientes(self)
+            listado = conexionserver.ConexionServer.listadoClientes(self)
             if listado is None:
                 listado = []
             index = 0

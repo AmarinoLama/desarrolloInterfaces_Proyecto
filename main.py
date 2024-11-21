@@ -1,6 +1,6 @@
 import clientes
 import conexion
-import propiedades
+import conexionserver
 import styles
 from venAux import *
 from venPrincipal import *
@@ -18,10 +18,10 @@ class Main(QtWidgets.QMainWindow):
         var.dlggestion = dlgGestionProp()
         var.dlgAbout = dlgAbout()
         self.setStyleSheet(styles.load_stylesheet())
-        conexion.Conexion.db_conexion(self)
+        #conexion.Conexion.db_conexion(self)
         var.historico = 0
         var.lupaState = 0
-        #conexionserver.ConexionServer.crear_conexion(self)
+        conexionserver.ConexionServer.crear_conexion(self)
         propiedades.Propiedades.manageCheckbox(self)
         propiedades.Propiedades.manageRadioButtons(self)
 
