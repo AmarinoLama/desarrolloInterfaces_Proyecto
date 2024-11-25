@@ -162,7 +162,9 @@ class Clientes:
         try:
             fila = var.ui.tablaClientes.selectedItems()
             datos = [dato.text() for dato in fila]
-            registro = conexion.Conexion.datosOneCliente(str(datos[0]))
+            #registro = conexion.Conexion.datosOneCliente(str(datos[0]))
+            registro = conexionserver.ConexionServer.datosOneCliente(datos[0])
+            registro = [x if x != 'None' else '' for x in registro]
             listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli, var.ui.txtEmailcli,
                        var.ui.txtMovilcli, var.ui.txtDireccioncli, var.ui.cmbProvinciacli, var.ui.cmbMunicipiocli, var.ui.txtBajacli]
             for i in range(len(listado)):

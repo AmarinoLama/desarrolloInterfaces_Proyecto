@@ -102,7 +102,7 @@ class ConexionServer():
                 cursor = conexion.cursor()
                 # Definir la consulta de selección
                 query = '''SELECT * FROM clientes WHERE dnicli = %s'''  # Usa %s para el placeholder
-                cursor.execute(query, (dni,))  # Pasar 'dni' como una tupla
+                cursor.execute(query, dni)
                 # Recuperar los datos de la consulta
                 for row in cursor.fetchall():
                     registro.append([str(col) for col in row])
