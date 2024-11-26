@@ -145,7 +145,7 @@ class Clientes:
                 var.ui.tablaClientes.setItem(index, 3, QtWidgets.QTableWidgetItem("    " + str(registro[5]) + "    "))
                 var.ui.tablaClientes.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[7])))
                 var.ui.tablaClientes.setItem(index, 5, QtWidgets.QTableWidgetItem(str(registro[8])))
-                var.ui.tablaClientes.setItem(index, 6, QtWidgets.QTableWidgetItem(str(registro[9])))
+                var.ui.tablaClientes.setItem(index, 6, QtWidgets.QTableWidgetItem("" if registro[9] is None else str(registro[9])))
                 var.ui.tablaClientes.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaClientes.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
                 var.ui.tablaClientes.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
@@ -184,8 +184,9 @@ class Clientes:
             #            var.ui.cmbMunicipiocli.currentText(), var.ui.txtBajacli.text()]
 
             modifCli = [var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtDireccioncli.text(),
-                              var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.cmbProvinciacli.currentText(),
-                              var.ui.cmbMunicipiocli.currentText(), var.ui.txtAltacli.text(), var.ui.txtDnicli.text()]
+                        var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.cmbProvinciacli.currentText(),
+                        var.ui.cmbMunicipiocli.currentText(), var.ui.txtAltacli.text(), var.ui.txtBajacli.text(),
+                        var.ui.txtDnicli.text()]
 
             mensajes_error = [
                 "Falta ingresar DNI",

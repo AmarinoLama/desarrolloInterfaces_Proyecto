@@ -142,7 +142,7 @@ class ConexionServer():
     def modifCliente(datos):
         try:
             conexion = ConexionServer().crear_conexion()
-            query = "UPDATE clientes SET apelcli = %s, nomecli = %s, dircli = %s, emailcli = %s, movilcli = %s, provcli = %s, municli = %s,  altacli = %s WHERE dnicli = %s"
+            query = "UPDATE clientes SET apelcli = %s, nomecli = %s, dircli = %s, emailcli = %s, movilcli = %s, provcli = %s, municli = %s, altacli = %s, bajacli = %s WHERE dnicli = %s"
             cursor = conexion.cursor()
             cursor.execute(query, datos)
             conexion.commit()
@@ -152,3 +152,26 @@ class ConexionServer():
         except Error as e:
             print("error modifCliente en conexionServer", e)
             return False
+
+    def listadoPropiedades(self):
+        try:
+            listadoPropiedades = []
+            if var.historico == 1:
+                conexion = ConexionServer().crear_conexion()
+                cursor = conexion.cursor()
+                cursor.execute("SELECT * FROM propiedades ORDER BY refpro ASC")
+                resultados = cursor.fetchall()
+                for fila in resultados:
+                    listadoPropiedades.append(list(fila))
+            else:
+                conexion = ConexionServer().crear_conexion()
+                cursor = conexion.cursor()
+                cursor.execute("SELECT * FROM propiedades WHERE bajapro is null ORDER BY refpro ASC")
+                resultados = cursor.fetchall()
+                for fila in resultados:
+                    listadoPropiedades.append(list(fila))
+            cursor.close()
+            conexion.close()
+            return listadoPropiedades
+        except Error as e:
+            print("error cargarTablaPropiedades en conexionServer", e)

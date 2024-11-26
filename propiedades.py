@@ -3,6 +3,7 @@ from datetime import datetime
 from PyQt6 import QtWidgets, QtGui, QtCore
 
 import conexion
+import conexionserver
 import eventos
 import var
 
@@ -93,7 +94,8 @@ class Propiedades():
     def cargarTablaPropiedades(self, contexto):
         try:
             if contexto == 0:
-                listado = conexion.Conexion.listadoPropiedades(self)
+                #listado = conexion.Conexion.listadoPropiedades(self)
+                listado = conexionserver.ConexionServer.listadoPropiedades(self)
             elif contexto == 1:
                 datosNecesarios = [var.ui.cmbTipoPro.currentText(), var.ui.cmbMunicipioPro.currentText()]
                 listado = conexion.Conexion.listadoFiltrado(datosNecesarios)
