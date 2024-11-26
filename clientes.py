@@ -178,10 +178,14 @@ class Clientes:
     @staticmethod
     def modifCliente(self):
         try:
-            modifCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(),
-                        var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(),
-                        var.ui.txtDireccioncli.text(), var.ui.cmbProvinciacli.currentText(),
-                        var.ui.cmbMunicipiocli.currentText(), var.ui.txtBajacli.text()]
+            #modifCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(),
+            #            var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(),
+            #            var.ui.txtDireccioncli.text(), var.ui.cmbProvinciacli.currentText(),
+            #            var.ui.cmbMunicipiocli.currentText(), var.ui.txtBajacli.text()]
+
+            modifCli = [var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtDireccioncli.text(),
+                              var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.cmbProvinciacli.currentText(),
+                              var.ui.cmbMunicipiocli.currentText(), var.ui.txtAltacli.text(), var.ui.txtDnicli.text()]
 
             mensajes_error = [
                 "Falta ingresar DNI",
@@ -216,7 +220,8 @@ class Clientes:
                     mbox.exec()
                     return
 
-            if conexion.Conexion.modifCliente(modifCli):
+            #if conexion.Conexion.modifCliente(modifCli):
+            if conexionserver.ConexionServer.modifCliente(modifCli):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
@@ -245,11 +250,25 @@ class Clientes:
     @staticmethod
     def bajaCliente(self):
         try:
+            if var.ui.txtBajacli.text() != '':
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+                mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                mbox.setWindowTitle('Aviso')
+                mbox.setText('Error en dar de baja al cliente, el campo de baja debe estar vacío')
+                mbox.setStandardButtons(
+                    QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox.exec()
+                return
+
             now = datetime.now()
             formatted_date = now.strftime("%d/%m/%Y")
             var.ui.txtBajacli.setText(formatted_date)
             datos = [formatted_date, var.ui.txtDnicli.text()] #CAMBIADO
-            if conexion.Conexion.bajaCliente(datos):
+            if conexionserver.ConexionServer.bajaCliente(datos):
+            #if conexion.Conexion.bajaCliente(datos):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
@@ -289,7 +308,8 @@ class Clientes:
     def cargaClienteDni(self):
         try:
             dni = var.ui.txtDnicli.text()
-            registro = conexion.Conexion.datosOneCliente(dni)
+            registro = conexionserver.ConexionServer.datosOneCliente(dni)
+            #registro = conexion.Conexion.datosOneCliente(dni)
             if not registro:
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)

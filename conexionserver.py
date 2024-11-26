@@ -3,6 +3,9 @@ from mysql.connector import Error
 import os
 from PyQt6 import QtSql, QtWidgets
 
+import var
+
+
 class ConexionServer():
     def crear_conexion(self):
         try:
@@ -63,13 +66,22 @@ class ConexionServer():
 
     def listadoClientes(self):
         try:
-            conexion = ConexionServer().crear_conexion()
             listadoclientes = []
-            cursor = conexion.cursor()
-            cursor.execute("SELECT * FROM clientes ORDER BY apelcli, nomecli ASC")
-            resultados = cursor.fetchall()
-            for fila in resultados:  # Procesar cada fila de los resultados y crea una lista con valores de la fila
-                listadoclientes.append(list(fila))  # Convierte la tupla en una lista y la añade a listadoclientes
+            conexion = ConexionServer().crear_conexion()
+
+            if var.historico == 1:
+                cursor = conexion.cursor()
+                cursor.execute("SELECT * FROM clientes ORDER BY apelcli, nomecli ASC")
+                resultados = cursor.fetchall()
+                for fila in resultados:  # Procesar cada fila de los resultados y crea una lista con valores de la fila
+                    listadoclientes.append(list(fila))  # Convierte la tupla en una lista y la añade a listadoclientes
+            else:
+                cursor = conexion.cursor()
+                cursor.execute("SELECT * FROM clientes WHERE bajacli is null ORDER BY apelcli, nomecli ASC")
+                resultados = cursor.fetchall()
+                for fila in resultados:  # Procesar cada fila de los resultados y crea una lista con valores de la fila
+                    listadoclientes.append(list(fila))  # Convierte la tupla en una lista y la añade a listadoclientes
+
             cursor.close()  # Cerrar el cursor y la conexión si no los necesitas más
             conexion.close()
             return listadoclientes
@@ -102,12 +114,41 @@ class ConexionServer():
                 cursor = conexion.cursor()
                 # Definir la consulta de selección
                 query = '''SELECT * FROM clientes WHERE dnicli = %s'''  # Usa %s para el placeholder
-                cursor.execute(query, dni)
+                cursor.execute(query, (dni,))  # Pasar 'dni' como una tupla
                 # Recuperar los datos de la consulta
                 for row in cursor.fetchall():
-                    registro.append([str(col) for col in row])
+                    for col in row:
+                        registro.append(str(col))
             return registro
 
         except Exception as e:
             print("Error al obtener datos de un cliente:", e)
             return None  # Devolver None en caso de error
+
+    def bajaCliente(datos):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            query = "UPDATE clientes SET bajacli = %s WHERE dnicli = %s"
+            cursor = conexion.cursor()
+            cursor.execute(query, datos)
+            conexion.commit()
+            cursor.close()
+            conexion.close()
+            return True
+        except Error as e:
+            print("error bajaCliente en conexionServer", e)
+            return False
+
+    def modifCliente(datos):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            query = "UPDATE clientes SET apelcli = %s, nomecli = %s, dircli = %s, emailcli = %s, movilcli = %s, provcli = %s, municli = %s,  altacli = %s WHERE dnicli = %s"
+            cursor = conexion.cursor()
+            cursor.execute(query, datos)
+            conexion.commit()
+            cursor.close()
+            conexion.close()
+            return True
+        except Error as e:
+            print("error modifCliente en conexionServer", e)
+            return False
