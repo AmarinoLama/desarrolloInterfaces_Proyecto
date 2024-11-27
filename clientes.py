@@ -30,9 +30,8 @@ class Clientes:
 
         try:
             nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(),
-                        var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(),
-                        var.ui.txtDireccioncli.text(), var.ui.cmbProvinciacli.currentText(),
-                        var.ui.cmbMunicipiocli.currentText()]
+                        var.ui.txtNomcli.text(), var.ui.txtDireccioncli.text(), var.ui.txtEmailcli.text(),
+                        var.ui.txtMovilcli.text(), var.ui.cmbProvinciacli.currentText(), var.ui.cmbMunicipiocli.currentText()]
 
             mensajes_error = [
                 "Falta ingresar DNI",
@@ -142,7 +141,7 @@ class Clientes:
                 var.ui.tablaClientes.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
                 var.ui.tablaClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[2])))
                 var.ui.tablaClientes.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[3])))
-                var.ui.tablaClientes.setItem(index, 3, QtWidgets.QTableWidgetItem("    " + str(registro[5]) + "    "))
+                var.ui.tablaClientes.setItem(index, 3, QtWidgets.QTableWidgetItem("    " + str(registro[6]) + "    "))
                 var.ui.tablaClientes.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[7])))
                 var.ui.tablaClientes.setItem(index, 5, QtWidgets.QTableWidgetItem(str(registro[8])))
                 var.ui.tablaClientes.setItem(index, 6, QtWidgets.QTableWidgetItem("" if registro[9] is None else str(registro[9])))
@@ -165,8 +164,11 @@ class Clientes:
             #registro = conexion.Conexion.datosOneCliente(str(datos[0]))
             registro = conexionserver.ConexionServer.datosOneCliente(datos[0])
             registro = [x if x != 'None' else '' for x in registro]
-            listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli, var.ui.txtEmailcli,
-                       var.ui.txtMovilcli, var.ui.txtDireccioncli, var.ui.cmbProvinciacli, var.ui.cmbMunicipiocli, var.ui.txtBajacli]
+            #listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli, var.ui.txtEmailcli,
+            #          var.ui.txtMovilcli, var.ui.txtDireccioncli, var.ui.cmbProvinciacli, var.ui.cmbMunicipiocli, var.ui.txtBajacli]
+
+            listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,var.ui.txtDireccioncli, var.ui.txtEmailcli,
+                       var.ui.txtMovilcli,  var.ui.cmbProvinciacli, var.ui.cmbMunicipiocli, var.ui.txtBajacli]
             for i in range(len(listado)):
                 if i in (7,8):
                     listado[i].setCurrentText(registro[i])
@@ -188,38 +190,7 @@ class Clientes:
                         var.ui.cmbMunicipiocli.currentText(), var.ui.txtAltacli.text(), var.ui.txtBajacli.text(),
                         var.ui.txtDnicli.text()]
 
-            mensajes_error = [
-                "Falta ingresar DNI",
-                "Falta ingresar fecha de alta",
-                "Falta ingresar apellido",
-                "Falta ingresar nombre",
-                None,
-                None,
-                "Falta ingresar móvil",
-                "Falta ingresar dirección",
-                "Falta seleccionar provincia",
-                "Falta seleccionar municipio"
-            ]
 
-            for i, dato in enumerate(modifCli):
-                if i == 4:  # Saltamos la validación para el email (índice 4)
-                    continue
-                if dato == '' and i != 5:
-                    mbox = QtWidgets.QMessageBox()
-                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                    mbox.setWindowTitle("Error en los datos")
-                    mbox.setText(mensajes_error[i])
-                    mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                    mbox.exec()
-                    return
-                if dato == "telefono no válido":
-                    mbox = QtWidgets.QMessageBox()
-                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                    mbox.setWindowTitle("Error en los datos")
-                    mbox.setText("El teléfono no es válido.")
-                    mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                    mbox.exec()
-                    return
 
             #if conexion.Conexion.modifCliente(modifCli):
             if conexionserver.ConexionServer.modifCliente(modifCli):

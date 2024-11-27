@@ -77,7 +77,7 @@ class ConexionServer():
                     listadoclientes.append(list(fila))  # Convierte la tupla en una lista y la añade a listadoclientes
             else:
                 cursor = conexion.cursor()
-                cursor.execute("SELECT * FROM clientes WHERE bajacli is null ORDER BY apelcli, nomecli ASC")
+                cursor.execute("SELECT * FROM clientes WHERE bajacli is null or bajacli = '' ORDER BY apelcli, nomecli ASC")
                 resultados = cursor.fetchall()
                 for fila in resultados:  # Procesar cada fila de los resultados y crea una lista con valores de la fila
                     listadoclientes.append(list(fila))  # Convierte la tupla en una lista y la añade a listadoclientes
@@ -155,23 +155,109 @@ class ConexionServer():
 
     def listadoPropiedades(self):
         try:
-            listadoPropiedades = []
+            conexion = ConexionServer().crear_conexion()
+            listado = []
+            cursor = conexion.cursor()
             if var.historico == 1:
-                conexion = ConexionServer().crear_conexion()
-                cursor = conexion.cursor()
-                cursor.execute("SELECT * FROM propiedades ORDER BY refpro ASC")
-                resultados = cursor.fetchall()
-                for fila in resultados:
-                    listadoPropiedades.append(list(fila))
-            else:
-                conexion = ConexionServer().crear_conexion()
-                cursor = conexion.cursor()
-                cursor.execute("SELECT * FROM propiedades WHERE bajapro is null ORDER BY refpro ASC")
-                resultados = cursor.fetchall()
-                for fila in resultados:
-                    listadoPropiedades.append(list(fila))
-            cursor.close()
+                cursor.execute("SELECT * FROM propiedades WHERE bajaprop is NULL ORDER BY muniprop ASC ")
+
+            elif var.historico == 0:
+                cursor.execute("SELECT * FROM propiedades ORDER BY muniprop ASC ")
+
+            resultados = cursor.fetchall()
+            for fila in resultados:  # Procesar cada fila de los resultados y crea una lista con valores de la fila
+                listado.append(list(fila))  # Convierte la tupla en una lista y la añade a listadoclientes
+            cursor.close()  # Cerrar el cursor y la conexión si no los necesitas más
             conexion.close()
-            return listadoPropiedades
+            return listado
+        except Exception as e:
+            print("error listado en conexionServer", e)
+
+    @staticmethod
+    def cargarTipoProp():
+        try:
+            registro = []
+            conexion = ConexionServer().crear_conexion()
+            cursor = conexion.cursor()
+            cursor.execute("SELECT tipo FROM tipopropiedad")
+            resultados = cursor.fetchall()
+            for fila in resultados:
+                registro.append(fila[0])
+            return registro
+        except Exception as e:
+            print("error cargarTipoProp en conexionServer", e)
+
+    def altaTipoPropiedad(tipo):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            if conexion:
+                cursor = conexion.cursor()
+                query = "INSERT INTO tipopropiedad (tipo) VALUES (%s)"
+                cursor.execute(query, (tipo,))
+                conexion.commit()
+                cursor.close()
+                conexion.close()
+                return True
         except Error as e:
-            print("error cargarTablaPropiedades en conexionServer", e)
+            print("error altaTipoPropiedad en conexionServer", e)
+            return False
+
+    def bajaTipoPropiedad(tipo):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            if conexion:
+                cursor = conexion.cursor()
+                query = "DELETE FROM tipopropiedad WHERE tipo = %s"
+                cursor.execute(query, (tipo,))
+                conexion.commit()
+                cursor.close()
+                conexion.close()
+                return True
+        except Error as e:
+            print("error bajaTipoPropiedad en conexionServer", e)
+            return False
+
+    def altaPropiedad(propiedad):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            if conexion:
+                cursor = conexion.cursor()
+                # Definir la consulta de inserción
+                query = """
+                INSERT INTO propiedades (altaprop, dirprop, provprop, muniprop, tipoprop, habprop, banprop, superprop, 
+                prealquiprop, prevenprop, cpprop, obserprop, tipooper, estadoprop, nomeprop, movilprop)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """
+                cursor.execute(query, propiedad)  # Ejecutar la consulta pasando la lista directamente
+                conexion.commit()  # Confirmar la transacción
+                cursor.close()  # Cerrar el cursor y la conexión
+                conexion.close()
+                return True
+        except Error as e:
+            print(f"Error al insertar propiedad: {e}")
+
+    def datosOnePropiedad(codigo):
+        registro = []  # Inicializa la lista para almacenar los datos del cliente
+        try:
+            conexion = ConexionServer().crear_conexion()  # Crear la conexión
+
+            if not conexion:
+                raise Exception("No se pudo establecer la conexión a la base de datos.")
+
+            with conexion.cursor() as cursor:
+                # Definir la consulta de selección
+                query = '''SELECT * FROM propiedades WHERE codigo = %s'''
+                cursor.execute(query, (codigo,))  # Pasar 'codigo' como parámetro en una tupla
+
+                # Recuperar los datos de la consulta
+                resultados = cursor.fetchall()
+
+                # Verificar si hay resultados
+                if not resultados:
+                    print(f"No se encontraron datos para el Codigo: {codigo}")
+                    return None  # Retornar None si no hay datos
+
+        except Exception as e:
+            print("Error al obtener datos de una propiedad:", e)
+            return None
+

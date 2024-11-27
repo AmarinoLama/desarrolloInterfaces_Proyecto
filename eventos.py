@@ -253,7 +253,8 @@ class Eventos():
 
     def cargarTipoPropiedad(self):
         try:
-            registro = conexion.Conexion.cargarTipoProp()
+            #registro = conexion.Conexion.cargarTipoProp()
+            registro = conexionserver.ConexionServer.cargarTipoProp()
             if registro:
                 var.ui.cmbTipoPro.clear()
                 var.ui.cmbTipoPro.addItems(registro)

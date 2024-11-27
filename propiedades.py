@@ -27,7 +27,8 @@ class Propiedades():
     def altaTipoPropiedad(self):
         try:
             tipo = var.dlggestion.ui.txtGestipoprop.text().title()
-            registro = conexion.Conexion.altaTipoPropiedad(tipo)
+            #registro = conexion.Conexion.altaTipoPropiedad(tipo)
+            registro = conexionserver.ConexionServer.altaTipoPropiedad(tipo)
             if registro:
                 eventos.Eventos.cargarTipoPropiedad(self)
             else:
@@ -44,7 +45,8 @@ class Propiedades():
     def bajaTipoPropiedad(self):
         try:
             tipo = var.dlggestion.ui.txtGestipoprop.text().title()
-            registro = conexion.Conexion.bajaTipoPropiedad(tipo)
+            #registro = conexion.Conexion.bajaTipoPropiedad(tipo)
+            registro = conexionserver.ConexionServer.bajaTipoPropiedad(tipo)
             if registro:
                 eventos.Eventos.cargarTipoPropiedad(self)
             else:
@@ -83,8 +85,8 @@ class Propiedades():
                 propiedad.append(var.ui.rbtnVendidoPro.text())
             propiedad.append(var.ui.txtPropietarioPro.text())
             propiedad.append(var.ui.txtMovilPro.text())
-
-            conexion.Conexion.altaPropiedad(propiedad)
+            #conexion.Conexion.altaPropiedad(propiedad)
+            conexionserver.ConexionServer.altaPropiedad(propiedad)
             Propiedades.cargarTablaPropiedades(self, 0)
 
         except Exception as error:
@@ -137,14 +139,13 @@ class Propiedades():
             Propiedades.manageRadioButtons(self)
             fila = var.ui.tablaPropiedades.selectedItems()
             datos = [dato.text() for dato in fila]
-            registro = conexion.Conexion.datosOnePropiedad(str(datos[0]))
+            #registro = conexion.Conexion.datosOnePropiedad(str(datos[0]))
+            registro = conexionserver.ConexionServer.datosOnePropiedad(str(datos[0]))
             listado = [var.ui.lblCodigoProp, var.ui.txtPublicacionPro, var.ui.txtFechabajaPro,
                         var.ui.txtDireccionPro, var.ui.cmbProvinciaPro, var.ui.cmbMunicipioPro,
                         var.ui.cmbTipoPro, var.ui.spbHabitacionesPro, var.ui.spbBanosPro,
                         var.ui.txtSuperficiePro, var.ui.txtPrecioAlquilerPro, var.ui.txtPrecioVentaPro,
-                        var.ui.txtCpPro, var.ui.artxtDescripcionPro, var.ui.cbxAlquilerPro,
-                        var.ui.rbtnDisponiblePro, var.ui.txtPropietarioPro, var.ui.txtMovilPro]
-
+                        var.ui.txtCpPro, var.ui.artxtDescripcionPro]
 
             for i, casilla in enumerate(listado):
                 if isinstance(casilla, QtWidgets.QComboBox):
