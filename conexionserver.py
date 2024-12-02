@@ -237,7 +237,7 @@ class ConexionServer():
             print(f"Error al insertar propiedad: {e}")
 
     def datosOnePropiedad(codigo):
-        registro = []  # Inicializa la lista para almacenar los datos del cliente
+        resultados = []  # Inicializa la lista para almacenar los datos del cliente
         try:
             conexion = ConexionServer().crear_conexion()  # Crear la conexión
 
@@ -257,7 +257,8 @@ class ConexionServer():
                     print(f"No se encontraron datos para el Codigo: {codigo}")
                     return None  # Retornar None si no hay datos
 
+                return resultados[0]
+
         except Exception as e:
             print("Error al obtener datos de una propiedad:", e)
             return None
-

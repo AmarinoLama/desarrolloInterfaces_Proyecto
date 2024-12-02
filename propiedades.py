@@ -86,6 +86,9 @@ class Propiedades():
             propiedad.append(var.ui.txtPropietarioPro.text())
             propiedad.append(var.ui.txtMovilPro.text())
             #conexion.Conexion.altaPropiedad(propiedad)
+
+            print(propiedad)
+
             conexionserver.ConexionServer.altaPropiedad(propiedad)
             Propiedades.cargarTablaPropiedades(self, 0)
 
@@ -141,6 +144,7 @@ class Propiedades():
             datos = [dato.text() for dato in fila]
             #registro = conexion.Conexion.datosOnePropiedad(str(datos[0]))
             registro = conexionserver.ConexionServer.datosOnePropiedad(str(datos[0]))
+
             listado = [var.ui.lblCodigoProp, var.ui.txtPublicacionPro, var.ui.txtFechabajaPro,
                         var.ui.txtDireccionPro, var.ui.cmbProvinciaPro, var.ui.cmbMunicipioPro,
                         var.ui.cmbTipoPro, var.ui.spbHabitacionesPro, var.ui.spbBanosPro,
