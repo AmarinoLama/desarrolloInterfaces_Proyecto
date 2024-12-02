@@ -66,6 +66,24 @@ class Propiedades():
                         var.ui.spbBanosPro.text(), var.ui.txtSuperficiePro.text(),
                         var.ui.txtPrecioAlquilerPro.text(), var.ui.txtPrecioVentaPro.text(),
                         var.ui.txtCpPro.text(), var.ui.artxtDescripcionPro.toPlainText()]
+
+            obligatorios = [var.ui.txtDireccionPro.text(), var.ui.txtPropietarioPro, var.ui.txtMovilPro,
+                            var.ui.cmbProvinciaPro.currentText(), var.ui.cmbMunicipioPro.currentText(),
+                            var.ui.cmbTipoPro.currentText(), var.ui.txtSuperficiePro.text(), var.ui.txtCpPro.text()]
+
+            for i in obligatorios:
+                if i == "":
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+                    mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setText('Rellena los campos obligatorios')
+                    mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                    mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                    mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                    mbox.exec()
+                    return
+
             tipoper = []
             if var.ui.cbxAlquilerPro.isChecked():
                 tipoper.append(var.ui.cbxAlquilerPro.text())
@@ -187,6 +205,25 @@ class Propiedades():
                          var.ui.txtPrecioAlquilerPro.text(), var.ui.txtPrecioVentaPro.text(),
                          var.ui.txtCpPro.text(), var.ui.artxtDescripcionPro.toPlainText()]
 
+            obligatorios = [var.ui.txtDireccionPro.text(), var.ui.txtPropietarioPro, var.ui.txtMovilPro,
+                            var.ui.cmbProvinciaPro.currentText(), var.ui.cmbMunicipioPro.currentText(),
+                            var.ui.cmbTipoPro.currentText(), var.ui.txtSuperficiePro.text(), var.ui.txtCpPro.text()]
+
+            for i in obligatorios:
+                if obligatorios[2] == "telefono no válido":
+                    return
+                if i == "":
+                    mbox = QtWidgets.QMessageBox()
+                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+                    mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
+                    mbox.setWindowTitle('Aviso')
+                    mbox.setText('Rellena los campos obligatorios')
+                    mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                    mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                    mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                    mbox.exec()
+                    return
+
             if var.ui.rbtnDisponiblePro.isChecked() and var.ui.txtFechabajaPro.text() != "":
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
@@ -270,11 +307,10 @@ class Propiedades():
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
             else:
-                now = datetime.now()
-                fecha_baja = datetime.strptime(var.ui.txtFechabajaPro.text(), "%d/%m/%Y")
+                fecha_baja = datetime.strptime(var.ui.txtFechabajaPro.text(), "%d/%m/%Y").strftime("%d/%m/%Y")
                 datos = [fecha_baja, var.ui.lblCodigoProp.text()]
-                fecha_publicacion = datetime.strptime(var.ui.txtPublicacionPro.text(), "%d/%m/%Y")
-                if fecha_baja > fecha_publicacion:
+                fecha_publicacion = datetime.strptime(var.ui.txtPublicacionPro.text(), "%d/%m/%Y").strftime("%d/%m/%Y")
+                if datetime.strptime(fecha_baja, "%d/%m/%Y") > datetime.strptime(fecha_publicacion, "%d/%m/%Y"):
                     if conexion.Conexion.bajaPropiedad(datos):
                         mbox = QtWidgets.QMessageBox()
                         mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
