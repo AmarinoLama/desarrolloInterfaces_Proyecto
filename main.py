@@ -1,6 +1,5 @@
 import clientes
 import conexion
-import propiedades
 import styles
 from venAux import *
 from venPrincipal import *
@@ -21,6 +20,8 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.db_conexion(self)
         var.historico = 0
         var.lupaState = 0
+        var.rowsClientes = 10
+        var.rowsPropiedades = 10
         #conexionserver.ConexionServer.crear_conexion(self)
         propiedades.Propiedades.manageCheckbox(self)
         propiedades.Propiedades.manageRadioButtons(self)
@@ -63,6 +64,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnModificarPro.clicked.connect(propiedades.Propiedades.modifPropiedad)
         var.ui.btnEliminarPro.clicked.connect(propiedades.Propiedades.bajaPropiedad)
         var.ui.btnFiltrar.clicked.connect(lambda: clientes.Clientes.cargaClienteDni(self))
+        var.ui.btnAnteriorCli.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(self,0, "Clientes"))
+        var.ui.btnSiguienteCli.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(self,1, "Clientes"))
 
         '''
         EVENTOS DE CAJAS DE TEXTO

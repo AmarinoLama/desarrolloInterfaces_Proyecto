@@ -12,3 +12,5 @@ global historico
 global dlggestion
 global lupaState
 global dlgAbout
+global rowsClientes
+global rowsPropiedades

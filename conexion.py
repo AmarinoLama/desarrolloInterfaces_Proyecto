@@ -94,28 +94,38 @@ class Conexion:
             print("error altaCliente en conexion", e)
 
     @staticmethod
-    def listadoClientes(self):
-            try:
-                listado = []
+    def listadoClientes(self):   #Controlar si te pasas que deje de sumar
+        try:
+            listado = []
 
-                if (var.historico == 1):
-                    query = QtSql.QSqlQuery()
-                    query.prepare("SELECT * FROM clientes order by apelcli, nomecli ASC")
-                    if query.exec():
-                        while query.next():
-                            fila = [query.value(i) for i in range(query.record().count())]
-                            listado.append(fila)
-                    return listado
-                else:
-                    query = QtSql.QSqlQuery()
-                    query.prepare("SELECT * FROM clientes where bajacli is null order by apelcli, nomecli ASC")
-                    if query.exec():
-                        while query.next():
-                            fila = [query.value(i) for i in range(query.record().count())]
-                            listado.append(fila)
-                    return listado
-            except Exception as e:
-                print("Error al abrir el archivo")
+            numRows = var.rowsClientes
+
+            offset = (numRows - 10) if numRows > 10 else 0
+
+            if var.historico == 1:
+                query = QtSql.QSqlQuery()
+                query.prepare("SELECT * FROM clientes ORDER BY apelcli, nomecli ASC LIMIT 10 OFFSET :offset")
+                query.bindValue(":offset", offset)
+                if query.exec():
+                    while query.next():
+                        fila = [query.value(i) for i in range(query.record().count())]
+                        listado.append(fila)
+            else:
+                query = QtSql.QSqlQuery()
+                query.prepare(
+                    "SELECT * FROM clientes WHERE bajacli IS NULL ORDER BY apelcli, nomecli ASC LIMIT 10 OFFSET :offset")
+                query.bindValue(":offset", offset)
+                if query.exec():
+                    while query.next():
+                        fila = [query.value(i) for i in range(query.record().count())]
+                        listado.append(fila)
+
+            if not listado:
+                var.rowsClientes -= 20
+
+            return listado
+        except Exception as e:
+            print("Error al abrir el archivo", e)
 
     @staticmethod
     def datosOneCliente(dni):

@@ -331,3 +331,15 @@ class Eventos():
             var.dlgAbout.show()
         except Exception as error:
             print("error en abrir about ", error)
+
+    def movimientoPaginas(self, avance, tabla):
+        try:
+            if tabla == "Clientes":
+                if avance == 0:
+                    if var.rowsClientes > 10:
+                        var.rowsClientes -= 10
+                else:
+                    var.rowsClientes += 10
+                clientes.Clientes.cargaTablaClientes(self)
+        except Exception as error:
+            print("error en pagina clientes: ", error)
