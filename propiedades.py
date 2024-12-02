@@ -239,7 +239,8 @@ class Propiedades():
                         mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
                         mbox.exec()
 
-                if conexion.Conexion.modifPropiedades(propiedad):
+                #if conexion.Conexion.modifPropiedades(propiedad):
+                if conexionserver.ConexionServer.modifPropiedad(propiedad):
                     mbox = QtWidgets.QMessageBox()
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
@@ -282,7 +283,8 @@ class Propiedades():
                 datos = [fecha_baja, var.ui.lblCodigoProp.text()]
                 fecha_publicacion = datetime.strptime(var.ui.txtPublicacionPro.text(), "%d/%m/%Y")
                 if fecha_baja > fecha_publicacion:
-                    if conexion.Conexion.bajaPropiedad(datos):
+                    #if conexion.Conexion.bajaPropiedad(datos):
+                    if conexionserver.ConexionServer.bajaPropiedad(datos):
                         mbox = QtWidgets.QMessageBox()
                         mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                         mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))

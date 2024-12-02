@@ -262,3 +262,31 @@ class ConexionServer():
         except Exception as e:
             print("Error al obtener datos de una propiedad:", e)
             return None
+
+    def bajaPropiedad(datos):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            query = "UPDATE propiedades SET bajaprop = %s WHERE codigo = %s"
+            cursor = conexion.cursor()
+            cursor.execute(query, datos)
+            conexion.commit()
+            cursor.close()
+            conexion.close()
+            return True
+        except Error as e:
+            print("error bajaPropiedad en conexionServer", e)
+            return False
+
+    def modifPropiedad(datos):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            query = "UPDATE propiedades SET dirprop = %s, provprop = %s, muniprop = %s, tipoprop = %s, habprop = %s, banprop = %s, superprop = %s, prealquiprop = %s, prevenprop = %s, cpprop = %s, obserprop = %s, tipooper = %s, estadoprop = %s, nomeprop = %s, movilprop = %s, altaprop = %s, bajaprop = %s WHERE codigo = %s"
+            cursor = conexion.cursor()
+            cursor.execute(query, datos)
+            conexion.commit()
+            cursor.close()
+            conexion.close()
+            return True
+        except Error as e:
+            print("error modifPropiedad en conexionServer", e)
+            return False
