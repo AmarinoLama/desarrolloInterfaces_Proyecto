@@ -100,11 +100,11 @@ class Conexion:
 
             numRows = var.rowsClientes
 
-            offset = (numRows - 19) if numRows >= 19 else 0
+            offset = (numRows - 15) if numRows >= 15 else 0
 
             if var.historico == 1:
                 query = QtSql.QSqlQuery()
-                query.prepare("SELECT * FROM clientes ORDER BY apelcli, nomecli ASC LIMIT 19 OFFSET :offset")
+                query.prepare("SELECT * FROM clientes ORDER BY apelcli, nomecli ASC LIMIT 15 OFFSET :offset")
                 query.bindValue(":offset", offset)
                 if query.exec():
                     while query.next():
@@ -113,7 +113,7 @@ class Conexion:
             else:
                 query = QtSql.QSqlQuery()
                 query.prepare(
-                    "SELECT * FROM clientes WHERE bajacli IS NULL ORDER BY apelcli, nomecli ASC LIMIT 19 OFFSET :offset")
+                    "SELECT * FROM clientes WHERE bajacli IS NULL ORDER BY apelcli, nomecli ASC LIMIT 15 OFFSET :offset")
                 query.bindValue(":offset", offset)
                 if query.exec():
                     while query.next():
@@ -121,7 +121,7 @@ class Conexion:
                         listado.append(fila)
 
             if not listado:
-                var.rowsClientes -= 20
+                var.rowsClientes -= 15
 
             return listado
         except Exception as e:
@@ -276,25 +276,35 @@ class Conexion:
         try:
             listado = []
 
-            if(var.historico == 1):
+            numRows = var.rowsPropiedades
+
+            offset = (numRows - 11) if numRows >= 11 else 0
+
+            if var.historico == 1:
                 query = QtSql.QSqlQuery()
-                query.prepare("SELECT * FROM propiedades order by muniprop ASC")
+                query.prepare("SELECT * FROM propiedades ORDER BY muniprop ASC LIMIT 11 OFFSET :offset")
+                query.bindValue(":offset", offset)
                 if query.exec():
                     while query.next():
                         fila = [query.value(i) for i in range(query.record().count())]
                         listado.append(fila)
-                return listado
             else:
                 query = QtSql.QSqlQuery()
-                query.prepare("SELECT * FROM propiedades WHERE bajaprop is null order by muniprop ASC")
+                query.prepare(
+                    "SELECT * FROM propiedades WHERE bajaprop IS NULL ORDER BY muniprop ASC LIMIT 11 OFFSET :offset")
+                query.bindValue(":offset", offset)
                 if query.exec():
                     while query.next():
                         fila = [query.value(i) for i in range(query.record().count())]
                         listado.append(fila)
-                return listado
+
+            if not listado:
+                var.rowsPropiedades -= 11
+
+            return listado
 
         except Exception as e:
-            print("Error al abrir el archivo")
+            print("Error al abrir el archivo:", e)
 
     @staticmethod
     def datosOnePropiedad(codigo):

@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_venPrincipal(object):
     def setupUi(self, venPrincipal):
         venPrincipal.setObjectName("venPrincipal")
-        venPrincipal.resize(1358, 843)
+        venPrincipal.resize(1358, 872)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("./templates\\../img/icono.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         venPrincipal.setWindowIcon(icon)
@@ -639,7 +639,7 @@ class Ui_venPrincipal(object):
         self.toolBar.addAction(self.actionbarSalir)
 
         self.retranslateUi(venPrincipal)
-        self.panPrincipal.setCurrentIndex(1)
+        self.panPrincipal.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(venPrincipal)
 
     def retranslateUi(self, venPrincipal):
@@ -673,8 +673,8 @@ class Ui_venPrincipal(object):
         item.setText(_translate("venPrincipal", "Municipio"))
         item = self.tablaClientes.horizontalHeaderItem(6)
         item.setText(_translate("venPrincipal", "Fecha de Baja"))
-        self.btnAnteriorCli.setText(_translate("venPrincipal", "Anterior"))
-        self.btnSiguienteCli.setText(_translate("venPrincipal", "Siguiente"))
+        self.btnAnteriorCli.setText(_translate("venPrincipal", "<<"))
+        self.btnSiguienteCli.setText(_translate("venPrincipal", ">>"))
         self.panPrincipal.setTabText(self.panPrincipal.indexOf(self.pClientres), _translate("venPrincipal", "CLIENTES"))
         self.label_2.setText(_translate("venPrincipal", "/"))
         self.lblProvinciaPro.setText(_translate("venPrincipal", "Provincia:"))
@@ -726,8 +726,8 @@ class Ui_venPrincipal(object):
         item.setText(_translate("venPrincipal", "Tipo Operación"))
         item = self.tablaPropiedades.horizontalHeaderItem(8)
         item.setText(_translate("venPrincipal", "Fecha Baja"))
-        self.btnAnteriorPro.setText(_translate("venPrincipal", "Anterior"))
-        self.btnSiguientePro.setText(_translate("venPrincipal", "Siguiente"))
+        self.btnAnteriorPro.setText(_translate("venPrincipal", "<<"))
+        self.btnSiguientePro.setText(_translate("venPrincipal", ">>"))
         self.panPrincipal.setTabText(self.panPrincipal.indexOf(self.pPropiedades), _translate("venPrincipal", "PROPIEDADES"))
         self.menuArchivo.setTitle(_translate("venPrincipal", "Archivo"))
         self.menuHerramientas.setTitle(_translate("venPrincipal", "Herramientas"))

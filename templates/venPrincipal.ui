@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1358</width>
-    <height>843</height>
+    <height>872</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,7 +60,7 @@
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="pClientres">
        <attribute name="title">
@@ -721,14 +721,14 @@
           <item>
            <widget class="QPushButton" name="btnAnteriorCli">
             <property name="text">
-             <string>Anterior</string>
+             <string>&lt;&lt;</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="btnSiguienteCli">
             <property name="text">
-             <string>Siguiente</string>
+             <string>&gt;&gt;</string>
             </property>
            </widget>
           </item>
@@ -1715,14 +1715,14 @@
           <item>
            <widget class="QPushButton" name="btnAnteriorPro">
             <property name="text">
-             <string>Anterior</string>
+             <string>&lt;&lt;</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="btnSiguientePro">
             <property name="text">
-             <string>Siguiente</string>
+             <string>&gt;&gt;</string>
             </property>
            </widget>
           </item>

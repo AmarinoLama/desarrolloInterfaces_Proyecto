@@ -142,6 +142,17 @@ class Propiedades():
             if len(listado) == 0:
                 var.ui.tablaPropiedades.setRowCount(1)
                 var.ui.tablaPropiedades.setItem(0, 2, QtWidgets.QTableWidgetItem("No hay propiedades"))
+
+            if var.rowsPropiedades == 11:
+                var.ui.btnAnteriorPro.setEnabled(False)
+            else:
+                var.ui.btnAnteriorPro.setEnabled(True)
+
+            if len(listado) < 11:
+                var.ui.btnSiguientePro.setEnabled(False)
+            else:
+                var.ui.btnSiguientePro.setEnabled(True)
+
         except Exception as e:
             print("error cargaTablaPropiedades", e)
 
@@ -349,6 +360,7 @@ class Propiedades():
                 var.historico = 1
             else:
                 var.historico = 0
+            var.rowsPropiedades = 11
             Propiedades.cargarTablaPropiedades(self, 0)
         except Exception as e:
             print("checkbox historico error ", e)

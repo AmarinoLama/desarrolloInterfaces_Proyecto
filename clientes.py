@@ -152,6 +152,17 @@ class Clientes:
                 var.ui.tablaClientes.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
                 var.ui.tablaClientes.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter.AlignVCenter)
                 index += 1
+
+            if var.rowsClientes == 15:
+                var.ui.btnAnteriorCli.setEnabled(False)
+            else:
+                var.ui.btnAnteriorCli.setEnabled(True)
+
+            if len(listado) < 15:
+                var.ui.btnSiguienteCli.setEnabled(False)
+            else:
+                var.ui.btnSiguienteCli.setEnabled(True)
+
         except Exception as e:
             print("error cargaTablaClientes", e)
 
@@ -278,6 +289,7 @@ class Clientes:
                 var.historico = 1
             else:
                 var.historico = 0
+            var.rowsClientes = 15
             Clientes.cargaTablaClientes(self)
         except Exception as e:
             print("checkbox historico error ", e)
