@@ -20,7 +20,7 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.db_conexion(self)
         var.historico = 0
         var.lupaState = 0
-        var.rowsClientes = 10
+        var.rowsClientes = 19
         var.rowsPropiedades = 10
         #conexionserver.ConexionServer.crear_conexion(self)
         propiedades.Propiedades.manageCheckbox(self)

@@ -336,10 +336,10 @@ class Eventos():
         try:
             if tabla == "Clientes":
                 if avance == 0:
-                    if var.rowsClientes > 10:
-                        var.rowsClientes -= 10
+                    if var.rowsClientes >= 19:
+                        var.rowsClientes -= 19
                 else:
-                    var.rowsClientes += 10
+                    var.rowsClientes += 19
                 clientes.Clientes.cargaTablaClientes(self)
         except Exception as error:
             print("error en pagina clientes: ", error)

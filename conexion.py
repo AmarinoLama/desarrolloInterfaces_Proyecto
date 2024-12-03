@@ -100,11 +100,11 @@ class Conexion:
 
             numRows = var.rowsClientes
 
-            offset = (numRows - 10) if numRows > 10 else 0
+            offset = (numRows - 19) if numRows >= 19 else 0
 
             if var.historico == 1:
                 query = QtSql.QSqlQuery()
-                query.prepare("SELECT * FROM clientes ORDER BY apelcli, nomecli ASC LIMIT 10 OFFSET :offset")
+                query.prepare("SELECT * FROM clientes ORDER BY apelcli, nomecli ASC LIMIT 19 OFFSET :offset")
                 query.bindValue(":offset", offset)
                 if query.exec():
                     while query.next():
@@ -113,7 +113,7 @@ class Conexion:
             else:
                 query = QtSql.QSqlQuery()
                 query.prepare(
-                    "SELECT * FROM clientes WHERE bajacli IS NULL ORDER BY apelcli, nomecli ASC LIMIT 10 OFFSET :offset")
+                    "SELECT * FROM clientes WHERE bajacli IS NULL ORDER BY apelcli, nomecli ASC LIMIT 19 OFFSET :offset")
                 query.bindValue(":offset", offset)
                 if query.exec():
                     while query.next():
