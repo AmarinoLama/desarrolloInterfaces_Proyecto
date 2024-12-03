@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1358</width>
-    <height>872</height>
+    <height>874</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -56,11 +56,17 @@
     </item>
     <item row="1" column="3">
      <widget class="QTabWidget" name="panPrincipal">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>300</height>
+       </size>
+      </property>
       <property name="autoFillBackground">
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="pClientres">
        <attribute name="title">
@@ -654,6 +660,12 @@
           <property name="minimumSize">
            <size>
             <width>860</width>
+            <height>510</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
             <height>510</height>
            </size>
           </property>
@@ -1624,14 +1636,14 @@
          <widget class="Line" name="line_7">
           <property name="minimumSize">
            <size>
-            <width>500</width>
+            <width>0</width>
             <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>500</height>
+            <height>16777215</height>
            </size>
           </property>
           <property name="lineWidth">
@@ -1644,6 +1656,18 @@
         </item>
         <item>
          <widget class="QTableWidget" name="tablaPropiedades">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>400</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>400</height>
+           </size>
+          </property>
           <property name="selectionBehavior">
            <enum>QAbstractItemView::SelectRows</enum>
           </property>
@@ -1752,7 +1776,7 @@
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>500</height>
+            <height>16777215</height>
            </size>
           </property>
           <property name="lineWidth">

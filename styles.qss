@@ -42,7 +42,7 @@ QToolBar {
     background-color: #eeeeee;
 }
 
-QPushButton:disabled {
+QPushButton::disabled {
     background-color: #D3D3D3;  /* Gris claro */
     color: #A9A9A9;             /* Gris oscuro */
 }
