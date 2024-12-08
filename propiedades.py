@@ -77,7 +77,7 @@ class Propiedades():
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
                     mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
                     mbox.setWindowTitle('Aviso')
-                    mbox.setText('Rellena los campos obligatorios')
+                    mbox.setText('Rellena los campos obligatorios (los amarillos)')
                     mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
                     mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                     mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
@@ -357,9 +357,9 @@ class Propiedades():
     def historicoProp(self):
         try:
             if var.ui.chkHistoricoPro.isChecked():
-                var.historico = 1
+                var.historicoProp = 1
             else:
-                var.historico = 0
+                var.historicoProp = 0
             var.rowsPropiedades = 11
             Propiedades.cargarTablaPropiedades(self, 0)
         except Exception as e:

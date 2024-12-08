@@ -102,7 +102,7 @@ class Conexion:
 
             offset = (numRows - 15) if numRows >= 15 else 0
 
-            if var.historico == 1:
+            if var.historicoCli == 1:
                 query = QtSql.QSqlQuery()
                 query.prepare("SELECT * FROM clientes ORDER BY apelcli, nomecli ASC LIMIT 15 OFFSET :offset")
                 query.bindValue(":offset", offset)
@@ -280,7 +280,7 @@ class Conexion:
 
             offset = (numRows - 11) if numRows >= 11 else 0
 
-            if var.historico == 1:
+            if var.historicoProp == 1:
                 query = QtSql.QSqlQuery()
                 query.prepare("SELECT * FROM propiedades ORDER BY muniprop ASC LIMIT 11 OFFSET :offset")
                 query.bindValue(":offset", offset)

@@ -66,7 +66,7 @@
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="pClientres">
        <attribute name="title">
@@ -1788,6 +1788,97 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QWidget" name="pConstruccion">
+       <attribute name="title">
+        <string>Page</string>
+       </attribute>
+       <widget class="QTableWidget" name="tablaPropiedades_2">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>300</y>
+          <width>861</width>
+          <height>400</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>400</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>400</height>
+         </size>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>Código</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Municipio</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Tipo Propiedad</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Habitaciones</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Baños</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Precio Venta</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Precio Alquiler</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Tipo Operación</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Fecha Baja</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>390</x>
+          <y>130</y>
+          <width>211</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>PANEL EN CONSTRUCCIÓN</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </item>

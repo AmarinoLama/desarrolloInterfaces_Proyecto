@@ -286,9 +286,9 @@ class Clientes:
     def historicoCli(self):
         try:
             if var.ui.chkHistoriacli.isChecked():
-                var.historico = 1
+                var.historicoCli = 1
             else:
-                var.historico = 0
+                var.historicoCli = 0
             var.rowsClientes = 15
             Clientes.cargaTablaClientes(self)
         except Exception as e:

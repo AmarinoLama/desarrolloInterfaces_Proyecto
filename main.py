@@ -18,7 +18,8 @@ class Main(QtWidgets.QMainWindow):
         var.dlgAbout = dlgAbout()
         self.setStyleSheet(styles.load_stylesheet())
         conexion.Conexion.db_conexion(self)
-        var.historico = 0
+        var.historicoCli = 0
+        var.historicoProp = 0
         var.lupaState = 0
         var.rowsClientes = 15
         var.rowsPropiedades = 11

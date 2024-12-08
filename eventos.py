@@ -267,10 +267,10 @@ class Eventos():
             file = str(fecha + "DatosPropiedades.csv")
             directorio, fichero = var.dlgabrir.getSaveFileName(None, "Exporta Datos en CSV", file, '.csv')
             if fichero:
-                historicoGuardar = var.historico
-                var.historico = 1
+                historicoGuardar = var.historicoProp
+                var.historicoProp = 1
                 registros = conexion.Conexion.listadoPropiedades(self)
-                var.historico = historicoGuardar
+                var.historicoProp = historicoGuardar
                 with open(fichero, "w", newline="", encoding="utf-8") as csvfile:
                     writer = csv.writer(csvfile)
                     writer.writerow(["Codigo", "Alta", "Baja", "Direccion", "Provincia", "Municipio", "Tipo"
@@ -304,10 +304,10 @@ class Eventos():
                 keys = ["Codigo", "Alta", "Baja", "Direccion", "Provincia", "Municipio", "Tipo"
                     , "Nº Habitaciones", "Nº Baños", "Superficie", "Precio Alquiler", "Precio Compra",
                         "Codigo Postal", "Observaciones", "Operacion", "Estado", "Propietario", "Movil"]
-                historicoGuardar = var.historico
-                var.historico = 1
+                historicoGuardar = var.historicoProp
+                var.historicoProp = 1
                 registros = conexion.Conexion.listadoPropiedades(self)
-                var.historico = historicoGuardar
+                var.historicoProp = historicoGuardar
                 listapropiedades = [dict(zip(keys, registro)) for registro in registros]
                 with open(fichero, "w", newline="", encoding="utf-8") as jsonfile:
                     json.dump(listapropiedades, jsonfile, ensure_ascii=False, indent=4)

@@ -8,7 +8,8 @@ global ui
 global uicalendar
 global op
 global dlgabrir
-global historico
+global historicoCli
+global historicoProp
 global dlggestion
 global lupaState
 global dlgAbout
