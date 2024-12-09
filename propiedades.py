@@ -221,16 +221,15 @@ class Propiedades():
             propiedad.append(var.ui.txtPropietarioPro.text().title())
             propiedad.append(var.ui.txtMovilPro.text())
 
-            if var.ui.txtFechabajaPro.text() == "" or var.ui.txtPublicacionPro.text() == "" or var.ui.txtFechabajaPro.text() == "None":
+            if (var.ui.txtFechabajaPro.text() == "" or var.ui.txtFechabajaPro.text() == "None") and var.ui.txtPublicacionPro.text() != "":
                 eventos.Eventos.crearMensajeError("Error", "Comprueba las fechas de publicación y baja, recuerda que la de baja tiene que ser posterior a la de alta")
-                return
 
-            fecha_baja = datetime.strptime(var.ui.txtFechabajaPro.text(), "%d/%m/%Y")
-            fecha_publicacion = datetime.strptime(var.ui.txtPublicacionPro.text(), "%d/%m/%Y")
+                fecha_baja = datetime.strptime(var.ui.txtFechabajaPro.text(), "%d/%m/%Y")
+                fecha_publicacion = datetime.strptime(var.ui.txtPublicacionPro.text(), "%d/%m/%Y")
 
-            if fecha_baja < fecha_publicacion:
-                eventos.Eventos.crearMensajeError("Error", "La fecha de baja debe ser posterior a la fecha de publicación")
-                return
+                if fecha_baja < fecha_publicacion:
+                    eventos.Eventos.crearMensajeError("Error", "La fecha de baja debe ser posterior a la fecha de publicación")
+                    return
 
             for i, dato in enumerate(propiedad):
                 if dato == "" and i in (1, 2, 3, 4, 7, 10, 14, 15):
