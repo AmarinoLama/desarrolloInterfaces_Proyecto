@@ -60,40 +60,45 @@ class Propiedades():
         except Exception as error:
             print("Error en baja tipo propiedad: ", error)
 
+    @staticmethod
     def altaPropiedad(self):
         try:
-            # var.ui.txtFechabajaPro.text(), var.ui.txtPropietarioPro.text(), var.ui.txtMovilPro.text()
-            propiedad = [var.ui.txtPublicacionPro.text(), var.ui.txtDireccionPro.text(),
-                        var.ui.cmbProvinciaPro.currentText(), var.ui.cmbMunicipioPro.currentText(),
-                        var.ui.cmbTipoPro.currentText(), var.ui.spbHabitacionesPro.text(),
-                        var.ui.spbBanosPro.text(), var.ui.txtSuperficiePro.text(),
-                        var.ui.txtPrecioAlquilerPro.text(), var.ui.txtPrecioVentaPro.text(),
-                        var.ui.txtCpPro.text(), var.ui.artxtDescripcionPro.toPlainText()]
-            tipoper = []
+            propiedad = [
+                var.ui.txtPublicacionPro.text(), var.ui.txtDireccionPro.text(),
+                var.ui.cmbProvinciaPro.currentText(), var.ui.cmbMunicipioPro.currentText(),
+                var.ui.cmbTipoPro.currentText(), var.ui.spbHabitacionesPro.text(),
+                var.ui.spbBanosPro.text(), var.ui.txtSuperficiePro.text(),
+                var.ui.txtPrecioAlquilerPro.text(), var.ui.txtPrecioVentaPro.text(),
+                var.ui.txtCpPro.text(), var.ui.artxtDescripcionPro.toPlainText()
+            ]
+            tipoOper = []
             if var.ui.cbxAlquilerPro.isChecked():
-                tipoper.append(var.ui.cbxAlquilerPro.text())
+                tipoOper.append(var.ui.cbxAlquilerPro.text())
             if var.ui.cbxVentaPro.isChecked():
-                tipoper.append(var.ui.cbxVentaPro.text())
+                tipoOper.append(var.ui.cbxVentaPro.text())
             if var.ui.cbxIntercambioPro.isChecked():
-                tipoper.append(var.ui.cbxIntercambioPro.text())
-            propiedad.append(", ".join(tipoper))
+                tipoOper.append(var.ui.cbxIntercambioPro.text())
+            propiedad.append(", ".join(tipoOper))
             if var.ui.rbtnDisponiblePro.isChecked():
                 propiedad.append(var.ui.rbtnDisponiblePro.text())
-            if var.ui.rbtnAlquiladoPro.isChecked():
+            elif var.ui.rbtnAlquiladoPro.isChecked():
                 propiedad.append(var.ui.rbtnAlquiladoPro.text())
-            if var.ui.rbtnVendidoPro.isChecked():
+            elif var.ui.rbtnVendidoPro.isChecked():
                 propiedad.append(var.ui.rbtnVendidoPro.text())
-            propiedad.append(var.ui.txtPropietarioPro.text())
+
+            propiedad.append(var.ui.txtPropietarioPro.text().title())
             propiedad.append(var.ui.txtMovilPro.text())
-            #conexion.Conexion.altaPropiedad(propiedad)
 
-            print(propiedad)
+            for i, dato in enumerate(propiedad):
+                if dato == "" and i in (1, 2, 3, 4, 7, 10, 14, 15):
+                    eventos.Eventos.crearMensajeError("Error", "Faltan datos por rellenar")
+                    return
 
-            conexionserver.ConexionServer.altaPropiedad(propiedad)
-            Propiedades.cargarTablaPropiedades(self, 0)
-
-        except Exception as error:
-            print(error)
+            if conexionserver.ConexionServer.altaPropiedad(propiedad):
+                eventos.Eventos.crearMensajeInfo("Propiedad dada de alta", "La propiedad ha sido dada de alta")
+                Propiedades.cargarTablaPropiedades(self,0)
+        except Exception as e:
+            print(str(e))
 
     @staticmethod
     def cargarTablaPropiedades(self, contexto):

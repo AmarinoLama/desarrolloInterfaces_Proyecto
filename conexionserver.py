@@ -217,6 +217,7 @@ class ConexionServer():
             print("error bajaTipoPropiedad en conexionServer", e)
             return False
 
+    @staticmethod
     def altaPropiedad(propiedad):
         try:
             conexion = ConexionServer().crear_conexion()
@@ -224,17 +225,18 @@ class ConexionServer():
                 cursor = conexion.cursor()
                 # Definir la consulta de inserción
                 query = """
-                INSERT INTO propiedades (altaprop, dirprop, provprop, muniprop, tipoprop, habprop, banprop, superprop, 
-                prealquiprop, prevenprop, cpprop, obserprop, tipooper, estadoprop, nomeprop, movilprop)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                """
+                    INSERT INTO propiedades (altaprop,dirprop,provprop,muniprop,tipoprop,habprop,banprop,superprop,prealquiprop,prevenprop,cpprop,obserprop,tipooper,estadoprop,nomeprop,movilprop)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s, %s)
+                    """
+                propiedad[12] = str(propiedad[12])
                 cursor.execute(query, propiedad)  # Ejecutar la consulta pasando la lista directamente
                 conexion.commit()  # Confirmar la transacción
                 cursor.close()  # Cerrar el cursor y la conexión
                 conexion.close()
                 return True
         except Error as e:
-            print(f"Error al insertar propiedad: {e}")
+            print(f"Error al insertar una propiedad", e)
+
 
     def datosOnePropiedad(codigo):
         resultados = []  # Inicializa la lista para almacenar los datos del cliente
