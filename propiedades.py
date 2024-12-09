@@ -7,8 +7,6 @@ import conexionserver
 import eventos
 import var
 
-
-
 class Propiedades():
 
     def checkTelefono(telefono):
@@ -123,7 +121,7 @@ class Propiedades():
                 var.ui.tablaPropiedades.setItem(index, 6, QtWidgets.QTableWidgetItem(
                     str(registro[11]) + " €" if str(registro[11]) else "- €"))
                 var.ui.tablaPropiedades.setItem(index, 7, QtWidgets.QTableWidgetItem(str(registro[14])))
-                var.ui.tablaPropiedades.setItem(index, 8, QtWidgets.QTableWidgetItem(str(registro[2])))
+                var.ui.tablaPropiedades.setItem(index, 8, QtWidgets.QTableWidgetItem("" if registro[2] is None else str(registro[2])))
 
                 var.ui.tablaPropiedades.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaPropiedades.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
@@ -185,107 +183,86 @@ class Propiedades():
                     casilla.setPlainText(str(registro[i]))
                 else:
                     casilla.setText(str(registro[i]))
+
+            var.ui.txtPropietarioPro.setText(str(registro[16]))
+            var.ui.txtMovilPro.setText(str(registro[17]))
+
             Propiedades.manageCheckbox(self)
             Propiedades.manageRadioButtons(self)
         except Exception as e:
             print("error cargaOnePropiedad en propiedades", e)
 
+    @staticmethod
     def modifPropiedad(self):
         try:
-            propiedad = [var.ui.txtPublicacionPro.text(), var.ui.txtDireccionPro.text(),
-                         var.ui.cmbProvinciaPro.currentText(), var.ui.cmbMunicipioPro.currentText(),
-                         var.ui.cmbTipoPro.currentText(), var.ui.spbHabitacionesPro.text(),
-                         var.ui.spbBanosPro.text(), var.ui.txtSuperficiePro.text(),
-                         var.ui.txtPrecioAlquilerPro.text(), var.ui.txtPrecioVentaPro.text(),
-                         var.ui.txtCpPro.text(), var.ui.artxtDescripcionPro.toPlainText()]
+            propiedad = [
+                var.ui.lblCodigoProp.text(), var.ui.txtPublicacionPro.text(), var.ui.txtFechabajaPro.text(),
+                var.ui.txtDireccionPro.text(), var.ui.cmbProvinciaPro.currentText(),
+                var.ui.cmbMunicipioPro.currentText(), var.ui.cmbTipoPro.currentText(),
+                var.ui.spbHabitacionesPro.text(), var.ui.spbBanosPro.text(), var.ui.txtSuperficiePro.text(),
+                var.ui.txtPrecioAlquilerPro.text(), var.ui.txtPrecioVentaPro.text(),
+                var.ui.txtCpPro.text(), var.ui.artxtDescripcionPro.toPlainText()
+            ]
+            tipoOper = []
+            if var.ui.cbxAlquilerPro.isChecked():
+                tipoOper.append(var.ui.cbxAlquilerPro.text())
+            if var.ui.cbxVentaPro.isChecked():
+                tipoOper.append(var.ui.cbxVentaPro.text())
+            if var.ui.cbxIntercambioPro.isChecked():
+                tipoOper.append(var.ui.cbxIntercambioPro.text())
+            propiedad.append(", ".join(tipoOper))
+            if var.ui.rbtnDisponiblePro.isChecked():
+                propiedad.append(var.ui.rbtnDisponiblePro.text())
+            elif var.ui.rbtnAlquiladoPro.isChecked():
+                propiedad.append(var.ui.rbtnAlquiladoPro.text())
+            elif var.ui.rbtnVendidoPro.isChecked():
+                propiedad.append(var.ui.rbtnVendidoPro.text())
 
-            if var.ui.rbtnDisponiblePro.isChecked() and var.ui.txtFechabajaPro.text() != "":
-                mbox = QtWidgets.QMessageBox()
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
-                mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
-                mbox.setWindowTitle('Aviso')
-                mbox.setText('No puedes modificar la baja de una propiedad disponible')
-                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
-                mbox.exec()
-            else:
-                tipoper = []
-                if var.ui.cbxAlquilerPro.isChecked():
-                    tipoper.append(var.ui.cbxAlquilerPro.text())
-                if var.ui.cbxVentaPro.isChecked():
-                    tipoper.append(var.ui.cbxVentaPro.text())
-                if var.ui.cbxIntercambioPro.isChecked():
-                    tipoper.append(var.ui.cbxIntercambioPro.text())
-                propiedad.append(", ".join(tipoper))
-                if var.ui.rbtnDisponiblePro.isChecked():
-                    propiedad.append(var.ui.rbtnDisponiblePro.text())
-                if var.ui.rbtnAlquiladoPro.isChecked():
-                    propiedad.append(var.ui.rbtnAlquiladoPro.text())
-                if var.ui.rbtnVendidoPro.isChecked():
-                    propiedad.append(var.ui.rbtnVendidoPro.text())
+            propiedad.append(var.ui.txtPropietarioPro.text().title())
+            propiedad.append(var.ui.txtMovilPro.text())
 
-                propiedad.append(var.ui.txtPropietarioPro.text())
-                propiedad.append(var.ui.txtMovilPro.text())
-                propiedad.append(var.ui.lblCodigoProp.text())
+            if var.ui.txtFechabajaPro.text() == "" or var.ui.txtPublicacionPro.text() == "" or var.ui.txtFechabajaPro.text() == "None":
+                eventos.Eventos.crearMensajeError("Error", "Comprueba las fechas de publicación y baja, recuerda que la de baja tiene que ser posterior a la de alta")
+                return
 
-                if var.ui.txtFechabajaPro.text() == "":
-                    propiedad.append("")
-                else:
-                    fecha_publicacion = datetime.strptime(var.ui.txtPublicacionPro.text(), "%d/%m/%Y")
-                    fecha_baja = datetime.strptime(var.ui.txtFechabajaPro.text(), "%d/%m/%Y")
-                    if fecha_baja > fecha_publicacion:
-                        propiedad.append(var.ui.txtFechabajaPro.text())
-                    else:
-                        mbox = QtWidgets.QMessageBox()
-                        mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
-                        mbox.setWindowTitle('Error')
-                        mbox.setText('La fecha de baja debe ser posterior a la fecha de publicación')
-                        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                        mbox.exec()
+            fecha_baja = datetime.strptime(var.ui.txtFechabajaPro.text(), "%d/%m/%Y")
+            fecha_publicacion = datetime.strptime(var.ui.txtPublicacionPro.text(), "%d/%m/%Y")
 
-                #if conexion.Conexion.modifPropiedades(propiedad):
-                if conexionserver.ConexionServer.modifPropiedad(propiedad):
-                    mbox = QtWidgets.QMessageBox()
-                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                    mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
-                    mbox.setWindowTitle('Aviso')
-                    mbox.setText('Datos de la propiedad modificados')
-                    mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                    mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                    mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
-                    mbox.exec()
-                    Propiedades.cargarTablaPropiedades(self, 0)
-                else:
-                    mbox = QtWidgets.QMessageBox()
-                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
-                    mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
-                    mbox.setWindowTitle('Aviso')
-                    mbox.setText('Error en actualizacion Datos de la propiedad')
-                    mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                    mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                    mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
-                    mbox.exec()
+            if fecha_baja < fecha_publicacion:
+                eventos.Eventos.crearMensajeError("Error", "La fecha de baja debe ser posterior a la fecha de publicación")
+                return
+
+            for i, dato in enumerate(propiedad):
+                if dato == "" and i in (1, 2, 3, 4, 7, 10, 14, 15):
+                    eventos.Eventos.crearMensajeError("Error", "Faltan datos por rellenar")
+                    return
+
+            if conexionserver.ConexionServer.modifPropiedad(propiedad):
+                eventos.Eventos.crearMensajeInfo("Propiedad modificada", "La propiedad ha sido modificada")
                 Propiedades.cargarTablaPropiedades(self, 0)
-        except Exception as error:
-            print("error modifPropiedad en propiedades", error)
+            else:
+                eventos.Eventos.crearMensajeError("Error", "Error en la modificación de la propiedad")
+
+        except Exception as e:
+            print("Error modificando cliente en propiedades.", e)
 
     def bajaPropiedad(self):
         try:
-            if var.ui.rbtnDisponiblePro.isChecked():
+            if var.ui.txtFechabajaPro.text() == "" or var.ui.txtPublicacionPro.text() == "":
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
-                mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
-                mbox.setWindowTitle('Aviso')
-                mbox.setText('La propiedad no puede darse de baja si está disponible')
+                mbox.setWindowTitle('Error')
+                mbox.setText('Comprueba las fechas de publicación y baja, recuerda que la de baja tiene que ser posterior a la de alta')
                 mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
+
             else:
-                now = datetime.now()
                 fecha_baja = datetime.strptime(var.ui.txtFechabajaPro.text(), "%d/%m/%Y")
-                datos = [fecha_baja, var.ui.lblCodigoProp.text()]
+                datos = [var.ui.txtFechabajaPro.text(), var.ui.lblCodigoProp.text()]
+                if var.ui.rbtnVendidoPro.isChecked():
+                    datos.append("Vendido")
+                elif var.ui.rbtnAlquiladoPro.isChecked():
+                    datos.append("Alquilado")
                 fecha_publicacion = datetime.strptime(var.ui.txtPublicacionPro.text(), "%d/%m/%Y")
                 if fecha_baja > fecha_publicacion:
                     #if conexion.Conexion.bajaPropiedad(datos):

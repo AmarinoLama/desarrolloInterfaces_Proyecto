@@ -613,7 +613,7 @@ class Ui_venPrincipal(object):
         self.toolBar.addAction(self.actionbarSalir)
 
         self.retranslateUi(venPrincipal)
-        self.panPrincipal.setCurrentIndex(0)
+        self.panPrincipal.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(venPrincipal)
 
     def retranslateUi(self, venPrincipal):
@@ -679,7 +679,7 @@ class Ui_venPrincipal(object):
         self.chkHistoricoPro.setText(_translate("venPrincipal", "Historico"))
         self.btnGrabarPro.setText(_translate("venPrincipal", "Grabar"))
         self.btnModificarPro.setText(_translate("venPrincipal", "Modificar"))
-        self.btnEliminarPro.setText(_translate("venPrincipal", "Eliminar"))
+        self.btnEliminarPro.setText(_translate("venPrincipal", "Baja"))
         item = self.tablaPropiedades.horizontalHeaderItem(0)
         item.setText(_translate("venPrincipal", "Código"))
         item = self.tablaPropiedades.horizontalHeaderItem(1)

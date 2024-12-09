@@ -158,10 +158,10 @@ class ConexionServer():
             conexion = ConexionServer().crear_conexion()
             listado = []
             cursor = conexion.cursor()
-            if var.historico == 1:
-                cursor.execute("SELECT * FROM propiedades WHERE bajaprop is NULL ORDER BY muniprop ASC ")
+            if var.historico == 0:
+                cursor.execute("SELECT * FROM propiedades WHERE bajaprop is NULL or bajaprop = '' ORDER BY muniprop ASC ")
 
-            elif var.historico == 0:
+            elif var.historico == 1:
                 cursor.execute("SELECT * FROM propiedades ORDER BY muniprop ASC ")
 
             resultados = cursor.fetchall()
@@ -265,24 +265,36 @@ class ConexionServer():
             print("Error al obtener datos de una propiedad:", e)
             return None
 
-    def bajaPropiedad(datos):
+    @staticmethod
+    def bajaPropiedad(propiedad):
         try:
             conexion = ConexionServer().crear_conexion()
-            query = "UPDATE propiedades SET bajaprop = %s WHERE codigo = %s"
-            cursor = conexion.cursor()
-            cursor.execute(query, datos)
-            conexion.commit()
-            cursor.close()
-            conexion.close()
-            return True
+            if conexion:
+                cursor = conexion.cursor()
+                # Definir la consulta de inserción
+                query = """
+                    UPDATE propiedades SET bajaprop = %s, estadoprop = %s WHERE codigo = %s
+                    """
+                fecha = propiedad[0]
+                estado = propiedad[2]
+                codigo = propiedad[1]
+                cursor.execute(query, (fecha, estado, codigo))
+                conexion.commit()  # Confirmar la transacción
+                cursor.close()  # Cerrar el cursor y la conexión
+                conexion.close()
+                return True
         except Error as e:
-            print("error bajaPropiedad en conexionServer", e)
-            return False
+            print(f"Error al insertar el cliente: {e}")
 
     def modifPropiedad(datos):
         try:
             conexion = ConexionServer().crear_conexion()
-            query = "UPDATE propiedades SET dirprop = %s, provprop = %s, muniprop = %s, tipoprop = %s, habprop = %s, banprop = %s, superprop = %s, prealquiprop = %s, prevenprop = %s, cpprop = %s, obserprop = %s, tipooper = %s, estadoprop = %s, nomeprop = %s, movilprop = %s, altaprop = %s, bajaprop = %s WHERE codigo = %s"
+            query = ("UPDATE propiedades "
+                     "SET dirprop = %s, provprop = %s, muniprop = %s, tipoprop = %s, habprop = %s, "
+                     "banprop = %s, superprop = %s, prealquiprop = %s, prevenprop = %s, cpprop = %s, "
+                     "obserprop = %s, tipooper = %s, estadoprop = %s, nomeprop = %s, movilprop = %s, "
+                     "altaprop = %s, bajaprop = %s "
+                     "WHERE codigo = %s")
             cursor = conexion.cursor()
             cursor.execute(query, datos)
             conexion.commit()
@@ -292,3 +304,4 @@ class ConexionServer():
         except Error as e:
             print("error modifPropiedad en conexionServer", e)
             return False
+

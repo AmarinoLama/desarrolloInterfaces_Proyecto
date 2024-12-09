@@ -1,7 +1,6 @@
-from datetime import datetime
+import datetime
 from PyQt6 import QtWidgets, QtGui, QtCore
 
-import conexion
 import conexionserver
 import eventos
 import var
