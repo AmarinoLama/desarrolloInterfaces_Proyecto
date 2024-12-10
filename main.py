@@ -15,6 +15,9 @@ class Main(QtWidgets.QMainWindow):
         var.uicalendar = Calendar()
         var.dlgabrir = FileDialogAbrir()
         var.dlggestion = dlgGestionProp()
+
+        var.dlgtiposNP = dlgTiposNP()
+
         var.dlgAbout = dlgAbout()
         self.setStyleSheet(styles.load_stylesheet())
         conexion.Conexion.db_conexion(self)
@@ -70,6 +73,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnAnteriorPro.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(self,0, "Propiedades"))
         var.ui.btnSiguientePro.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(self,1, "Propiedades"))
 
+        var.ui.btnGestionNP.clicked.connect(lambda: eventos.Eventos.abrirTipoNP(self))
+
         '''
         EVENTOS DE CAJAS DE TEXTO
         '''
@@ -90,6 +95,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.cmbProvinciacli.currentIndexChanged.connect(eventos.Eventos.cargarMunicipiosCli)
         var.ui.cmbProvinciaPro.currentIndexChanged.connect(eventos.Eventos.cargarMunicipiosPro)
         eventos.Eventos.cargarTipoPropiedad(self)
+        eventos.Eventos.cargarTipoNP(self)
 
         '''
         EVENTOS TOOLBAR

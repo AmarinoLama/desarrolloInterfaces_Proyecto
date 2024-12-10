@@ -2,12 +2,14 @@ from datetime import datetime
 
 from PyQt6.QtWidgets import QDialog
 
+import nuevoPanelPractica
 import propiedades
 from dlgAbout import Ui_dlgAbout
 from dlgCalendar import *
 import var
 import eventos
 from dlgGestionProp import *
+from ventanaTiposNP import Ui_ventanaTiposNP
 
 
 class Calendar(QtWidgets.QDialog):
@@ -40,3 +42,11 @@ class dlgAbout(QtWidgets.QDialog):
         self.ui = Ui_dlgAbout()
         self.ui.setupUi(self)
         self.ui.btnSalir.clicked.connect(self.close)
+
+class dlgTiposNP(QtWidgets.QDialog):
+    def __init__(self):
+        super(dlgTiposNP, self).__init__()
+        self.ui = Ui_ventanaTiposNP()
+        self.ui.setupUi(self)
+        self.ui.btnAnadirTipo.clicked.connect(nuevoPanelPractica.nuevoPanelPractica.guardarTipoNP)
+        self.ui.btnEliminarTipo.clicked.connect(nuevoPanelPractica.nuevoPanelPractica.borrarTipoNP)

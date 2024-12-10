@@ -220,6 +220,8 @@ class Conexion:
         except Exception as e:
             print("error cargarTipoProp en conexion", e)
 
+
+
     @staticmethod
     def altaPropiedad(propiedad):
         try:
@@ -390,3 +392,36 @@ class Conexion:
             return listado
         except Exception as e:
             print("error listadoFiltrado en conexion", e)
+
+    @staticmethod
+    def altaTipoNP(tipoNP):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("INSERT INTO tipoObjeto (tipo) VALUES (:tipo)")
+            query.bindValue(":tipo", tipoNP)
+            return query.exec()
+        except Exception as error:
+            print("Error en alta tipo propiedad: ", error)
+
+    @staticmethod
+    def borrarTipoNP(tipoNP):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("DELETE FROM tipoObjeto WHERE tipo = :tipo")
+            query.bindValue(":tipo", tipoNP)
+            return query.numRowsAffected()
+        except Exception as error:
+            print("Error en alta tipo propiedad: ", error)
+
+    @staticmethod
+    def cargarTipoNP():
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT tipo FROM tipoObjeto")
+            if query.exec():
+                registro = []
+                while query.next():
+                    registro.append(str(query.value(0)))
+                return registro
+        except Exception as e:
+            print("error cargarTipoNP en conexion", e)
