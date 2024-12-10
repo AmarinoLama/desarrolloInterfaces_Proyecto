@@ -26,6 +26,30 @@ locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 
 class Eventos():
 
+    @staticmethod
+    def crearMensajeInfo(titulo_ventana, mensaje):
+        mbox = QtWidgets.QMessageBox()
+        mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+        mbox.setWindowIcon(QtGui.QIcon('img/icono.png'))
+        mbox.setWindowTitle(titulo_ventana)
+        mbox.setText(mensaje)
+        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+        mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+        mbox.exec()
+
+    @staticmethod
+    def crearMensajeError(titulo_ventana, mensaje):
+        mbox = QtWidgets.QMessageBox()
+        mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+        mbox.setWindowIcon(QtGui.QIcon('img/icono.png'))
+        mbox.setWindowTitle(titulo_ventana)
+        mbox.setText(mensaje)
+        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+        mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+        mbox.exec()
+
     def mensajeSalir(self=None):
         mbox = QtWidgets.QMessageBox()
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
