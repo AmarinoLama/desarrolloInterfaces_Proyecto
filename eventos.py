@@ -72,6 +72,7 @@ class Eventos():
         #listado = conexionserver.ConexionServer.listaProv(self)
         var.ui.cmbProvinciacli.addItems(listado)
         var.ui.cmbProvinciaPro.addItems(listado)
+        var.ui.cmbDelegacionVend.addItems(listado)
 
     def cargarMunicipiosCli(self):
         var.ui.cmbMunicipiocli.clear()
@@ -126,6 +127,10 @@ class Eventos():
                 var.ui.txtPublicacionPro .setText(str(data))
             elif var.btn == 3:
                 var.ui.txtFechabajaPro.setText(str(data))
+            elif var.btn == 4:
+                var.ui.txtBajaVend.setText(str(data))
+            elif var.btn == 5:
+                var.ui.txtAltaVend.setText(str(data))
             time.sleep(0.125)
             var.uicalendar.hide()
             return data
@@ -134,7 +139,7 @@ class Eventos():
 
     def validarMail(mail):
         mail = mail.lower()
-        regex = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$'
+        regex = r'^([a-z0-9]+[\._])*[a-z0-9]+[@](\w+[.])*\w+$'
         if re.match(regex, mail) or mail == "":
             return True
         else:
@@ -176,6 +181,18 @@ class Eventos():
                 else:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
                 header_items = var.ui.tablaPropiedades.horizontalHeaderItem(i)
+                font = header_items.font()
+                font.setBold(True)
+                header_items.setFont(font)
+        except Exception as e:
+            print("error en resize tabla clientes: ", e)
+
+    def resizeTablaVendedores(self):
+        try:
+            header = var.ui.tablaVendedores.horizontalHeader()
+            for i in range(header.count()):
+                header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                header_items = var.ui.tablaVendedores.horizontalHeaderItem(i)
                 font = header_items.font()
                 font.setBold(True)
                 header_items.setFont(font)
@@ -237,9 +254,19 @@ class Eventos():
             var.ui.txtBajacli
         ]
 
+        objetosPanelvend = [var.ui.txtIdVend, var.ui.txtDniVend, var.ui.txtNombreVend, var.ui.txtAltaVend,
+                   var.ui.txtBajaVend, var.ui.txtTelefonoVend, var.ui.txtEmailVend,
+                   var.ui.cmbDelegacionVend]
+
         for i, dato in enumerate(objetosPanelcli):
             if i not in (7, 8):
                 dato.setText("")
+
+        for i, dato in enumerate(objetosPanelvend):
+            if i not in (0, 7):
+                dato.setText("")
+            elif i == 0:
+                var.ui.txtIdVend.setText("")
 
         eventos.Eventos.cargarProv(self)
         var.ui.cmbMunicipiocli.clear()
@@ -374,3 +401,25 @@ class Eventos():
                 propiedades.Propiedades.cargarTablaPropiedades(self, 0)
         except Exception as error:
             print("error en pagina clientes: ", error)
+
+    def exportJSONvendedores(self):
+        try:
+            fecha = datetime.today()
+            fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
+            file = str(fecha + "DatosVendedores.json")
+            directorio, fichero = var.dlgabrir.getSaveFileName(None, "Exporta Datos en CSV", file, '.csv')
+            if fichero:
+                keys = ["Id", "Nombre", "Movil", "Delegacion", "Dni", "Alta", "Baja", "Mail"]
+                historicoGuardar = var.historicoVend
+                var.historicoVend = 1
+                registros = conexion.Conexion.listadoDatosVendedores(self)
+                var.historicoVend = historicoGuardar
+                listadoVendedores = [dict(zip(keys, registro)) for registro in registros]
+                with open(fichero, "w", newline="", encoding="utf-8") as jsonfile:
+                    json.dump(listadoVendedores, jsonfile, ensure_ascii=False, indent=4)
+                shutil.move(fichero, directorio)
+                eventos.Eventos.crearMensajeInfo("Bien", "Se han exportado los datos bien")
+            else:
+                eventos.Eventos.crearMensajeError("Error", "Error al exportar los datos")
+        except Exception as e:
+            print(e)

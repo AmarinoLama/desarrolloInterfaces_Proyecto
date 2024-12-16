@@ -10,6 +10,7 @@ global op
 global dlgabrir
 global historicoCli
 global historicoProp
+global historicoVend
 global dlggestion
 global lupaState
 global dlgAbout

@@ -1,6 +1,7 @@
 import clientes
 import conexion
 import styles
+import vendedores
 from venAux import *
 from venPrincipal import *
 import sys
@@ -20,6 +21,7 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.db_conexion(self)
         var.historicoCli = 0
         var.historicoProp = 0
+        var.historicoVend = 0
         var.lupaState = 0
         var.rowsClientes = 15
         var.rowsPropiedades = 11
@@ -34,9 +36,12 @@ class Main(QtWidgets.QMainWindow):
         clientes.Clientes.cargaTablaClientes(self)
         eventos.Eventos.resizeTablaClientes(self)
         eventos.Eventos.resizeTablaPropiedades(self)
+        eventos.Eventos.resizeTablaVendedores(self)
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
         var.ui.tablaPropiedades.clicked.connect(propiedades.Propiedades.cargaOnePropiedad)
+        var.ui.tablaVendedores.clicked.connect(vendedores.Vendedores.cargarOneVendedor)
         propiedades.Propiedades.cargarTablaPropiedades(self, 0)
+        vendedores.Vendedores.cargarTablaVendedores(self)
 
         '''
         EVENTOS DEL MENUBAR
@@ -49,6 +54,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.action_exportCSVprop.triggered.connect(eventos.Eventos.exportCSVprop)
         var.ui.action_exportJSONprop.triggered.connect(eventos.Eventos.exportJSONprop)
         var.ui.actionAbout.triggered.connect(eventos.Eventos.abrirAbout)
+        var.ui.actionExportar_Vendedores_JSON.triggered.connect(eventos.Eventos.exportJSONvendedores)
 
         '''
         EVENTOS DE BOTONES
@@ -69,6 +75,12 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnSiguienteCli.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(self,1, "Clientes"))
         var.ui.btnAnteriorPro.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(self,0, "Propiedades"))
         var.ui.btnSiguientePro.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(self,1, "Propiedades"))
+        var.ui.btnGrabarVend.clicked.connect(vendedores.Vendedores.altaVendedor)
+        var.ui.btnModificarVend.clicked.connect(vendedores.Vendedores.modificarVendedor)
+        var.ui.btnBajaVend.clicked.connect(vendedores.Vendedores.bajaVendedor)
+        var.ui.btnAltaCalVend.clicked.connect(lambda: eventos.Eventos.abrirCalendar(5))
+        var.ui.btnBajaCalVend.clicked.connect(lambda: eventos.Eventos.abrirCalendar(4))
+        var.ui.btnFiltrarVend.clicked.connect(vendedores.Vendedores.filtrarPorTelefono)
 
         '''
         EVENTOS DE CAJAS DE TEXTO
@@ -81,6 +93,9 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtPrecioAlquilerPro.textChanged.connect(lambda : propiedades.Propiedades.manageCheckbox(self))
         var.ui.txtPrecioVentaPro.textChanged.connect(lambda : propiedades.Propiedades.manageCheckbox(self))
         var.ui.txtFechabajaPro.textChanged.connect(lambda : propiedades.Propiedades.manageRadioButtons(self))
+        #var.ui.txtDniVend.editingFinished.connect(lambda: clientes.Clientes.checkDNI(var.ui.txtDniVend.text()))
+        #var.ui.txtEmailVend.editingFinished.connect(lambda: clientes.Clientes.checkEmail(var.ui.txtEmailVend.text()))
+        #var.ui.txtTelefonoVend.editingFinished.connect(lambda: clientes.Clientes.checkTelefono(var.ui.txtTelefonoVend.text()))
 
         '''
         EVENTOS COMBOBOX
@@ -106,6 +121,7 @@ class Main(QtWidgets.QMainWindow):
 
         var.ui.chkHistoriacli.stateChanged.connect(clientes.Clientes.historicoCli)
         var.ui.chkHistoricoPro.stateChanged.connect(propiedades.Propiedades.historicoProp)
+        var.ui.chkHistoricoVend.stateChanged.connect(vendedores.Vendedores.historicoVend)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
