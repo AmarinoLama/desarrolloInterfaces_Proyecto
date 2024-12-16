@@ -104,8 +104,9 @@ class Vendedores:
     @staticmethod
     def bajaVendedor(self):
         try:
-            if var.ui.txtBajaVend.text != "":
+            if var.ui.txtBajaVend.text() != '':
                 eventos.Eventos.crearMensajeError("Error", "Error el vendedor ya está de baja")
+                return
             now = datetime.now()
             formatted_date = now.strftime("%d/%m/%Y")
             var.ui.txtBajacli.setText(formatted_date)

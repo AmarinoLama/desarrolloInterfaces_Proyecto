@@ -431,7 +431,7 @@ class Conexion:
                 query = QtSql.QSqlQuery()
                 query.prepare(
                     "SELECT idVendedo, nombreVendedor, movilVendedor, delegacionVendedor "
-                              "FROM vendedores WHERE bajaVendedor IS NULL ORDER BY idVendedo ASC")
+                              "FROM vendedores WHERE bajaVendedor IS NULL or bajaVendedor = '' ORDER BY idVendedo ASC")
                 if query.exec():
                     while query.next():
                         fila = [query.value(i) for i in range(query.record().count())]
