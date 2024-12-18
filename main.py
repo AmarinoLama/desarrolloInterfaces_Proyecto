@@ -1,5 +1,6 @@
 import clientes
 import conexion
+import informes
 import styles
 import vendedores
 from venAux import *
@@ -55,6 +56,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.action_exportJSONprop.triggered.connect(eventos.Eventos.exportJSONprop)
         var.ui.actionAbout.triggered.connect(eventos.Eventos.abrirAbout)
         var.ui.actionExportar_Vendedores_JSON.triggered.connect(eventos.Eventos.exportJSONvendedores)
+        var.ui.actionListado_Clientes.triggered.connect(informes.Informes.reportClientes)
 
         '''
         EVENTOS DE BOTONES

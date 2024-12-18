@@ -16,3 +16,4 @@ global lupaState
 global dlgAbout
 global rowsClientes
 global rowsPropiedades
+global report
