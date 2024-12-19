@@ -1,47 +1,51 @@
+from reportlab.pdfgen import canvas
 from datetime import datetime
 from PIL import Image
-from reportlab.pdfgen import canvas
 import os, shutil
 import var
 
 class Informes:
-
+    @staticmethod
     def reportClientes(self):
         try:
-            fecha = datetime.today().strftime('%d/%m/%Y')
+            rootPath = '.\\informes'
+            if not os.path.exists(rootPath):
+                os.makedirs(rootPath)
+            fecha = datetime.today()
+            fecha = fecha.strftime("%Y_%m_%d_%H_%M_%S")
             nomepdfcli = fecha + "_listadoclientes.pdf"
-            self.report = canvas.Canvas('informes/', nomepdfcli)
+            pdf_path = os.path.join(rootPath, nomepdfcli)   #también esto
+            var.report = canvas.Canvas(pdf_path)
             titulo = "Listado Clientes"
             Informes.topInforme(titulo)
             Informes.footInforme(titulo)
             items = ['DNI', 'APELLIDOS', 'NOMBRE', 'MOVIL', 'PROVINCIA', 'MUNICIPIO']
-            self.report.setFont('Helvetica-Bold', size=10)
-            self.report.drawString(50, 650, str(items[0]))
-            self.report.drawString(120, 650, str(items[1]))
-            self.report.drawString(170, 650, str(items[2]))
-            self.report.drawString(285, 650, str(items[3]))
-            self.report.drawString(390, 650, str(items[4]))
-            self.report.drawString(460, 650, str(items[5]))
-            self.report.line(50, 645, 525, 645)
-
+            var.report.setFont('Helvetica-Bold', size=10)
+            var.report.drawString(55, 650, str(items[0]))
+            var.report.drawString(100, 650, str(items[1]))
+            var.report.drawString(190, 650, str(items[2]))
+            var.report.drawString(285, 650, str(items[3]))
+            var.report.drawString(360, 650, str(items[4]))
+            var.report.drawString(450, 650, str(items[5]))
+            var.report.line(50, 645, 525, 645)
             var.report.save()
-            rootPath = '.\\informes'
-            for file in os.endswith(rootPath):
+            for file in os.listdir(rootPath):
                 if file.endswith(nomepdfcli):
-                    os.startfile(file)('%s\\%s' % (rootPath, file))
-        except Exception as e:
-            print(e)
+                    os.startfile(pdf_path)
+
+        except Exception as error:
+            print(error)
 
     def topInforme(titulo):
         try:
-            ruta_logo = '.\\img\\logo.ico'
+            ruta_logo = '.\\img\\icono.png'
             logo = Image.open(ruta_logo)
 
             # Asegúrate de que el objeto 'logo' sea de tipo 'PngImageFile'
             if isinstance(logo, Image.Image):
                 var.report.line(50, 800, 525, 800)
                 var.report.setFont('Helvetica-Bold', size=14)
-                var.report.drawString(55, 785, 'Transportes Teis')
+                var.report.drawString(55, 785, 'Inmobiliaria Teis')
                 var.report.drawString(230, 670, titulo)
                 var.report.line(50, 665, 525, 665)
 

@@ -1931,34 +1931,8 @@
           </item>
           <item row="0" column="0">
            <layout class="QGridLayout" name="gridLayout_3">
-            <item row="1" column="2">
-             <widget class="QLineEdit" name="txtDniVend">
-              <property name="maximumSize">
-               <size>
-                <width>150</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 252, 220);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="6">
-             <widget class="QComboBox" name="cmbDelegacionVend">
-              <property name="maximumSize">
-               <size>
-                <width>150</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 252, 220);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="4">
-             <spacer name="horizontalSpacer_30">
+            <item row="0" column="0">
+             <spacer name="horizontalSpacer_41">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -1970,25 +1944,47 @@
               </property>
              </spacer>
             </item>
-            <item row="1" column="6">
-             <widget class="QLineEdit" name="txtEmailVend">
-              <property name="maximumSize">
+            <item row="0" column="12">
+             <spacer name="horizontalSpacer_44">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
                <size>
-                <width>250</width>
-                <height>16777215</height>
+                <width>40</width>
+                <height>20</height>
                </size>
               </property>
-             </widget>
+             </spacer>
             </item>
-            <item row="1" column="5" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="label_10">
-              <property name="text">
-               <string>Email:</string>
+            <item row="1" column="0">
+             <spacer name="horizontalSpacer_42">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
               </property>
-             </widget>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
-            <item row="1" column="9">
-             <widget class="QLabel" name="label_8">
+            <item row="2" column="0">
+             <spacer name="horizontalSpacer_43">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="5">
+             <widget class="QLabel" name="label_9">
               <property name="maximumSize">
                <size>
                 <width>60</width>
@@ -1996,7 +1992,42 @@
                </size>
               </property>
               <property name="text">
-               <string>Fecha Baja:</string>
+               <string>Teléfono:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="txtIdVend">
+              <property name="minimumSize">
+               <size>
+                <width>120</width>
+                <height>2</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 252, 220);</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLineEdit" name="txtDniVend">
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 252, 220);</string>
               </property>
              </widget>
             </item>
@@ -2026,30 +2057,58 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="2">
-             <widget class="QLabel" name="txtIdVend">
-              <property name="minimumSize">
+            <item row="1" column="5" alignment="Qt::AlignRight">
+             <widget class="QLabel" name="label_10">
+              <property name="text">
+               <string>Email:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <spacer name="horizontalSpacer_30">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
                <size>
-                <width>120</width>
-                <height>2</height>
+                <width>40</width>
+                <height>20</height>
                </size>
               </property>
+             </spacer>
+            </item>
+            <item row="1" column="6">
+             <widget class="QLineEdit" name="txtEmailVend">
               <property name="maximumSize">
                <size>
-                <width>120</width>
-                <height>20</height>
+                <width>250</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="6">
+             <widget class="QComboBox" name="cmbDelegacionVend">
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>16777215</height>
                </size>
               </property>
               <property name="styleSheet">
                <string notr="true">background-color: rgb(255, 252, 220);</string>
               </property>
+             </widget>
+            </item>
+            <item row="0" column="1" alignment="Qt::AlignRight">
+             <widget class="QLabel" name="lblIdVend">
               <property name="text">
-               <string/>
+               <string>Id:</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="5">
-             <widget class="QLabel" name="label_9">
+            <item row="1" column="9">
+             <widget class="QLabel" name="label_8">
               <property name="maximumSize">
                <size>
                 <width>60</width>
@@ -2057,7 +2116,20 @@
                </size>
               </property>
               <property name="text">
-               <string>Teléfono:</string>
+               <string>Fecha Baja:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5" alignment="Qt::AlignRight">
+             <widget class="QLabel" name="label_11">
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Delegacion:</string>
               </property>
              </widget>
             </item>
@@ -2071,10 +2143,13 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="1" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="label_6">
+            <item row="2" column="10" alignment="Qt::AlignHCenter">
+             <widget class="QCheckBox" name="chkHistoricoVend">
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
               <property name="text">
-               <string>Nombre y apellidos:</string>
+               <string>Historico</string>
               </property>
              </widget>
             </item>
@@ -2091,16 +2166,20 @@
               </property>
              </spacer>
             </item>
-            <item row="2" column="5" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="label_11">
+            <item row="2" column="1" alignment="Qt::AlignRight">
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>Nombre y apellidos:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="10">
+             <widget class="QLineEdit" name="txtBajaVend">
               <property name="maximumSize">
                <size>
-                <width>60</width>
+                <width>120</width>
                 <height>16777215</height>
                </size>
-              </property>
-              <property name="text">
-               <string>Delegacion:</string>
               </property>
              </widget>
             </item>
@@ -2116,23 +2195,6 @@
                </size>
               </property>
              </spacer>
-            </item>
-            <item row="0" column="9" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="label_7">
-              <property name="text">
-               <string>Fecha Alta:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="10">
-             <widget class="QLineEdit" name="txtBajaVend">
-              <property name="maximumSize">
-               <size>
-                <width>120</width>
-                <height>16777215</height>
-               </size>
-              </property>
-             </widget>
             </item>
             <item row="2" column="2">
              <widget class="QLineEdit" name="txtNombreVend">
@@ -2160,15 +2222,45 @@
               </property>
              </spacer>
             </item>
-            <item row="2" column="10" alignment="Qt::AlignHCenter">
-             <widget class="QCheckBox" name="chkHistoricoVend">
-              <property name="layoutDirection">
-               <enum>Qt::LeftToRight</enum>
-              </property>
+            <item row="0" column="9" alignment="Qt::AlignRight">
+             <widget class="QLabel" name="label_7">
               <property name="text">
-               <string>Historico</string>
+               <string>Fecha Alta:</string>
               </property>
              </widget>
+            </item>
+            <item row="1" column="1" alignment="Qt::AlignRight">
+             <widget class="QLabel" name="lblDniVend">
+              <property name="text">
+               <string>Dni:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="8">
+             <spacer name="horizontalSpacer_39">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="4">
+             <spacer name="horizontalSpacer_29">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
             <item row="0" column="6">
              <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -2216,26 +2308,6 @@
               </item>
              </layout>
             </item>
-            <item row="0" column="4">
-             <spacer name="horizontalSpacer_29">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="1" column="1" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="lblDniVend">
-              <property name="text">
-               <string>Dni:</string>
-              </property>
-             </widget>
-            </item>
             <item row="0" column="11">
              <widget class="QPushButton" name="btnAltaCalVend">
               <property name="minimumSize">
@@ -2259,78 +2331,6 @@
               <property name="icon">
                <iconset>
                 <normaloff>../img/calendar.png</normaloff>../img/calendar.png</iconset>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="8">
-             <spacer name="horizontalSpacer_39">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="0" column="12">
-             <spacer name="horizontalSpacer_44">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="0" column="0">
-             <spacer name="horizontalSpacer_43">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="1" column="0">
-             <spacer name="horizontalSpacer_42">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="2" column="0">
-             <spacer name="horizontalSpacer_41">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="0" column="1" alignment="Qt::AlignRight">
-             <widget class="QLabel" name="lblIdVend">
-              <property name="text">
-               <string>Id:</string>
               </property>
              </widget>
             </item>
