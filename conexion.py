@@ -7,27 +7,27 @@ import var
 
 class Conexion:
 
-    '''
-
-    método de una clase que no depende de una instancia específica de esa clase. 
-    Se puede llamarlo directamente a través de la clase, sin necesidad de crear un objeto de esa clase. 
-    Es útil en comportamientos o funcionalidades que son más a una clase en general que a una instancia en particular.
-    
-    '''
-
     @staticmethod
     def db_conexion(self):
-        # Verifica si el archivo de base de datos existe
+        """
+
+        :param self: None
+        :type self: None
+        :return:  False or True
+        :rtype: Booleano
+
+        Módulo para establecer la conexión con la base de datos.
+        Si éxito devuelve true, en caso contrario devuelve false.
+
+        """
         if not os.path.isfile('bbdd.sqlite'):
             QtWidgets.QMessageBox.critical(None, 'Error', 'El archivo de la base de datos no existe.',
                                            QtWidgets.QMessageBox.StandardButton.Cancel)
             return False
-        # Crear la conexión con la base de datos SQLite
         db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
         db.setDatabaseName('bbdd.sqlite')
 
         if db.open():
-            # Verificar si la base de datos contiene tablas
             query = QtSql.QSqlQuery()
             query.exec("SELECT name FROM sqlite_master WHERE type='table';")
 
@@ -46,6 +46,16 @@ class Conexion:
 
     @staticmethod
     def listaProv(self):
+        """
+
+        :param self: None
+        :type self: None
+        :return: lista provincias
+        :rtype: bytearray
+
+        Query que obtiene listado provincias en la base de datos.
+
+        """
         listaprov = []
         query = QtSql.QSqlQuery()
         query.prepare("SELECT * FROM provincias")
@@ -56,6 +66,16 @@ class Conexion:
 
     @staticmethod
     def listaMunicipios(provincia):
+        """
+
+        :param provincia: nombre provincia
+        :type provincia: str
+        :return: lista municipios
+        :rtype: bytearray
+
+        Query que obtiene listado municipios en la base de datos.
+
+        """
         try:
             listamunicipios = []
             query = QtSql.QSqlQuery()
@@ -70,6 +90,15 @@ class Conexion:
 
     @staticmethod
     def altaCliente(nuevocli):
+        """
+
+        :param nuevocli: array con los datos del cliente
+        :type nuevocli: list
+        :return: true o false
+        :rtype: booleano
+
+        Query que inserta un nuevo cliente en la base de datos.
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
@@ -94,7 +123,14 @@ class Conexion:
             print("error altaCliente en conexion", e)
 
     @staticmethod
-    def listadoClientes(self):   #Controlar si te pasas que deje de sumar
+    def listadoClientes(self):
+        """
+
+        :param self:
+        :type self:
+        :return:
+        :rtype:
+        """
         try:
             listado = []
 
