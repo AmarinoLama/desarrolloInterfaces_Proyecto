@@ -126,10 +126,12 @@ class Conexion:
     def listadoClientes(self):
         """
 
-        :param self:
-        :type self:
-        :return:
-        :rtype:
+        :param self: None
+        :type self: None
+        :return: listado de clientes
+        :rtype: bytearray
+
+        Query que obtiene listado de clientes en la base de datos.
         """
         try:
             listado = []
@@ -165,6 +167,15 @@ class Conexion:
 
     @staticmethod
     def datosOneCliente(dni):
+        """
+
+        :param dni: dni del cliente
+        :type dni: str
+        :return: datos del cliente
+        :rtype: bytearray
+
+        Query que obtiene los datos de un cliente en la base de datos.
+        """
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -180,6 +191,15 @@ class Conexion:
 
     @staticmethod
     def modifCliente(registro):
+        """
+
+        :param registro: datos del cliente
+        :type registro: list
+        :return: true o false
+        :rtype: booleano
+
+        Query que modifica los datos de un cliente en la base de datos.
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("select count(*) from clientes where dnicli = :dni")
@@ -214,6 +234,15 @@ class Conexion:
 
     @staticmethod
     def bajaCliente(datos):
+        """
+
+        :param datos: datos del cliente
+        :type datos: list
+        :return: true o false
+        :rtype: booleano
+
+        Query que da de baja a un cliente en la base de datos.
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("UPDATE clientes SET bajacli = :bajacli WHERE dnicli = :dni")
@@ -225,6 +254,15 @@ class Conexion:
 
     @staticmethod
     def altaTipoPropiedad(tipo):
+        """
+
+        :param tipo: tipo de propiedad
+        :type tipo: str
+        :return: true o false
+        :rtype: booleano
+
+        Query que da de alta un nuevo tipo de propiedad en la base de datos.
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("INSERT INTO tipoprop (tipo) VALUES (:tipo)")
@@ -235,6 +273,15 @@ class Conexion:
 
     @staticmethod
     def bajaTipoPropiedad(tipo):
+        """
+
+        :param tipo: tipo de propiedad
+        :type tipo: str
+        :return: true o false
+        :rtype: booleano
+
+        Query que borra un tipo de propiedad en la base de datos.
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("DELETE FROM tipoprop WHERE tipo = :tipo")
