@@ -72,7 +72,7 @@
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="pClientres">
        <attribute name="title">
@@ -2497,6 +2497,7 @@
      <string>Informes</string>
     </property>
     <addaction name="actionListado_Clientes"/>
+    <addaction name="actionListado_Propiedades"/>
    </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuGesti_n"/>
@@ -2614,6 +2615,11 @@
   <action name="actionListado_Clientes">
    <property name="text">
     <string>Listado Clientes</string>
+   </property>
+  </action>
+  <action name="actionListado_Propiedades">
+   <property name="text">
+    <string>Listado Propiedades</string>
    </property>
   </action>
  </widget>

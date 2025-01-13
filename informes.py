@@ -6,6 +6,7 @@ import os, shutil
 import var
 
 class Informes:
+    @staticmethod
     def reportClientes(self):
         try:
             rootPath = '.\\informes'
@@ -20,15 +21,14 @@ class Informes:
             Informes.topInforme(titulo)
 
             # Calculate total pages
-            query = QtSql.QSqlQuery()
-            query.prepare("SELECT COUNT(*) FROM clientes")
-            query.exec()
-            query.next()
-            total_records = query.value(0)
-            records_per_page = 20
-            total_pages = (total_records % records_per_page) + (1 if total_records % records_per_page > 0 else 0)
 
-            Informes.footInforme(titulo, total_pages)
+            paginas = 0
+            query0 = QtSql.QSqlQuery()
+            query0.exec("select count(*) from clientes")
+            if (query0.next()):
+                registros = int(query0.value(0))
+                paginas = int(registros / 20)
+            Informes.footInforme(titulo, paginas)
             items = ['DNI', 'APELLIDOS', 'NOMBRE', 'MOVIL', 'PROVINCIA', 'MUNICIPIO']
             var.report.setFont('Helvetica-Bold', size=10)
             var.report.drawString(55, 650, str(items[0]))  # DNI
@@ -38,17 +38,17 @@ class Informes:
             var.report.drawString(360, 650, str(items[4]))  # PROVINCIA
             var.report.drawString(450, 650, str(items[5]))  # MUNICIPIO
             var.report.line(50, 645, 525, 645)
-            query.prepare("SELECT dniCli, apelCli, nomeCli, movilCli, provCli, muniCli from clientes order by apelCli")
-            if query.exec():
+            query0.prepare("SELECT dniCli, apelCli, nomeCli, movilCli, provCli, muniCli from clientes order by apelCli")
+            if query0.exec():
                 x = 60
                 y = 630
-                while query.next():
+                while query0.next():
                     if y <= 90:
                         var.report.setFont('Helvetica-Oblique', size=8)  # HELVETICA OBLIQUE PARA LA FUENTE ITALIC
                         var.report.drawString(450, 80, 'Página siguiente...')
                         var.report.showPage()  # CREAMOS UNA PAGINA NUEVA
                         Informes.topInforme(titulo)
-                        Informes.footInforme(titulo, total_pages)
+                        Informes.footInforme(titulo, paginas)
                         items = ['DNI', 'APELLIDOS', 'NOMBRE', 'MOVIL', 'PROVINCIA', 'MUNICIPIO']
                         var.report.setFont('Helvetica-Bold', size=10)
                         var.report.drawString(55, 650, str(items[0]))  # DNI
@@ -62,13 +62,13 @@ class Informes:
                         y = 630
 
                     var.report.setFont('Helvetica', size=8)
-                    dni = '****' + str(query.value(0)[4:7] + '****')
+                    dni = '****' + str(query0.value(0)[4:7] + '****')
                     var.report.drawCentredString(x + 5, y, str(dni))  # DNI
-                    var.report.drawString(x + 40, y, str(query.value(1)))  # APELLIDOS
-                    var.report.drawString(x + 130, y, str(query.value(2)))  # NOMBRE
-                    var.report.drawString(x + 220, y, str(query.value(3)))  # MOVIL
-                    var.report.drawString(x + 310, y, str(query.value(4)))  # PROVINCIA
-                    var.report.drawString(x + 390, y, str(query.value(5)))  # MUNICIPIO
+                    var.report.drawString(x + 40, y, str(query0.value(1)))  # APELLIDOS
+                    var.report.drawString(x + 130, y, str(query0.value(2)))  # NOMBRE
+                    var.report.drawString(x + 220, y, str(query0.value(3)))  # MOVIL
+                    var.report.drawString(x + 310, y, str(query0.value(4)))  # PROVINCIA
+                    var.report.drawString(x + 390, y, str(query0.value(5)))  # MUNICIPIO
                     y = y - 25.
 
             var.report.save()
@@ -76,6 +76,12 @@ class Informes:
                 if file.endswith(nomepdfcli):
                     os.startfile(pdf_path)
         except Exception as error:
+            print(error)
+
+    def reportPropiedades(self):
+       try:
+           lu = "adas"
+       except Exception as error:
             print(error)
 
     def topInforme(titulo):
@@ -106,8 +112,9 @@ class Informes:
             print('Error en cabecera informe:', error)
 
 
-    def footInforme(titulo, total_pages):
+    def footInforme(titulo, totalPaginas):
         try:
+            total_pages = totalPaginas
             var.report.line(50, 50, 525, 50)
             fecha = datetime.today()
             fecha = fecha.strftime('%d-%m-%Y %H:%M:%S')
