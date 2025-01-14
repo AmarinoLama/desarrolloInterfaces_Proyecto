@@ -73,7 +73,7 @@ class Conexion:
         :return: lista municipios
         :rtype: bytearray
 
-        Query que obtiene listado municipios en la base de datos.
+        Query que obtiene listado municipios en la base de datos de una provincia concreta.
 
         """
         try:
@@ -81,6 +81,29 @@ class Conexion:
             query = QtSql.QSqlQuery()
             query.prepare("SELECT * FROM municipios where idprov = (select idprov from provincias where provincia = :provincia)")
             query.bindValue(":provincia", provincia)
+            if query.exec():
+                while query.next():
+                    listamunicipios.append(query.value(1))
+            return listamunicipios
+        except Exception as e:
+            print("error lista municipios", e)
+
+    @staticmethod
+    def listaTodosMunicipios(self):
+        """
+
+        :param self: None
+        :type self: None
+        :return: lista municipios
+        :rtype: bytearray
+
+        Query que obtiene listado de todos los municipios en la base de datos.
+
+        """
+        try:
+            listamunicipios = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM municipios")
             if query.exec():
                 while query.next():
                     listamunicipios.append(query.value(1))

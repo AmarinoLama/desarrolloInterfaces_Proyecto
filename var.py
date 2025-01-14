@@ -14,6 +14,7 @@ global historicoVend
 global dlggestion
 global lupaState
 global dlgAbout
+global dlgLocalidad
 global rowsClientes
 global rowsPropiedades
 global report

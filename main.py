@@ -1,6 +1,4 @@
 import clientes
-import conexion
-import informes
 import styles
 import vendedores
 from venAux import *
@@ -18,8 +16,10 @@ class Main(QtWidgets.QMainWindow):
         var.dlgabrir = FileDialogAbrir()
         var.dlggestion = dlgGestionProp()
         var.dlgAbout = dlgAbout()
-        self.setStyleSheet(styles.load_stylesheet())
         conexion.Conexion.db_conexion(self)
+        listado = conexion.Conexion.listaTodosMunicipios(self)
+        var.dlgLocalidad = dlgBuscarProp(listado)
+        self.setStyleSheet(styles.load_stylesheet())
         var.historicoCli = 0
         var.historicoProp = 0
         var.historicoVend = 0
@@ -57,7 +57,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionAbout.triggered.connect(eventos.Eventos.abrirAbout)
         var.ui.actionExportar_Vendedores_JSON.triggered.connect(eventos.Eventos.exportJSONvendedores)
         var.ui.actionListado_Clientes.triggered.connect(informes.Informes.reportClientes)
-        var.ui.actionListado_Propiedades.triggered.connect(informes.Informes.reportPropiedades)
+        var.ui.actionListado_Propiedades.triggered.connect(eventos.Eventos.abrirBuscarLocalidad)
 
         '''
         EVENTOS DE BOTONES

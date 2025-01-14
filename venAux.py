@@ -1,9 +1,13 @@
 from datetime import datetime
 
-from PyQt6.QtWidgets import QDialog
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QDialog, QCompleter
 
+import conexion
+import informes
 import propiedades
 from dlgAbout import Ui_dlgAbout
+from dlgBuscarProp import Ui_dlgInformeProp
 from dlgCalendar import *
 import var
 import eventos
@@ -40,3 +44,27 @@ class dlgAbout(QtWidgets.QDialog):
         self.ui = Ui_dlgAbout()
         self.ui.setupUi(self)
         self.ui.btnSalir.clicked.connect(self.close)
+
+class dlgBuscarProp(QtWidgets.QDialog):
+    def __init__(self, propiedades):
+        super(dlgBuscarProp, self).__init__()
+        self.ui = Ui_dlgInformeProp()
+        self.ui.setupUi(self)
+        self.ui.cmbInformeMuniProp.addItem("") # Agrega la primera opción vacía
+        self.ui.cmbInformeMuniProp.addItems(propiedades)
+
+        # Crea un QCompleter para habilitar el autocompletado
+        completer = QCompleter(propiedades, self)
+        completer.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+
+        # Asignar el QCompleter al QComboBox
+        self.ui.cmbInformeMuniProp.setCompleter(completer)
+
+        # Conectar el botón en el método
+        #self.ui.btnInformeProp.clicked.disconnect()
+        self.ui.btnInformeProp.clicked.connect(self.on_btnBuscarProp_clicked)
+
+    def on_btnBuscarProp_clicked(self):
+        localidad = self.ui.cmbInformeMuniProp.currentText()
+        informes.Informes.reportPropiedades(localidad)
+        self.accept()

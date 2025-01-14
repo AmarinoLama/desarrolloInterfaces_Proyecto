@@ -383,6 +383,12 @@ class Eventos():
         except Exception as error:
             print("error en abrir about ", error)
 
+    def abrirBuscarLocalidad(self):
+        try:
+            var.dlgLocalidad.show()
+        except Exception as error:
+            print("error en abrir BuscarLocalidad ", error)
+
     def movimientoPaginas(self, avance, tabla):
         try:
             if tabla == "Clientes":

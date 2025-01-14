@@ -80,7 +80,44 @@ class Informes:
 
     def reportPropiedades(self):
        try:
-           lu = "adas"
+          rootPath = '.\\informes'
+          if not os.path.exists(rootPath):
+            os.makedirs(rootPath)
+          fecha = datetime.today()
+          fecha = fecha.strftime("%Y_%m_%d_%H_%M_%S")
+          nomepdfprop = fecha + "_listadopropiedades.pdf"
+          pdf_path = os.path.join(rootPath, nomepdfprop)
+          var.report = canvas.Canvas(pdf_path)
+          titulo = "Listado Propiedades"
+          Informes.topInforme(titulo)
+
+          # Calculate total pages
+
+          paginas = 0
+          query0 = QtSql.QSqlQuery()
+          query0.exec("select count(*) from propiedades")
+          if (query0.next()):
+            registros = int(query0.value(0))
+            paginas = int(registros / 20)
+          Informes.footInforme(titulo, paginas)
+          items = ['ID', 'TIPO', 'DIRECCION', 'PROVINCIA', 'MUNICIPIO', 'HABITACIONES', 'PRECIO']
+          var.report.setFont('Helvetica-Bold', size=10)
+          var.report.drawString(55, 650, str(items[0]))  # ID
+          var.report.drawString(100, 650, str(items[1]))  # TIPO
+          var.report.drawString(190, 650, str(items[2]))  # DIRECCION
+          var.report.drawString(280, 650, str(items[3]))  # PROVINCIA
+          var.report.drawString(360, 650, str(items[4]))  # MUNICIPIO
+          var.report.drawString(450, 650, str(items[5]))  # HABITACIONES
+          var.report.drawString(510, 650, str(items[6]))  # PRECIO
+          var.report.line(50, 645, 525, 645)
+          query0.prepare("SELECT idProp, tipoProp, dirProp, provProp, muniProp, habitaciones, precio from propiedades order by idProp")
+          if query0.exec():
+            x = 60
+            y = 630
+            while query0.next():
+                 if y <= 90:
+                      var.report.setFont('Helvetica-Oblique', size=8)  # HELVETICA OBLIQUE PARA LA FUENTE ITALIC
+                      var.report.drawString(450, 80)
        except Exception as error:
             print(error)
 
