@@ -131,6 +131,8 @@ class Eventos():
                 var.ui.txtBajaVend.setText(str(data))
             elif var.btn == 5:
                 var.ui.txtAltaVend.setText(str(data))
+            elif var.btn == 6:
+                var.ui.txtFechaFactura.setText(str(data))
             time.sleep(0.125)
             var.uicalendar.hide()
             return data

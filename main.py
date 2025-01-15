@@ -1,4 +1,7 @@
+from ctypes.wintypes import VARIANT_BOOL
+
 import clientes
+import facturas
 import styles
 import vendedores
 from venAux import *
@@ -84,6 +87,9 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnAltaCalVend.clicked.connect(lambda: eventos.Eventos.abrirCalendar(5))
         var.ui.btnBajaCalVend.clicked.connect(lambda: eventos.Eventos.abrirCalendar(4))
         var.ui.btnFiltrarVend.clicked.connect(vendedores.Vendedores.filtrarPorTelefono)
+        var.ui.btnCalendarVentas.clicked.connect(lambda: eventos.Eventos.abrirCalendar(6))
+        var.ui.btnGrabarVenta.clicked.connect(lambda: facturas.Facturas.altaVenta(self))
+
 
         '''
         EVENTOS DE CAJAS DE TEXTO

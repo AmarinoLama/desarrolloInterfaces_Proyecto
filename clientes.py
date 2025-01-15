@@ -179,6 +179,7 @@ class Clientes:
                     listado[i].setCurrentText(registro[i])
                 else:
                     listado[i].setText(registro[i])
+            var.ui.txtDniVentas.setText(registro[0])
         except Exception as e:
             print("error cargaOneCliente en clientes", e)
 

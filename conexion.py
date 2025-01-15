@@ -315,6 +315,7 @@ class Conexion:
 
     @staticmethod
     def cargarTipoProp():
+
         try:
             query = QtSql.QSqlQuery()
             query.prepare("SELECT tipo FROM tipoprop")
@@ -621,3 +622,10 @@ class Conexion:
             return query.exec()
         except Exception as e:
             print("error bajaVendedor en conexion", e)
+
+    '''
+    ZONA FACTURACIÓN
+    '''
+
+    def altaFactura(nuevaFactura):
+        try:
