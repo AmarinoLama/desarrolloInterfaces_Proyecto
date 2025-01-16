@@ -29,6 +29,7 @@ class Main(QtWidgets.QMainWindow):
         var.lupaState = 0
         var.rowsClientes = 15
         var.rowsPropiedades = 11
+        var.rowsVendedores = 10
         #conexionserver.ConexionServer.crear_conexion(self)
         propiedades.Propiedades.manageCheckbox(self)
         propiedades.Propiedades.manageRadioButtons(self)
@@ -89,6 +90,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnFiltrarVend.clicked.connect(vendedores.Vendedores.filtrarPorTelefono)
         var.ui.btnCalendarVentas.clicked.connect(lambda: eventos.Eventos.abrirCalendar(6))
         var.ui.btnGrabarVenta.clicked.connect(lambda: facturas.Facturas.altaVenta(self))
+        #var.ui.btnAnteriorVend.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(self,0, "Vendedores"))
+        #var.ui.btnSiguienteVend.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(self,1, "Vendedores"))
 
 
         '''
@@ -102,9 +105,6 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtPrecioAlquilerPro.textChanged.connect(lambda : propiedades.Propiedades.manageCheckbox(self))
         var.ui.txtPrecioVentaPro.textChanged.connect(lambda : propiedades.Propiedades.manageCheckbox(self))
         var.ui.txtFechabajaPro.textChanged.connect(lambda : propiedades.Propiedades.manageRadioButtons(self))
-        #var.ui.txtDniVend.editingFinished.connect(lambda: clientes.Clientes.checkDNI(var.ui.txtDniVend.text()))
-        #var.ui.txtEmailVend.editingFinished.connect(lambda: clientes.Clientes.checkEmail(var.ui.txtEmailVend.text()))
-        #var.ui.txtTelefonoVend.editingFinished.connect(lambda: clientes.Clientes.checkTelefono(var.ui.txtTelefonoVend.text()))
 
         '''
         EVENTOS COMBOBOX

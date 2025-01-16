@@ -15,3 +15,6 @@ class Facturas:
                 eventos.Eventos.crearMensajeInfo("Aviso", "Error al guardar la factura")
         except Exception as error:
             print('Error altaVenta: %s' % str(error))
+
+
+    # hacer metodos cargar tabla

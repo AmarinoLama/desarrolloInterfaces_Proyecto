@@ -18,6 +18,7 @@ import locale
 import zipfile
 import shutil
 import conexionserver
+import vendedores
 
 # Establecer configuración regional
 
@@ -407,6 +408,13 @@ class Eventos():
                 else:
                     var.rowsPropiedades += 11
                 propiedades.Propiedades.cargarTablaPropiedades(self, 0)
+            elif tabla == "Vendedores":
+                if avance == 0:
+                    if var.rowsVendedores >= 10:
+                        var.rowsVendedores -= 10
+                else:
+                    var.rowsVendedores += 10
+                vendedores.Vendedores.cargarTablaVendedores(self)
         except Exception as error:
             print("error en pagina clientes: ", error)
 

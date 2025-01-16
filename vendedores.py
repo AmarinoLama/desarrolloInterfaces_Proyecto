@@ -51,6 +51,16 @@ class Vendedores:
                 var.ui.tablaVendedores.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
 
+            if var.rowsVendedores == 10:
+                var.ui.btnAnteriorVend.setEnabled(False)
+            else:
+                var.ui.btnAnteriorVend.setEnabled(True)
+
+            if len(listado) < 10:
+                var.ui.btnSiguienteVend.setEnabled(False)
+            else:
+                var.ui.btnSiguienteVend.setEnabled(True)
+
         except Exception as e:
             print("error cargaTablaClientes", e)
 

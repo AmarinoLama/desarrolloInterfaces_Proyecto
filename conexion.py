@@ -1,4 +1,6 @@
 import os
+
+from PIL.ImageChops import offset
 from PyQt6 import QtGui, QtSql, QtWidgets, QtCore
 from PyQt6.uic.properties import QtGui
 
@@ -501,7 +503,6 @@ class Conexion:
     @staticmethod
     def altaVendedor(nuevoVendedor):
         try:
-            print("hello")
             query = QtSql.QSqlQuery()
             query.prepare(
                 "INSERT INTO VENDEDORES (dniVendedor, nombreVendedor, altaVendedor, movilVendedor, mailVendedor, delegacionVendedor) "
@@ -526,10 +527,17 @@ class Conexion:
         try:
             listado = []
 
+            #numRows = var.rowsVendedores
+
+            #offset = (numRows - 10) if numRows >= 10 else 0
+
             if var.historicoVend == 1:
                 query = QtSql.QSqlQuery()
                 query.prepare("SELECT idVendedo, nombreVendedor, movilVendedor, delegacionVendedor "
-                              "FROM vendedores ORDER BY idVendedo ASC")
+                             "FROM vendedores ORDER BY idVendedo ASC")
+                #query.prepare("SELECT idVendedo, nombreVendedor, movilVendedor, delegacionVendedor "
+                #              "FROM vendedores ORDER BY idVendedo ASC LIMIT 10 OFFSET :offset")
+                #query.bindValue(":offeset", offset)
                 if query.exec():
                     while query.next():
                         fila = [query.value(i) for i in range(query.record().count())]
@@ -538,11 +546,19 @@ class Conexion:
                 query = QtSql.QSqlQuery()
                 query.prepare(
                     "SELECT idVendedo, nombreVendedor, movilVendedor, delegacionVendedor "
-                              "FROM vendedores WHERE bajaVendedor IS NULL or bajaVendedor = '' ORDER BY idVendedo ASC")
+                    "FROM vendedores WHERE bajaVendedor IS NULL or bajaVendedor = '' ORDER BY idVendedo ASC")
+                #query.prepare(
+                #    "SELECT idVendedo, nombreVendedor, movilVendedor, delegacionVendedor "
+                #    "FROM vendedores WHERE bajaVendedor IS NULL or bajaVendedor = '' ORDER BY idVendedo ASC LIMIT 10 OFFSET :offset")
+                #query.bindValue(":offeset", offset)
                 if query.exec():
                     while query.next():
                         fila = [query.value(i) for i in range(query.record().count())]
                         listado.append(fila)
+
+            #if not listado:
+            #   var.rowsVendedores -= 10
+
             return listado
         except Exception as e:
             print("Error al listar vendedores", e)
@@ -629,3 +645,13 @@ class Conexion:
 
     def altaFactura(nuevaFactura):
         try:
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "INSERT INTO FACTURAS (fechafac, dnifac) "
+                "VALUES (:fechafac, :dnifac)")
+            query.bindValue(":fechafac", str(nuevaFactura[0]))
+            query.bindValue(":dnifac", str(nuevaFactura[1]))
+            return query.exec()
+
+        except Exception as e:
+            print("error altaFactura en conexion", e)
