@@ -2932,12 +2932,15 @@
         <widget class="QTableWidget" name="tablaFacturas">
          <property name="geometry">
           <rect>
-           <x>20</x>
-           <y>20</y>
-           <width>291</width>
-           <height>431</height>
+           <x>0</x>
+           <y>0</y>
+           <width>331</width>
+           <height>471</height>
           </rect>
          </property>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
          <column>
           <property name="text">
            <string>Factura</string>
@@ -2945,7 +2948,7 @@
          </column>
          <column>
           <property name="text">
-           <string>FECHA</string>
+           <string>Fecha</string>
           </property>
          </column>
          <column>
