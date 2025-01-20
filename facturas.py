@@ -1,3 +1,5 @@
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QPushButton, QTableWidgetItem
 from PyQt6.uic.Compiler.qtproxies import QtWidgets, QtCore
 
 import conexion
@@ -25,16 +27,21 @@ class Facturas:
             registros = conexion.Conexion.listadoFacturas(self)
             for registro in registros:
                 var.ui.tablaFacturas.setRowCount(index + 1)
-                var.ui.tablaFacturas.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
-                var.ui.tablaFacturas.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter | QtCore.Qt.AlignmentFlag.AlignVCenter)
-                var.ui.tablaFacturas.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))
-                var.ui.tablaFacturas.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter | QtCore.Qt.AlignmentFlag.AlignVCenter)
-                var.ui.tablaFacturas.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[2])))
-                var.ui.tablaFacturas.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter | QtCore.Qt.AlignmentFlag.AlignVCenter)
-                var.botondel = QtWidgets.QPushButton()
-                var.botondel.setFixedSize(30, 24)
-                var.ui.tablaFacturas.setCellWidget(index, 5, var.botondel)
-                #var.botondel.clicked.connect(eventos.Eventos.bajaLineaVenta)
+                var.ui.tablaFacturas.setItem(index, 0, QTableWidgetItem(str(registro[0])))
+                var.ui.tablaFacturas.item(index, 0).setTextAlignment(
+                    Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
+                var.ui.tablaFacturas.setItem(index, 1, QTableWidgetItem(str(registro[1])))
+                var.ui.tablaFacturas.item(index, 1).setTextAlignment(
+                    Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
+                var.ui.tablaFacturas.setItem(index, 2, QTableWidgetItem(str(registro[2])))
+                var.ui.tablaFacturas.item(index, 2).setTextAlignment(
+                    Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
 
+                var.botondel = QPushButton()
+                var.botondel.setFixedSize(30, 24)
+                var.botondel.setIcon("img/papelera.ico")
+                var.ui.tablaFacturas.setCellWidget(index, 3, var.botondel)
+                # var.botondel.clicked.connect(eventos.Eventos.bajaLineaVenta)
+                index += 1
         except Exception as error:
             print('Error mostrarTablaFacturas: %s' % str(error))
