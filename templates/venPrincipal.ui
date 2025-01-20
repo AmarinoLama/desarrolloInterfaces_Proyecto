@@ -2929,7 +2929,7 @@
         <property name="frameShadow">
          <enum>QFrame::Plain</enum>
         </property>
-        <widget class="QTableWidget" name="tablaVentas">
+        <widget class="QTableWidget" name="tablaFacturas">
          <property name="geometry">
           <rect>
            <x>20</x>

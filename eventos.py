@@ -163,7 +163,7 @@ class Eventos():
             print("error en validar telefono: ", error)
             return False
 
-
+    @staticmethod
     def resizeTablaClientes(self):
         try:
             header = var.ui.tablaClientes.horizontalHeader()
@@ -179,6 +179,7 @@ class Eventos():
         except Exception as e:
             print("error en resize tabla clientes: ", e)
 
+    @staticmethod
     def resizeTablaPropiedades(self):
         try:
             header = var.ui.tablaPropiedades.horizontalHeader()
@@ -194,6 +195,7 @@ class Eventos():
         except Exception as e:
             print("error en resize tabla clientes: ", e)
 
+    @staticmethod
     def resizeTablaVendedores(self):
         try:
             header = var.ui.tablaVendedores.horizontalHeader()
@@ -203,6 +205,26 @@ class Eventos():
                 font = header_items.font()
                 font.setBold(True)
                 header_items.setFont(font)
+        except Exception as e:
+            print("error en resize tabla clientes: ", e)
+
+    @staticmethod
+    def resizeTablaFacturas():
+        """
+
+        """
+        try:
+            header = var.ui.tablaFacturas.horizontalHeader()
+            for i in range(header.count()):
+                if i not in (0, 3):
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+
+                header_item = var.ui.tablaFacturas.horizontalHeaderItem(i)
+                font = header_item.font()
+                font.setBold(True)
+                header_item.setFont(font)
         except Exception as e:
             print("error en resize tabla clientes: ", e)
 
