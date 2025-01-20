@@ -92,23 +92,27 @@ class Eventos():
     def validarDNIcli(dni):
         try:
             tabla = "TRWAGMYFPDXBNJZSQVHLCKE"
-            dig_ext = "XYZ"
-            reemp_dig_ext = {'X': '0', 'Y': '1', 'Z': '2'}
-            numeros = "1234567890"
-            if len(dni) == 9:
-                dig_control = dni[8]
-                dni = dni[:8]
-                if dni[0] in dig_ext:
-                    dni = dni.replace(dni[0], reemp_dig_ext[dni[0]])
-                if len(dni) == len([n for n in dni if n in numeros]) and tabla[int(dni) % 23] == dig_control:
-                    return True
-                else:
-                    return False
-            else:
+            reemplazos = {'X': '0', 'Y': '1', 'Z': '2'}
+
+            if len(dni) != 9:
                 return False
 
-        except Exception as error:
-            print("error en validar dni ", error)
+            digito_control = dni[-1].upper()
+            numero_base = dni[:-1]
+
+            if numero_base[0] in reemplazos:
+                numero_base = numero_base.replace(numero_base[0], reemplazos[numero_base[0]])
+
+            if not numero_base.isdigit():
+                return False
+
+            numero = int(numero_base)
+            letra_calculada = tabla[numero % 23]
+            return letra_calculada == digito_control
+
+        except Exception as e:
+            print("Error al validar el DNI:", e)
+            return False
 
     def abrirCalendar(btn):
         try:

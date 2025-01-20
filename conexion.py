@@ -655,3 +655,16 @@ class Conexion:
 
         except Exception as e:
             print("error altaFactura en conexion", e)
+
+    def listadoFacturas(self):
+        try:
+            listado = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM facturas ORDER BY fechafac ASC")
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+            return listado
+        except Exception as e:
+            print("error listadoFacturas en conexion", e)

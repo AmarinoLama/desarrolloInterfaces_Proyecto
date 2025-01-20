@@ -14,22 +14,22 @@ class Vendedores:
         campos = [var.ui.txtDniVend, var.ui.txtNombreVend, var.ui.txtTelefonoVend, var.ui.cmbDelegacionVend]
 
         for i, dato in enumerate(campos):
-            if i in (0,1,2):
-                if dato.text() == "":
-                    eventos.Eventos.crearMensajeError("Comprueba los campos", "Campo vacío, compruebe que los campos amarillos estén rellenados")
-                    return False
-            if i == 2:
-                if not eventos.Eventos.validarTelefono(var.ui.txtTelefonoVend.text()):
-                    eventos.Eventos.crearMensajeError("Teléfono mal", "Escriba un telefono válido")
-                    return False
-            if i == 0:
-                if not eventos.Eventos.validarDNIcli(var.ui.txtDniVend.text()):
-                    eventos.Eventos.crearMensajeError("Dni mal", "Escriba un dni válido (Creo que la expresion regular la tengo mal)")
-                    return False
+            if i in (0, 1, 2) and dato.text() == "":
+                eventos.Eventos.crearMensajeError("Comprueba los campos",
+                                                  "Campo vacío, compruebe que los campos amarillos estén rellenados")
+                return False
+            if i == 2 and not eventos.Eventos.validarTelefono(var.ui.txtTelefonoVend.text()):
+                eventos.Eventos.crearMensajeError("Teléfono mal", "Escriba un teléfono válido")
+                return False
+            if i == 0 and not eventos.Eventos.validarDNIcli(var.ui.txtDniVend.text()):
+                eventos.Eventos.crearMensajeError("Dni mal", "Escriba un DNI válido")
+                return False
+
         if var.ui.txtEmailVend.text() != "":
-            eventos.Eventos.validarMail(var.ui.txtEmailVend.text())
-            eventos.Eventos.crearMensajeError("Email mal", "Escriba un email válido")
-            return False
+            if not eventos.Eventos.validarMail(var.ui.txtEmailVend.text()):  # Corregido aquí
+                eventos.Eventos.crearMensajeError("Email mal", "Escriba un email válido")
+                return False
+
         return True
 
     @staticmethod

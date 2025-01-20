@@ -47,6 +47,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.tablaVendedores.clicked.connect(vendedores.Vendedores.cargarOneVendedor)
         propiedades.Propiedades.cargarTablaPropiedades(self, 0)
         vendedores.Vendedores.cargarTablaVendedores(self)
+        facturas.Facturas.mostrarTablaFacturas(self)
 
         '''
         EVENTOS DEL MENUBAR

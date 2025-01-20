@@ -2669,9 +2669,9 @@
         <widget class="QPushButton" name="pushButton">
          <property name="geometry">
           <rect>
-           <x>420</x>
+           <x>404</x>
            <y>180</y>
-           <width>75</width>
+           <width>91</width>
            <height>23</height>
           </rect>
          </property>
@@ -2679,7 +2679,7 @@
           <string>Grabar Venta</string>
          </property>
         </widget>
-        <widget class="QWidget" name="">
+        <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -2733,7 +2733,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="">
+        <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -2868,7 +2868,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="">
+        <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
            <x>780</x>
@@ -2945,12 +2945,17 @@
          </column>
          <column>
           <property name="text">
+           <string>FECHA</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
            <string>DNI</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>FECHA</string>
+           <string>Gestión</string>
           </property>
          </column>
         </widget>
@@ -2961,7 +2966,7 @@
           <x>370</x>
           <y>250</y>
           <width>891</width>
-          <height>351</height>
+          <height>471</height>
          </rect>
         </property>
         <property name="frameShape">
