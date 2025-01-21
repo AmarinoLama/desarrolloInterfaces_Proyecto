@@ -1,6 +1,7 @@
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QPushButton, QTableWidgetItem
-from PyQt6.uic.Compiler.qtproxies import QtWidgets, QtCore
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QPushButton, QTableWidgetItem, QWidget, QVBoxLayout
+from PyQt6.uic.Compiler.qtproxies import QtWidgets, QtCore, QtGui
 
 import conexion
 import eventos
@@ -14,34 +15,59 @@ class Facturas:
             nuevafactura = [var.ui.txtFechaFactura.text(), var.ui.txtDniVentas.text()]
             if (conexion.Conexion.altaFactura(nuevafactura)):
                 eventos.Eventos.crearMensajeInfo("Aviso", "Factura Guardada")
-                Facturas.mostrarTablaFacturas(self)
+                Facturas.mostrarTablaFacturas()
             else:
                 eventos.Eventos.crearMensajeInfo("Aviso", "Error al guardar la factura")
         except Exception as error:
             print('Error altaVenta: %s' % str(error))
 
-    def mostrarTablaFacturas(self):
+    @staticmethod
+    def mostrarTablaFacturas():
         try:
-            var.ui.tablaFacturas.setColumnWidth(0, 60)
+            listado = conexion.Conexion.listadoFacturas()
+            var.ui.tablaFacturas.setRowCount(len(listado))
             index = 0
-            registros = conexion.Conexion.listadoFacturas(self)
-            for registro in registros:
-                var.ui.tablaFacturas.setRowCount(index + 1)
-                var.ui.tablaFacturas.setItem(index, 0, QTableWidgetItem(str(registro[0])))
-                var.ui.tablaFacturas.item(index, 0).setTextAlignment(
-                    Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
-                var.ui.tablaFacturas.setItem(index, 1, QTableWidgetItem(str(registro[1])))
-                var.ui.tablaFacturas.item(index, 1).setTextAlignment(
-                    Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
-                var.ui.tablaFacturas.setItem(index, 2, QTableWidgetItem(str(registro[2])))
-                var.ui.tablaFacturas.item(index, 2).setTextAlignment(
-                    Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
-
+            for registro in listado:
+                container = QWidget()
+                layout = QVBoxLayout()
                 var.botondel = QPushButton()
-                var.botondel.setFixedSize(30, 24)
-                var.botondel.setIcon("img/papelera.ico")
-                var.ui.tablaFacturas.setCellWidget(index, 3, var.botondel)
-                # var.botondel.clicked.connect(eventos.Eventos.bajaLineaVenta)
+                var.botondel.setFixedSize(30, 20)
+                var.botondel.setIcon(QIcon("./img/papelera.ico"))
+                var.botondel.setStyleSheet("background-color: #efefef;")
+                var.botondel.clicked.connect(Facturas.deleteFactura)
+                layout.addWidget(var.botondel)
+                layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+                layout.setContentsMargins(0, 0, 0, 0)
+                layout.setSpacing(0)
+                container.setLayout(layout)
+                var.ui.tablaFacturas.setItem(index, 0, QTableWidgetItem(str(registro[0])))
+                var.ui.tablaFacturas.setItem(index, 1, QTableWidgetItem(registro[1]))
+                var.ui.tablaFacturas.setItem(index, 2, QTableWidgetItem(registro[2]))
+                var.ui.tablaFacturas.setCellWidget(index, 3, container)
+
+                var.ui.tablaFacturas.item(index, 0).setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaFacturas.item(index, 1).setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaFacturas.item(index, 2).setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
                 index += 1
-        except Exception as error:
-            print('Error mostrarTablaFacturas: %s' % str(error))
+            eventos.Eventos.resizeTablaFacturas()
+        except Exception as e:
+            print("Error al cargar la tabla de facturas", e)
+
+    # rediseñar la interfaz
+
+    @staticmethod
+    def deleteFactura():
+
+
+        """
+        try:
+            factura = var.ui.tablaFacturas.selectedItems()
+            if conexion.Conexion.deleteFactura(factura[0].text()):
+                eventos.Eventos.crearMensajeInfo("Alta correcta", "Se ha eliminado la factura correctamente")
+                Facturas.mostrarTablaFacturas()
+            else:
+                eventos.Eventos.crearMensajeError("Error","No se ha podido eliminar la factura correctamente")
+        except Exception as e:
+            print("Error al eliminar la factura: ", e)
+        """

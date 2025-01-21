@@ -209,7 +209,7 @@ class Eventos():
             print("error en resize tabla clientes: ", e)
 
     @staticmethod
-    def resizeTablaFacturas(self):
+    def resizeTablaFacturas():
         """
 
         """

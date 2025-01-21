@@ -42,13 +42,13 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.resizeTablaClientes(self)
         eventos.Eventos.resizeTablaPropiedades(self)
         eventos.Eventos.resizeTablaVendedores(self)
-        eventos.Eventos.resizeTablaFacturas(self)
+        eventos.Eventos.resizeTablaFacturas()
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
         var.ui.tablaPropiedades.clicked.connect(propiedades.Propiedades.cargaOnePropiedad)
         var.ui.tablaVendedores.clicked.connect(vendedores.Vendedores.cargarOneVendedor)
         propiedades.Propiedades.cargarTablaPropiedades(self, 0)
         vendedores.Vendedores.cargarTablaVendedores(self)
-        facturas.Facturas.mostrarTablaFacturas(self)
+        facturas.Facturas.mostrarTablaFacturas()
 
         '''
         EVENTOS DEL MENUBAR
