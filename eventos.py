@@ -465,3 +465,16 @@ class Eventos():
                 eventos.Eventos.crearMensajeError("Error", "Error al exportar los datos")
         except Exception as e:
             print(e)
+
+    @staticmethod
+    def mostrarMensajeConfimarcion(mbox, titulo, mensaje):
+        mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
+        mbox.setModal(True)
+        mbox.setWindowTitle(titulo)
+        mbox.setWindowIcon(QtGui.QIcon("./img/logo.svg"))
+        mbox.setText(mensaje)
+        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.No)
+        mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Sí')
+        mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText('No')
+        return mbox.exec()

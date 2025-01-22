@@ -114,6 +114,9 @@ class Vendedores:
     @staticmethod
     def bajaVendedor(self):
         try:
+            if var.ui.txtDniVend.text() == '':
+                eventos.Eventos.crearMensajeError("Error", "Falta escribir el DNI del vendendor")
+                return
             if var.ui.txtBajaVend.text() != '':
                 eventos.Eventos.crearMensajeError("Error", "Error el vendedor ya está de baja")
                 return

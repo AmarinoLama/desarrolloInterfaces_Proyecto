@@ -19,4 +19,3 @@ global rowsClientes
 global rowsPropiedades
 global rowsVendedores
 global report
-global botondel

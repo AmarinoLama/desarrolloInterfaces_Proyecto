@@ -2531,7 +2531,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_7">
           <item row="2" column="1">
-           <widget class="QLineEdit" name="txtDniVentas"/>
+           <widget class="QLineEdit" name="txtDniFactura"/>
           </item>
           <item row="1" column="1">
            <widget class="QLineEdit" name="txtFechaFactura"/>
@@ -2568,7 +2568,7 @@
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QPushButton" name="btnGrabarVenta">
+           <widget class="QPushButton" name="btnGrabarFactura">
             <property name="maximumSize">
              <size>
               <width>100</width>
@@ -2666,7 +2666,7 @@
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="btnGrabarVenta">
          <property name="geometry">
           <rect>
            <x>404</x>

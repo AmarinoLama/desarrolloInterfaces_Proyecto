@@ -1,6 +1,5 @@
 import os
 
-from PIL.ImageChops import offset
 from PyQt6 import QtGui, QtSql, QtWidgets, QtCore
 from PyQt6.uic.properties import QtGui
 
@@ -643,7 +642,8 @@ class Conexion:
     ZONA FACTURACIÓN
     '''
 
-    def altaFactura(nuevaFactura):
+    @staticmethod
+    def guardarFactura(nuevaFactura):
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
@@ -661,7 +661,7 @@ class Conexion:
         try:
             listado = []
             query = QtSql.QSqlQuery()
-            query.prepare("SELECT * FROM facturas ORDER BY fechafac ASC")
+            query.prepare("SELECT * FROM facturas ORDER BY id ASC")
             if query.exec():
                 while query.next():
                     fila = [query.value(i) for i in range(query.record().count())]
@@ -682,3 +682,20 @@ class Conexion:
                 return False
         except Exception as error:
             print("Error al eliminar la factura", error)
+
+    @staticmethod
+    def getLastIdFactura():
+        """
+
+        :return:
+        :rtype:
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("select id from facturas order by id desc")
+            if query.exec() and query.next():
+                return query.value(0)
+            else:
+                print(query.lastError().text())
+        except Exception as exec:
+            print("Error al guardar la factura", exec)
