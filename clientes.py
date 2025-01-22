@@ -179,7 +179,7 @@ class Clientes:
                     listado[i].setCurrentText(registro[i])
                 else:
                     listado[i].setText(registro[i])
-            var.ui.txtDniVentas.setText(registro[0])
+            var.ui.txtDniFactura.setText(registro[0])
         except Exception as e:
             print("error cargaOneCliente en clientes", e)
 
@@ -190,6 +190,8 @@ class Clientes:
                         var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(),
                         var.ui.txtDireccioncli.text(), var.ui.cmbProvinciacli.currentText(),
                         var.ui.cmbMunicipiocli.currentText(), var.ui.txtBajacli.text()]
+
+            print(modifCli)
 
             mensajes_error = [
                 "Falta ingresar DNI",
@@ -207,7 +209,7 @@ class Clientes:
             for i, dato in enumerate(modifCli):
                 if i == 4:  # Saltamos la validación para el email (índice 4)
                     continue
-                if dato == '' and i != 5:
+                if dato == '' and i != 5 and i != 9:
                     mbox = QtWidgets.QMessageBox()
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
                     mbox.setWindowTitle("Error en los datos")
@@ -253,6 +255,9 @@ class Clientes:
     @staticmethod
     def bajaCliente(self):
         try:
+            if var.ui.txtBajacli.text() == '':
+                eventos.Eventos.crearMensajeError("Error", "Falta escribir el DNI del cliente")
+                return
             now = datetime.now()
             formatted_date = now.strftime("%d/%m/%Y")
             var.ui.txtBajacli.setText(formatted_date)

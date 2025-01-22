@@ -4,9 +4,8 @@ from PyQt6 import QtWidgets, QtGui, QtCore
 
 import conexion
 import eventos
+import facturas
 import var
-
-
 
 class Propiedades():
 
@@ -172,7 +171,6 @@ class Propiedades():
                         var.ui.txtCpPro, var.ui.artxtDescripcionPro, var.ui.cbxAlquilerPro,
                         var.ui.rbtnDisponiblePro, var.ui.txtPropietarioPro, var.ui.txtMovilPro]
 
-
             for i, casilla in enumerate(listado):
                 if isinstance(casilla, QtWidgets.QComboBox):
                     casilla.setCurrentText(str(registro[i]))
@@ -204,6 +202,7 @@ class Propiedades():
                     casilla.setText(str(registro[i]))
             Propiedades.manageCheckbox(self)
             Propiedades.manageRadioButtons(self)
+            facturas.Facturas.cargaPropiedadVenta(listado)
         except Exception as e:
             print("error cargaOnePropiedad en propiedades", e)
 
