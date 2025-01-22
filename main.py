@@ -91,7 +91,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnBajaCalVend.clicked.connect(lambda: eventos.Eventos.abrirCalendar(4))
         var.ui.btnFiltrarVend.clicked.connect(vendedores.Vendedores.filtrarPorTelefono)
         var.ui.btnCalendarVentas.clicked.connect(lambda: eventos.Eventos.abrirCalendar(6))
-        var.ui.btnGrabarVenta.clicked.connect(lambda: facturas.Facturas.altaVenta(self))
+        var.ui.btnGrabarVenta.clicked.connect(lambda: facturas.Facturas.altaFactura(self))
         #var.ui.btnAnteriorVend.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(self,0, "Vendedores"))
         #var.ui.btnSiguienteVend.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(self,1, "Vendedores"))
 

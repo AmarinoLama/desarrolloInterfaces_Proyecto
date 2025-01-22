@@ -1,16 +1,21 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QPushButton, QTableWidgetItem, QWidget, QVBoxLayout
+from PyQt6.QtWidgets import QPushButton, QTableWidgetItem, QWidget, QVBoxLayout, QMessageBox
 from PyQt6.uic.Compiler.qtproxies import QtWidgets, QtCore, QtGui
 
 import conexion
 import eventos
 import var
+from eventos import Eventos
 
 
 class Facturas:
 
-    def altaVenta(self):
+    current_cliente = None
+    current_propiedad = None
+    current_vendedor = None
+
+    def altaFactura(self):
         try:
             nuevafactura = [var.ui.txtFechaFactura.text(), var.ui.txtDniVentas.text()]
             if (conexion.Conexion.altaFactura(nuevafactura)):
@@ -54,20 +59,73 @@ class Facturas:
         except Exception as e:
             print("Error al cargar la tabla de facturas", e)
 
-    # rediseñar la interfaz
-
+    # comprobar
     @staticmethod
-    def deleteFactura():
-
+    def cargaOneFactura():
+        """
 
         """
         try:
             factura = var.ui.tablaFacturas.selectedItems()
-            if conexion.Conexion.deleteFactura(factura[0].text()):
-                eventos.Eventos.crearMensajeInfo("Alta correcta", "Se ha eliminado la factura correctamente")
-                Facturas.mostrarTablaFacturas()
-            else:
-                eventos.Eventos.crearMensajeError("Error","No se ha podido eliminar la factura correctamente")
+            var.ui.lblFactura.setText(str(factura[0].text()))
+            var.ui.txtFechaFactura.setText(str(factura[1].text()))
+            var.ui.lblDniclifactura.setText(str(factura[2].text()))
+            Facturas.cargaClienteVenta()
+            Facturas.cargarTablaVentasFactura()
         except Exception as e:
-            print("Error al eliminar la factura: ", e)
-        """
+            eventos.Eventos.crearMensajeError("Error", "Error al cargar la factura en facturas")
+
+    # comprobar
+    @staticmethod
+    def cargaClienteVenta():
+        try:
+            dni = var.ui.lblDniclifactura.text()
+            cliente = conexion.Conexion.datosOneCliente(dni)
+            var.ui.lblApelCli.setText(str(cliente[2]))
+            var.ui.lblNombrecli.setText(str(cliente[3]))
+            Facturas.current_cliente = dni
+            Facturas.checkDatosFacturas()
+        except Exception as e:
+            Facturas.current_cliente = None
+            Facturas.checkDatosFacturas()
+            eventos.Eventos.crearMensajeError("Error", "Error al cargar el cliente en facturas")
+
+    #comprobar
+    @staticmethod
+    def checkDatosFacturas():
+        if Facturas.current_vendedor is not None and Facturas.current_propiedad is not None and Facturas.current_cliente is not None:
+            var.ui.btnGrabarVenta.setDisabled(False)
+        else:
+            var.ui.btnGrabarVenta.setDisabled(True)
+
+    # comprobar
+    @staticmethod
+    def deleteFactura():
+        try:
+            button = var.ui.tablaFacturas.sender()
+            index = var.ui.tablaFacturas.indexAt(button.pos())
+            row = index.row()
+            msgbox = QMessageBox()
+            msgbox.setIcon(QMessageBox.Icon.Warning)
+            msgbox.setWindowIcon(QIcon('./img/logo.ico'))
+            msgbox.setWindowTitle('Aviso')
+            msgbox.setText("Desea Eliminar la Factura")
+            msgbox.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+            msgbox.button(QMessageBox.StandardButton.Yes).setText('Si')
+            if msgbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
+                if conexion.Conexion.delFactura(row + 1):
+                    Eventos.crearMensajeInfo("Borrado", "La factura se ha borrado correctamente")
+                    Facturas.mostrarTablaFacturas()
+            else:
+                msgbox.hide()
+        except Exception as error:
+            print("Error al eliminar la factura", error)
+
+    @staticmethod
+    def grabarVenta():
+        try:
+            venta = [var.ui.lblNumFactura.text(), Facturas.current_vendedor, Facturas.current_propiedad]
+        except Exception as error:
+            print('Error altaVenta: %s' % str(error))
+
+    # https://github.com/BuaTeijeiro/ProyectoDI/blob/main/facturas.py#L143

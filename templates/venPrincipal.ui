@@ -2579,7 +2579,7 @@
              <enum>Qt::LeftToRight</enum>
             </property>
             <property name="text">
-             <string>Grabar Venta</string>
+             <string>Grabar Factura</string>
             </property>
            </widget>
           </item>
@@ -2778,7 +2778,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="">
+        <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -2788,6 +2788,26 @@
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_9">
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_17">
+            <property name="minimumSize">
+             <size>
+              <width>75</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Código:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QLabel" name="label_19">
+            <property name="text">
+             <string>Tipo:</string>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="0" colspan="2">
            <widget class="QLabel" name="label_16">
             <property name="font">
@@ -2799,19 +2819,6 @@
             </property>
             <property name="text">
              <string>Propiedad</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_17">
-            <property name="minimumSize">
-             <size>
-              <width>75</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Código:</string>
             </property>
            </widget>
           </item>
@@ -2837,34 +2844,7 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="2">
-           <widget class="QLabel" name="label_19">
-            <property name="text">
-             <string>Tipo:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3">
-           <widget class="QLineEdit" name="lineEdit_5">
-            <property name="minimumSize">
-             <size>
-              <width>150</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 252, 220);</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="4">
-           <widget class="QLabel" name="label_21">
-            <property name="text">
-             <string>Precio:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="5">
+          <item row="1" column="6">
            <widget class="QLineEdit" name="lineEdit_6">
             <property name="styleSheet">
              <string notr="true">background-color: rgb(255, 252, 220);</string>
@@ -2884,11 +2864,11 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="lineEdit_3">
+          <item row="1" column="4">
+           <widget class="QLineEdit" name="lineEdit_5">
             <property name="minimumSize">
              <size>
-              <width>200</width>
+              <width>150</width>
               <height>0</height>
              </size>
             </property>
@@ -2897,14 +2877,27 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="2">
-           <widget class="QLabel" name="label_22">
+          <item row="1" column="5">
+           <widget class="QLabel" name="label_21">
             <property name="text">
-             <string>Localidad:</string>
+             <string>Precio:</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="3" colspan="3">
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="lineEdit_3">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 252, 220);</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="4" colspan="3">
            <widget class="QLineEdit" name="lineEdit_4">
             <property name="minimumSize">
              <size>
@@ -2916,6 +2909,26 @@
              <string notr="true">background-color: rgb(255, 252, 220);</string>
             </property>
            </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QLabel" name="label_22">
+            <property name="text">
+             <string>Localidad:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <spacer name="horizontalSpacer_51">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </widget>
@@ -2987,6 +3000,52 @@
         <property name="frameShadow">
          <enum>QFrame::Plain</enum>
         </property>
+        <widget class="QTableWidget" name="tablaVentas">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>891</width>
+           <height>471</height>
+          </rect>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <column>
+          <property name="text">
+           <string>ID VENTA</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>ID PROPIEDAD</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>DIRECCIÓN</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>LOCALIDAD</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>TIPO</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>PRECIO</string>
+          </property>
+         </column>
+        </widget>
        </widget>
       </widget>
      </widget>
