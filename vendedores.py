@@ -1,5 +1,6 @@
 import conexion
 import eventos
+import facturas
 import var
 import vendedores
 from datetime import datetime
@@ -92,6 +93,7 @@ class Vendedores:
                     listado[i].setCurrentText(str(registro[i]))
                 else:
                     listado[i].setText(registro[i])
+            facturas.Facturas.cargaVendedorVenta(var.ui.txtIdVend.text())
         except Exception as e:
             print("error cargarOneVendedor en vendedores", e)
 

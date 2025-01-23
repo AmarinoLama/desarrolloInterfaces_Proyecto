@@ -164,6 +164,7 @@ class Propiedades():
             fila = var.ui.tablaPropiedades.selectedItems()
             datos = [dato.text() for dato in fila]
             registro = conexion.Conexion.datosOnePropiedad(str(datos[0]))
+            facturas.Facturas.cargaPropiedadVenta(registro)
             listado = [var.ui.lblCodigoProp, var.ui.txtPublicacionPro, var.ui.txtFechabajaPro,
                         var.ui.txtDireccionPro, var.ui.cmbProvinciaPro, var.ui.cmbMunicipioPro,
                         var.ui.cmbTipoPro, var.ui.spbHabitacionesPro, var.ui.spbBanosPro,
@@ -202,7 +203,6 @@ class Propiedades():
                     casilla.setText(str(registro[i]))
             Propiedades.manageCheckbox(self)
             Propiedades.manageRadioButtons(self)
-            facturas.Facturas.cargaPropiedadVenta(listado)
         except Exception as e:
             print("error cargaOnePropiedad en propiedades", e)
 
