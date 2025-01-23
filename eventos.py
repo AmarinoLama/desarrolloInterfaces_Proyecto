@@ -454,7 +454,7 @@ class Eventos():
                 keys = ["Id", "Nombre", "Movil", "Delegacion", "Dni", "Alta", "Baja", "Mail"]
                 historicoGuardar = var.historicoVend
                 var.historicoVend = 1
-                registros = conexion.Conexion.listadoDatosVendedores(self)
+                registros = conexion.Conexion.listadoVendedoresNormal(self)
                 var.historicoVend = historicoGuardar
                 listadoVendedores = [dict(zip(keys, registro)) for registro in registros]
                 with open(fichero, "w", newline="", encoding="utf-8") as jsonfile:

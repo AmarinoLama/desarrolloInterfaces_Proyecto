@@ -1,7 +1,6 @@
 import os
 
 from PyQt6 import QtGui, QtSql, QtWidgets, QtCore
-from PyQt6.uic.properties import QtGui
 
 import var
 
@@ -55,7 +54,6 @@ class Conexion:
         :rtype: bytearray
 
         Query que obtiene listado provincias en la base de datos.
-
         """
         listaprov = []
         query = QtSql.QSqlQuery()
@@ -75,7 +73,6 @@ class Conexion:
         :rtype: bytearray
 
         Query que obtiene listado municipios en la base de datos de una provincia concreta.
-
         """
         try:
             listamunicipios = []
@@ -99,7 +96,6 @@ class Conexion:
         :rtype: bytearray
 
         Query que obtiene listado de todos los municipios en la base de datos.
-
         """
         try:
             listamunicipios = []
@@ -316,7 +312,13 @@ class Conexion:
 
     @staticmethod
     def cargarTipoProp():
+        """
 
+        :return: tipos de propiedad
+        :rtype: bytearray
+
+        Query que obtiene los tipos de propiedad de la base de datos.
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("SELECT tipo FROM tipoprop")
@@ -330,6 +332,15 @@ class Conexion:
 
     @staticmethod
     def altaPropiedad(propiedad):
+        """
+
+        :param propiedad: array con los datos de la propiedad
+        :type propiedad: list
+        :return: true o false
+        :rtype: booleano
+
+        Query que da de alta una nueva propiedad en la base de datos.
+        """
         try:
             campos_obligatorios = [propiedad[1], propiedad[2], propiedad[3], propiedad[4], propiedad[7], propiedad[10],
                                    propiedad[14], propiedad[15]]
@@ -381,6 +392,15 @@ class Conexion:
 
     @staticmethod
     def listadoPropiedades(self):
+        """
+
+        :param self: None
+        :type self: None
+        :return: listado de propiedades
+        :rtype: bytearray
+
+        Query que obtiene listado de propiedades en la base de datos.
+        """
         try:
             listado = []
 
@@ -416,6 +436,15 @@ class Conexion:
 
     @staticmethod
     def datosOnePropiedad(codigo):
+        """
+
+        :param codigo: código de la propiedad
+        :type codigo: str
+        :return: datos de la propiedad
+        :rtype: bytearray
+
+        Query que obtiene los datos de una propiedad en la base de datos.
+        """
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -431,6 +460,15 @@ class Conexion:
 
     @staticmethod
     def modifPropiedades(registro):
+        """
+
+        :param registro: datos de la propiedad
+        :type registro: list
+        :return: true o false
+        :rtype: booleano
+
+        Query que modifica los datos de una propiedad en la base de datos.
+        """
         try:
             if registro[15] == "telefono no válido":
                 return False
@@ -474,6 +512,15 @@ class Conexion:
 
     @staticmethod
     def bajaPropiedad(datos):
+        """
+
+        :param datos: datos de la propiedad
+        :type datos: list
+        :return: true o false
+        :rtype: booleano
+
+        Query que da de baja una propiedad en la base de datos.
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("UPDATE propiedades SET bajaprop = :bajaprop WHERE codigo = :codigo")
@@ -485,6 +532,15 @@ class Conexion:
 
     @staticmethod
     def listadoFiltrado(datos):
+        """
+
+        :param datos: datos
+        :type datos: list
+        :return: listado de propiedades
+        :rtype: bytearray
+
+        Query que obtiene un listado de propiedades filtrado por tipo de propiedad y municipio.
+        """
         try:
             listado = []
             query = QtSql.QSqlQuery()
@@ -499,8 +555,21 @@ class Conexion:
         except Exception as e:
             print("error listadoFiltrado en conexion", e)
 
+    '''
+    ZONA VENDEDORES
+    '''
+
     @staticmethod
     def altaVendedor(nuevoVendedor):
+        """
+
+        :param nuevoVendedor: datos del vendedor
+        :type nuevoVendedor: list
+        :return: true o false
+        :rtype: booleano
+
+        Query que da de alta un nuevo vendedor en la base de datos.
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
@@ -523,6 +592,15 @@ class Conexion:
 
     @staticmethod
     def listadoVendedores(self):
+        """
+
+        :param self: None
+        :type self: None
+        :return: listado de vendedores
+        :rtype: bytearray
+
+        Query que obtiene un listado de vendedores en la base de datos con los distintos filtrados
+        """
         try:
             listado = []
 
@@ -563,12 +641,22 @@ class Conexion:
             print("Error al listar vendedores", e)
 
     @staticmethod
-    def listadoDatosVendedores(self):
+    def listadoVendedoresNormal(self):
+        """
+
+        :param self: None
+        :type self: None
+        :return: listado de vendedores
+        :rtype: bytearray
+
+        Query que obtiene un listado de vendedores en la base de datos.
+        """
         try:
             listado = []
             query = QtSql.QSqlQuery()
-            query.prepare("SELECT idVendedo, nombreVendedor, movilVendedor, delegacionVendedor, dniVendedor, altaVendedor, bajaVendedor, mailVendedor "
-                          "FROM vendedores ORDER BY idVendedo ASC")
+            query.prepare(
+                "SELECT idVendedo, nombreVendedor, movilVendedor, delegacionVendedor, dniVendedor, altaVendedor, bajaVendedor, mailVendedor "
+                "FROM vendedores ORDER BY idVendedo ASC")
             if query.exec():
                 while query.next():
                     fila = [query.value(i) for i in range(query.record().count())]
@@ -579,6 +667,17 @@ class Conexion:
 
     @staticmethod
     def datosOneVendedor(self, idVendedor):
+        """
+
+        :param self: None
+        :type self: None
+        :param idVendedor: id del vendedor
+        :type idVendedor: str
+        :return: datos del vendedor
+        :rtype: bytearray
+
+        Query que obtiene los datos de un vendedor en la base de datos.
+        """
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -594,6 +693,17 @@ class Conexion:
 
     @staticmethod
     def datosVendedoresByTelefono(self, telefono):
+        """
+
+        :param self: None
+        :type self: None
+        :param telefono: teléfono del vendedor
+        :type telefono: str
+        :return: datos del vendedor
+        :rtype: bytearray
+
+        Query que obtiene los datos de un vendedor en la base de datos a partir de un teléfono.
+        """
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -609,6 +719,15 @@ class Conexion:
 
     @staticmethod
     def modifVendedor(registro):
+        """
+
+        :param registro: datos del vendedor
+        :type registro: list
+        :return: true o false
+        :rtype: booleano
+
+        Query que modifica los datos de un vendedor en la base de datos.
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
@@ -629,6 +748,17 @@ class Conexion:
 
     @staticmethod
     def bajaVendedor(id, fecha):
+        """
+
+        :param id: id del vendedor
+        :type id: str
+        :param fecha: fecha de baja del vendedor
+        :type fecha: date
+        :return: true o false
+        :rtype: booleano
+
+        Query que da de baja a un vendedor en la base de datos.
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("UPDATE vendedores SET bajaVendedor = :bajaVendedor WHERE idVendedo = :idVendedo")
