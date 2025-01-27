@@ -82,10 +82,9 @@ class Facturas:
             var.ui.txtDniFactura.setText(str(factura[2].text()))
             Facturas.current_factura = str(factura[0].text())
             Facturas.cargaClienteVenta()
-            Facturas.cargarTablaFacturas()
-            print(conexion.Conexion.cargarTablaVentas(int(Facturas.current_factura)))
+            Facturas.cargarTablaVentasFactura()
         except Exception as e:
-            eventos.Eventos.crearMensajeError("Error", "Error al cargar la factura en facturas")
+            eventos.Eventos.crearMensajeError("Error", "Error al cargar la factura en facturas" + e)
 
     @staticmethod
     def cargaClienteVenta():
@@ -196,6 +195,50 @@ class Facturas:
         except Exception as error:
             print('Error altaVenta: %s' % str(error))
 
+    @staticmethod
+    def cargarTablaVentasFactura():
+        """
+
+        Método que recupera la lista de ventas cuya factura es la indicada en la interfaz
+        y las muestra en la tabla de ventas
+
+        """
+        try:
+            idFactura = var.ui.lblNumFactura.text()
+            listado = conexion.Conexion.cargarTablaVentas(idFactura)
+            var.ui.tablaVentas.setRowCount(len(listado))
+            index = 0
+            for registro in listado:
+                for i, dato in enumerate(registro):
+                    if i != 5:
+                        var.ui.tablaVentas.setItem(index, i, QtWidgets.QTableWidgetItem(str(dato)))
+                    else:
+                        var.ui.tablaVentas.setItem(index, i, QtWidgets.QTableWidgetItem(str(dato) + " €"))
+
+                    var.ui.tablaVentas.item(index, i).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
+                container = QtWidgets.QWidget()
+                layout = QtWidgets.QVBoxLayout()
+                botondel = QtWidgets.QPushButton()
+                botondel.setFixedSize(30, 20)
+                botondel.setIcon(QtGui.QIcon("./img/menos.ico"))
+                botondel.setStyleSheet("background-color: #fff;")
+                botondel.clicked.connect(
+                    lambda checked, venta=str(registro[0]), prop=str(registro[1]): Facturas.eliminarVenta(venta, prop))
+                layout.addWidget(botondel)
+                layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                layout.setContentsMargins(0, 0, 0, 0)
+                layout.setSpacing(0)
+                container.setLayout(layout)
+                var.ui.tablaVentas.setCellWidget(index, 6, container)
+
+                index += 1
+            eventos.Eventos.resizeTablaVentas()
+            #Facturas.cargarBottomFactura(idFactura)
+
+        except Exception as e:
+            print("Error al cargar la tabla de ventas", e)
+
     # ver que hace esto
     @staticmethod
     def cargarBottomFactura(idFactura):
@@ -214,7 +257,7 @@ class Facturas:
         except Exception as e:
             print("Error al cargar los totales" + e)
 
-    # FALTA UNA FUNCIÓN EN EVENTOS QUE SEA UN RESIZE DE LA TABLA DE VENDEDORES
-    # FALTA UNA FUNCIÓN EN CONEXIÓN QUE SEA UN SELECT CON UN INNER JOIN PARA CARGAR LOS DATOS EN LA TABLA
+    # Hacer la parte de abajo de las facturas en la interfaz
+    # Hacer la parte de abajo de las facturas en el código
 
     # https://github.com/BuaTeijeiro/ProyectoDI/blob/main/facturas.py#L143
