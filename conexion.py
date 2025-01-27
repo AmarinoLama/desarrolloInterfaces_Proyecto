@@ -194,7 +194,7 @@ class Conexion:
         :return: datos del cliente
         :rtype: bytearray
 
-        Query que obtiene los datos de un cliente en la base de datos.
+        Query que obtiene los datos de un cliente en la base de datos a partir de un dni
         """
         try:
             registro = []
@@ -336,7 +336,7 @@ class Conexion:
 
         :param propiedad: array con los datos de la propiedad
         :type propiedad: list
-        :return: true o false
+        :return: operación exitosa
         :rtype: booleano
 
         Query que da de alta una nueva propiedad en la base de datos.
@@ -723,7 +723,7 @@ class Conexion:
 
         :param registro: datos del vendedor
         :type registro: list
-        :return: true o false
+        :return: operacion exitosa
         :rtype: booleano
 
         Query que modifica los datos de un vendedor en la base de datos.
@@ -754,7 +754,7 @@ class Conexion:
         :type id: str
         :param fecha: fecha de baja del vendedor
         :type fecha: date
-        :return: true o false
+        :return: operacion exitosa
         :rtype: booleano
 
         Query que da de baja a un vendedor en la base de datos.
@@ -829,3 +829,44 @@ class Conexion:
                 print(query.lastError().text())
         except Exception as exec:
             print("Error al guardar la factura", exec)
+
+    @staticmethod
+    def grabarVenta(nuevaVenta):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("INSERT INTO VENTAS (facventa, codprop, agente) "
+                "VALUES (:factura, :propiedad, :vendedor)")
+            query.bindValue(":factura", str(nuevaVenta[0]))
+            query.bindValue(":propiedad", str(nuevaVenta[2]))
+            query.bindValue(":vendedor", str(nuevaVenta[1]))
+            return query.exec()
+        except Exception as exec:
+            print("Error al guardar la venta", exec)
+
+    @staticmethod
+    def cargarTablaVentas(idFactura):
+        """
+
+        :param idFactura: id de la factura
+        :type idFactura: int
+        :return: lista de ventas de la factura
+        :rtype: list
+
+        Método que recupera la información de todas las ventas cuya factura es
+        la identificada por el id pasado por parámetro
+        """
+        try:
+            listado = []
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "select v.idventa, v.codprop, p.dirprop, p.muniprop, p.tipoprop, p.prevenprop "
+                "from ventas as v inner join propiedades as p on v.codprop = p.codigo "
+                "where v.facventa = :idFactura")
+            query.bindValue(":idFactura", idFactura)
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+            return listado
+        except Exception as error:
+            print("Error al recuperar el listado de ventas")

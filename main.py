@@ -40,17 +40,18 @@ class Main(QtWidgets.QMainWindow):
         '''
 
         clientes.Clientes.cargaTablaClientes(self)
-        eventos.Eventos.resizeTablaClientes(self)
-        eventos.Eventos.resizeTablaPropiedades(self)
-        eventos.Eventos.resizeTablaVendedores(self)
+        propiedades.Propiedades.cargarTablaPropiedades(self, 0)
+        vendedores.Vendedores.cargarTablaVendedores(self)
+        facturas.Facturas.cargarTablaFacturas()
+        eventos.Eventos.resizeTablaClientes()
+        eventos.Eventos.resizeTablaPropiedades()
+        eventos.Eventos.resizeTablaVendedores()
         eventos.Eventos.resizeTablaFacturas()
+        eventos.Eventos.resizeTablaVentas()
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
         var.ui.tablaPropiedades.clicked.connect(propiedades.Propiedades.cargaOnePropiedad)
         var.ui.tablaVendedores.clicked.connect(vendedores.Vendedores.cargarOneVendedor)
         var.ui.tablaFacturas.clicked.connect(facturas.Facturas.cargaOneFactura)
-        propiedades.Propiedades.cargarTablaPropiedades(self, 0)
-        vendedores.Vendedores.cargarTablaVendedores(self)
-        facturas.Facturas.mostrarTablaFacturas()
 
         '''
         EVENTOS DEL MENUBAR
@@ -94,7 +95,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnFiltrarVend.clicked.connect(vendedores.Vendedores.filtrarPorTelefono)
         var.ui.btnCalendarVentas.clicked.connect(lambda: eventos.Eventos.abrirCalendar(6))
         var.ui.btnGrabarFactura.clicked.connect(facturas.Facturas.altaFactura)
-        var.ui.btnGrabarVenta.clicked.connect(facturas.Facturas.checkDatosFacturas)
+        var.ui.btnGrabarVenta.clicked.connect(facturas.Facturas.altaVenta)
         #var.ui.btnAnteriorVend.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(self,0, "Vendedores"))
         #var.ui.btnSiguienteVend.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(self,1, "Vendedores"))
 

@@ -2,7 +2,6 @@ from PyQt6 import QtGui
 
 import conexion
 import eventos
-import propiedades
 import var
 from PyQt6 import QtWidgets, QtCore
 
@@ -12,6 +11,7 @@ class Facturas:
     current_cliente = None
     current_propiedad = None
     current_vendedor = None
+    current_factura = None
     botonesdel = []
 
     @staticmethod
@@ -28,7 +28,7 @@ class Facturas:
                     eventos.Eventos.crearMensajeInfo("Operación exitosa", "Se ha guardado la factura correctamente")
                     Facturas.current_factura = str(conexion.Conexion.getLastIdFactura())
                     var.ui.lblNumFactura.setText(Facturas.current_factura)
-                    Facturas.mostrarTablaFacturas()
+                    Facturas.cargarTablaFacturas()
                     Facturas.checkDatosFacturas()
                 else:
                     eventos.Eventos.crearMensajeError("Error", "No se ha podido guardar la factura correctamente")
@@ -36,7 +36,7 @@ class Facturas:
             eventos.Eventos.crearMensajeError("Error", e)
 
     @staticmethod
-    def mostrarTablaFacturas():
+    def cargarTablaFacturas():
         try:
             listado = conexion.Conexion.listadoFacturas()
             var.ui.tablaFacturas.setRowCount(len(listado))
@@ -65,7 +65,6 @@ class Facturas:
                 var.ui.tablaFacturas.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
                 index += 1
-            eventos.Eventos.resizeTablaFacturas()
             for boton in Facturas.botonesdel:
                 print(boton.text())
         except Exception as e:
@@ -81,8 +80,10 @@ class Facturas:
             var.ui.lblNumFactura.setText(str(factura[0].text()))
             var.ui.txtFechaFactura.setText(str(factura[1].text()))
             var.ui.txtDniFactura.setText(str(factura[2].text()))
+            Facturas.current_factura = str(factura[0].text())
             Facturas.cargaClienteVenta()
-            Facturas.mostrarTablaFacturas()
+            Facturas.cargarTablaFacturas()
+            print(conexion.Conexion.cargarTablaVentas(int(Facturas.current_factura)))
         except Exception as e:
             eventos.Eventos.crearMensajeError("Error", "Error al cargar la factura en facturas")
 
@@ -114,7 +115,7 @@ class Facturas:
             if eventos.Eventos.mostrarMensajeConfimarcion(mbox, "Borrar", "Esta seguro de que quiere borrar la factura de id " + idFactura) == QtWidgets.QMessageBox.StandardButton.Yes:
                 if conexion.Conexion.deleteFactura(idFactura):
                     eventos.Eventos.crearMensajeInfo("Todo correcto", "Se ha eliminado la factura correctamente")
-                    Facturas.mostrarTablaFacturas()
+                    Facturas.cargarTablaFacturas()
                     var.ui.tablaVentas.setRowCount(0)
                     Facturas.current_factura = None
                     Facturas.checkDatosFacturas()
@@ -169,13 +170,33 @@ class Facturas:
 
     @staticmethod
     def limpiarFactura():
-        var.ui.lblNumFactura.setText("")
-        var.ui.txtFechaFactura.setText("")
-        var.ui.txtDniFactura.setText("")
+        var.ui.txtApelClieVentas.setText("")
+        var.ui.txtNomCliVentas.setText("")
+        var.ui.lblCodigoPropVentas.setText("")
+        var.ui.txtDireccionPropVentas.setText("")
+        var.ui.txtTipoPropVentas.setText("")
+        var.ui.txtPrecioVentas.setText("")
+        var.ui.txtLocalidadVentas.setText("")
+        var.ui.txtVendedorVentas.setText("")
         Facturas.current_factura = None
+        Facturas.current_vendedor = None
+        Facturas.current_propiedad = None
+        Facturas.current_cliente = None
         Facturas.checkDatosFacturas()
 
-    # NO SÉ QUE HACE
+    @staticmethod
+    def altaVenta():
+        try:
+            infoVenta = [var.ui.lblNumFactura.text(), Facturas.current_vendedor, Facturas.current_propiedad]
+            if conexion.Conexion.grabarVenta(infoVenta):
+                eventos.Eventos.crearMensajeInfo("Informacion", "La venta se ha grabado exitosamente")
+            else:
+                eventos.Eventos.crearMensajeError("Error", "La venta no se ha podido grabar")
+            Facturas.limpiarFactura()
+        except Exception as error:
+            print('Error altaVenta: %s' % str(error))
+
+    # ver que hace esto
     @staticmethod
     def cargarBottomFactura(idFactura):
         try:
@@ -193,15 +214,6 @@ class Facturas:
         except Exception as e:
             print("Error al cargar los totales" + e)
 
-    # ACABAR ESTE MÉTODO
-    @staticmethod
-    def grabarVenta():
-        try:
-            venta = [var.ui.lblNumFactura.text(), Facturas.current_vendedor, Facturas.current_propiedad]
-        except Exception as error:
-            print('Error altaVenta: %s' % str(error))
-
-    # FALTA UNA FUNCIÓN EN CONEXIÓN QUE SEA UN GUARDAR DE UNA VENTA
     # FALTA UNA FUNCIÓN EN EVENTOS QUE SEA UN RESIZE DE LA TABLA DE VENDEDORES
     # FALTA UNA FUNCIÓN EN CONEXIÓN QUE SEA UN SELECT CON UN INNER JOIN PARA CARGAR LOS DATOS EN LA TABLA
 
