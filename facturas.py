@@ -1,3 +1,5 @@
+from datetime import date
+
 from PyQt6 import QtGui
 
 import conexion
@@ -121,13 +123,17 @@ class Facturas:
     def deleteFactura(idFactura):
         """
         :param idFactura: id de la factura a borrar
-        :type idFactura: str
+        :type idFactura: int
 
-        Función que borra una factura de la base de datos, preguntando si deseamos confirmar la operación o no
+        Función que borra una factura de la base de datos, preguntando si deseamos confirmar la operación o no y comprobando
+        que no tenga ninguna venta asociada
         """
         try:
             mbox = QtWidgets.QMessageBox()
-            if eventos.Eventos.mostrarMensajeConfimarcion(mbox, "Borrar", "Esta seguro de que quiere borrar la factura de id " + idFactura) == QtWidgets.QMessageBox.StandardButton.Yes:
+            if eventos.Eventos.mostrarMensajeConfimarcion(mbox, "Borrar", "Esta seguro de que quiere borrar la factura de id " + str(idFactura)) == QtWidgets.QMessageBox.StandardButton.Yes:
+                if conexion.Conexion.checkFacturaTieneVenta(idFactura):
+                    eventos.Eventos.crearMensajeError("Error", "La factura tiene ventas asociadas, no se puede eliminar")
+                    return
                 if conexion.Conexion.deleteFactura(idFactura):
                     eventos.Eventos.crearMensajeInfo("Todo correcto", "Se ha eliminado la factura correctamente")
                     Facturas.cargarTablaFacturas()
@@ -222,6 +228,8 @@ class Facturas:
             infoVenta = [var.ui.lblNumFactura.text(), Facturas.current_vendedor, Facturas.current_propiedad]
             if conexion.Conexion.grabarVenta(infoVenta):
                 eventos.Eventos.crearMensajeInfo("Informacion", "La venta se ha grabado exitosamente")
+                fecha_hoy = date.today()
+                # seguir
             else:
                 eventos.Eventos.crearMensajeError("Error", "La venta no se ha podido grabar")
             Facturas.limpiarFactura()
@@ -248,6 +256,21 @@ class Facturas:
                         var.ui.tablaVentas.setItem(index, i, QtWidgets.QTableWidgetItem(str(dato) + " €"))
 
                     var.ui.tablaVentas.item(index, i).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
+                container = QtWidgets.QWidget()
+                layout = QtWidgets.QVBoxLayout()
+                botondel = QtWidgets.QPushButton()
+                botondel.setFixedSize(30, 20)
+                botondel.setIcon(QtGui.QIcon("./img/papelera.ico"))
+                botondel.setStyleSheet("background-color: #fff;")
+                botondel.clicked.connect(
+                    lambda checked, idventa=str(registro[0]), idprop=str(registro[1]): Facturas.deleteVenta(idventa, idprop))
+                layout.addWidget(botondel)
+                layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                layout.setContentsMargins(0, 0, 0, 0)
+                layout.setSpacing(0)
+                container.setLayout(layout)
+                var.ui.tablaVentas.setCellWidget(index, 6, container)
 
                 index += 1
             eventos.Eventos.resizeTablaVentas()
@@ -279,6 +302,13 @@ class Facturas:
         except Exception as e:
             print("Error al cargar los totales" + e)
 
-    # Comprobar que al borrar una factura no haya ventas
+    @staticmethod
+    def deleteVenta(idVenta):
+        print("hola paco")
+        print(idVenta)
+
+    # Hacer que cuando se hace una venta de una propiedad pase a estado vendida
+        # 232
+    # Hacer que cuando se borra una venta de una propiedad pase a estado disponible
 
     # https://github.com/BuaTeijeiro/ProyectoDI/blob/main/facturas.py#L143

@@ -545,6 +545,14 @@ class Conexion:
         except Exception as e:
             print("error listadoFiltrado en conexion", e)
 
+    @staticmethod
+    def ponerDisponiblePropiedad(idProp):
+        pass
+
+    @staticmethod
+    def ponerVendidaPropiedad(idProp, fechaHoy):
+        pass
+
     '''
     ZONA VENDEDORES
     '''
@@ -904,3 +912,24 @@ class Conexion:
                 return 0
         except Exception as error:
             print("Error al recuperar el total de la factura", error)
+
+    @staticmethod
+    def checkFacturaTieneVenta(idFactura):
+        """
+        :param idFactura: id de la factura
+        :type idFactura: int
+        :return: comprobar si tiene o no ventas
+        :rtype: boolean
+
+        Query que comprueba si una factura tiene ventas asociadas
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("select count(*) from ventas where facventa = :idFactura")
+            query.bindValue(":idFactura", idFactura)
+            if query.exec() and query.next():
+                return query.value(0) > 0
+            else:
+                return False
+        except Exception as error:
+            print("Error al comprobar si la factura tiene ventas", error)
