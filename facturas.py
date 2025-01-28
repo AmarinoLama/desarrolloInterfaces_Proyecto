@@ -17,7 +17,8 @@ class Facturas:
     @staticmethod
     def altaFactura():
         """
-
+        Función que recoge los datos de la interfaz y los guarda en la base de datos como una nueva factura, así mismo valida si los campos son correctos y devuelve un mensaje
+        conforme la operación se haya realizado correctamente o no
         """
         try:
             if (var.ui.txtFechaFactura.text() == "" or var.ui.txtDniFactura.text() == ""):
@@ -37,6 +38,9 @@ class Facturas:
 
     @staticmethod
     def cargarTablaFacturas():
+        """
+        Función que carga la tabla de facturas con los datos de la base de datos, añade un botón para borrar cada factura
+        """
         try:
             listado = conexion.Conexion.listadoFacturas()
             var.ui.tablaFacturas.setRowCount(len(listado))
@@ -73,7 +77,7 @@ class Facturas:
     @staticmethod
     def cargaOneFactura():
         """
-
+        Función que carga los datos de una factura en la interfaz
         """
         try:
             factura = var.ui.tablaFacturas.selectedItems()
@@ -88,6 +92,9 @@ class Facturas:
 
     @staticmethod
     def cargaClienteVenta():
+        """
+        Función que carga los datos de un cliente en la interfaz
+        """
         try:
             dni = var.ui.txtDniFactura.text()
             cliente = conexion.Conexion.datosOneCliente(dni)
@@ -102,6 +109,9 @@ class Facturas:
 
     @staticmethod
     def checkDatosFacturas():
+        """
+        Función que comprueba si los datos de la factura son correctos para habilitar el botón de grabar venta
+        """
         if Facturas.current_vendedor is not None and Facturas.current_propiedad is not None and Facturas.current_cliente is not None:
             var.ui.btnGrabarVenta.setDisabled(False)
         else:
@@ -109,6 +119,12 @@ class Facturas:
 
     @staticmethod
     def deleteFactura(idFactura):
+        """
+        :param idFactura: id de la factura a borrar
+        :type idFactura: str
+
+        Función que borra una factura de la base de datos, preguntando si deseamos confirmar la operación o no
+        """
         try:
             mbox = QtWidgets.QMessageBox()
             if eventos.Eventos.mostrarMensajeConfimarcion(mbox, "Borrar", "Esta seguro de que quiere borrar la factura de id " + idFactura) == QtWidgets.QMessageBox.StandardButton.Yes:
@@ -131,6 +147,12 @@ class Facturas:
 
     @staticmethod
     def cargaPropiedadVenta(propiedad):
+        """
+        :param propiedad: datos de una propiedad
+        :type propiedad: list
+
+        Función que carga los datos de una propiedad en la interfaz y comprueba si es posible venderla
+        """
         try:
             if "venta" in str(propiedad[14]).lower() and str(propiedad[15]).lower() == "disponible":
                 var.ui.lblCodigoPropVentas.setText(str(propiedad[0]))
@@ -158,6 +180,12 @@ class Facturas:
 
     @staticmethod
     def cargaVendedorVenta(id):
+        """
+        :param id: id del vendedor
+        :type id: str
+
+        Función que carga los datos de un vendedor en la interfaz
+        """
         try:
             var.ui.txtVendedorVentas.setText(str(id))
             Facturas.current_vendedor = str(id)
@@ -169,6 +197,10 @@ class Facturas:
 
     @staticmethod
     def limpiarFactura():
+        """
+        Función que limpia los campos de la interfaz y los atributos de la clase Facturas,
+        dejando únicamente los datos de la factura seleccionada
+        """
         var.ui.txtApelClieVentas.setText("")
         var.ui.txtNomCliVentas.setText("")
         var.ui.lblCodigoPropVentas.setText("")
@@ -177,14 +209,15 @@ class Facturas:
         var.ui.txtPrecioVentas.setText("")
         var.ui.txtLocalidadVentas.setText("")
         var.ui.txtVendedorVentas.setText("")
-        Facturas.current_factura = None
         Facturas.current_vendedor = None
         Facturas.current_propiedad = None
-        Facturas.current_cliente = None
         Facturas.checkDatosFacturas()
 
     @staticmethod
     def altaVenta():
+        """
+        Función que graba una venta en la base de datos, devolviendo un mensaje conforme si la operación se ha realizado correctamente o no
+        """
         try:
             infoVenta = [var.ui.lblNumFactura.text(), Facturas.current_vendedor, Facturas.current_propiedad]
             if conexion.Conexion.grabarVenta(infoVenta):
@@ -192,16 +225,15 @@ class Facturas:
             else:
                 eventos.Eventos.crearMensajeError("Error", "La venta no se ha podido grabar")
             Facturas.limpiarFactura()
+            Facturas.cargarTablaVentasFactura()
         except Exception as error:
             print('Error altaVenta: %s' % str(error))
 
     @staticmethod
     def cargarTablaVentasFactura():
         """
-
-        Método que recupera la lista de ventas cuya factura es la indicada en la interfaz
+        Función que recupera la lista de ventas cuya factura es la indicada en la interfaz
         y las muestra en la tabla de ventas
-
         """
         try:
             idFactura = var.ui.lblNumFactura.text()
@@ -217,47 +249,36 @@ class Facturas:
 
                     var.ui.tablaVentas.item(index, i).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
-                container = QtWidgets.QWidget()
-                layout = QtWidgets.QVBoxLayout()
-                botondel = QtWidgets.QPushButton()
-                botondel.setFixedSize(30, 20)
-                botondel.setIcon(QtGui.QIcon("./img/menos.ico"))
-                botondel.setStyleSheet("background-color: #fff;")
-                botondel.clicked.connect(
-                    lambda checked, venta=str(registro[0]), prop=str(registro[1]): Facturas.eliminarVenta(venta, prop))
-                layout.addWidget(botondel)
-                layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                layout.setContentsMargins(0, 0, 0, 0)
-                layout.setSpacing(0)
-                container.setLayout(layout)
-                var.ui.tablaVentas.setCellWidget(index, 6, container)
-
                 index += 1
             eventos.Eventos.resizeTablaVentas()
-            #Facturas.cargarBottomFactura(idFactura)
+            Facturas.cargarBottomFactura(idFactura)
 
         except Exception as e:
             print("Error al cargar la tabla de ventas", e)
 
-    # ver que hace esto
     @staticmethod
     def cargarBottomFactura(idFactura):
+        """
+        :param idFactura: id de la factura
+        :type idFactura: int
+
+        Función que calcula y carga los totales de una factura en la interfaz
+        """
         try:
-            subtotal = conexion.Conexion.totalFactura(idFactura)
+            subtotal = conexion.Conexion.obtenerTotalFactura(idFactura)
             if subtotal:
-                iva = 21
-                total = subtotal * (1 + iva / 100)
-                var.ui.lblSubtotalFactura.setText(str(subtotal) + " €")
-                var.ui.lblImpuestasFacturas.setText(str(iva) + "%")
-                var.ui.lblTotalFactura.setText(str(total) + " €")
+                impuestos = subtotal * 0.1
+                total = subtotal + impuestos
+                var.ui.lblSubtotalVentas.setText(str(subtotal) + " €")
+                var.ui.lblImpuestosVentas.setText(str(impuestos) + "€")
+                var.ui.lblTotalVentas.setText(str(total) + " €")
             else:
-                var.ui.lblSubtotalFactura.setText("- €")
-                var.ui.lblImpuestasFacturas.setText("-%")
-                var.ui.lblTotalFactura.setText("- €")
+                var.ui.lblSubtotalVentas.setText("- €")
+                var.ui.lblImpuestosVentas.setText("- €")
+                var.ui.lblTotalVentas.setText("- €")
         except Exception as e:
             print("Error al cargar los totales" + e)
 
-    # Hacer la parte de abajo de las facturas en la interfaz
-    # Hacer la parte de abajo de las facturas en el código
+    # Comprobar que al borrar una factura no haya ventas
 
     # https://github.com/BuaTeijeiro/ProyectoDI/blob/main/facturas.py#L143

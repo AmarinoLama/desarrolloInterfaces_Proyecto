@@ -3025,6 +3025,9 @@
           <height>471</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
         </property>
@@ -3037,7 +3040,7 @@
            <x>0</x>
            <y>0</y>
            <width>891</width>
-           <height>471</height>
+           <height>351</height>
           </rect>
          </property>
          <property name="selectionBehavior">
@@ -3076,6 +3079,69 @@
            <string>PRECIO</string>
           </property>
          </column>
+        </widget>
+        <widget class="QWidget" name="">
+         <property name="geometry">
+          <rect>
+           <x>630</x>
+           <y>380</y>
+           <width>231</width>
+           <height>53</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_10">
+          <item row="0" column="0" alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="label_18">
+            <property name="text">
+             <string>SUBTOTAL</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="lblSubtotalVentas">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 252, 220);</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="label_24">
+            <property name="text">
+             <string>IMPUESTOS</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="lblImpuestosVentas">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 252, 220);</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="label_25">
+            <property name="text">
+             <string>TOTAL</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="lblTotalVentas">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 252, 220);</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </widget>
       </widget>
