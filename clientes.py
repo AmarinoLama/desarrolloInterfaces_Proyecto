@@ -11,6 +11,13 @@ class Clientes:
 
     @staticmethod
     def checkDNI(dni):
+        """
+
+        :param dni: dni del cliente
+        :type dni: str
+
+        Función que se encarga de comprobar si un dni es correcto y cambiar el color del texto en caso de que sea inválido
+        """
         try:
             dni = str(dni).upper()
             var.ui.txtDnicli.setText(str(dni))
@@ -27,6 +34,13 @@ class Clientes:
 
     @staticmethod
     def altaCliente(self):
+        """
+
+        :param self: None
+        :type self: None
+        :return:
+        :rtype:
+        """
 
         try:
             nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(),

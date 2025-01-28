@@ -10,15 +10,13 @@ class Conexion:
     @staticmethod
     def db_conexion(self):
         """
-
         :param self: None
         :type self: None
-        :return:  False or True
-        :rtype: Booleano
+        :return:  operación exitosa
+        :rtype: bolean
 
         Módulo para establecer la conexión con la base de datos.
         Si éxito devuelve true, en caso contrario devuelve false.
-
         """
         if not os.path.isfile('bbdd.sqlite'):
             QtWidgets.QMessageBox.critical(None, 'Error', 'El archivo de la base de datos no existe.',
@@ -44,10 +42,13 @@ class Conexion:
                                            QtWidgets.QMessageBox.StandardButton.Cancel)
             return False
 
+    '''
+    ZONA LOCALIDADES
+    '''
+
     @staticmethod
     def listaProv(self):
         """
-
         :param self: None
         :type self: None
         :return: lista provincias
@@ -66,11 +67,10 @@ class Conexion:
     @staticmethod
     def listaMunicipios(provincia):
         """
-
         :param provincia: nombre provincia
         :type provincia: str
         :return: lista municipios
-        :rtype: bytearray
+        :rtype: list
 
         Query que obtiene listado municipios en la base de datos de una provincia concreta.
         """
@@ -89,11 +89,10 @@ class Conexion:
     @staticmethod
     def listaTodosMunicipios(self):
         """
-
         :param self: None
         :type self: None
         :return: lista municipios
-        :rtype: bytearray
+        :rtype: list
 
         Query que obtiene listado de todos los municipios en la base de datos.
         """
@@ -108,13 +107,16 @@ class Conexion:
         except Exception as e:
             print("error lista municipios", e)
 
+    '''
+    ZONA CLIENTES
+    '''
+
     @staticmethod
     def altaCliente(nuevocli):
         """
-
         :param nuevocli: array con los datos del cliente
         :type nuevocli: list
-        :return: true o false
+        :return: operación exitosa
         :rtype: booleano
 
         Query que inserta un nuevo cliente en la base de datos.
@@ -134,10 +136,7 @@ class Conexion:
             query.bindValue(":provcli", str(nuevocli[7]))
             query.bindValue(":municli", str(nuevocli[8]))
 
-            if query.exec():
-                return True
-            else:
-                return False
+            return query.exec()
 
         except Exception as e:
             print("error altaCliente en conexion", e)
@@ -145,11 +144,10 @@ class Conexion:
     @staticmethod
     def listadoClientes(self):
         """
-
         :param self: None
         :type self: None
         :return: listado de clientes
-        :rtype: bytearray
+        :rtype: list
 
         Query que obtiene listado de clientes en la base de datos.
         """
@@ -188,11 +186,10 @@ class Conexion:
     @staticmethod
     def datosOneCliente(dni):
         """
-
         :param dni: dni del cliente
         :type dni: str
         :return: datos del cliente
-        :rtype: bytearray
+        :rtype: list
 
         Query que obtiene los datos de un cliente en la base de datos a partir de un dni
         """
@@ -212,10 +209,9 @@ class Conexion:
     @staticmethod
     def modifCliente(registro):
         """
-
         :param registro: datos del cliente
         :type registro: list
-        :return: true o false
+        :return: operación exitosa
         :rtype: booleano
 
         Query que modifica los datos de un cliente en la base de datos.
@@ -255,10 +251,9 @@ class Conexion:
     @staticmethod
     def bajaCliente(datos):
         """
-
         :param datos: datos del cliente
         :type datos: list
-        :return: true o false
+        :return: operación exitosa
         :rtype: booleano
 
         Query que da de baja a un cliente en la base de datos.
@@ -272,13 +267,16 @@ class Conexion:
         except Exception as e:
             print("error bajaCliente en conexion", e)
 
+    '''
+    ZONA PROPIEDADES
+    '''
+
     @staticmethod
     def altaTipoPropiedad(tipo):
         """
-
         :param tipo: tipo de propiedad
         :type tipo: str
-        :return: true o false
+        :return: operación exitosa
         :rtype: booleano
 
         Query que da de alta un nuevo tipo de propiedad en la base de datos.
@@ -294,10 +292,9 @@ class Conexion:
     @staticmethod
     def bajaTipoPropiedad(tipo):
         """
-
         :param tipo: tipo de propiedad
         :type tipo: str
-        :return: true o false
+        :return: operación exitosa
         :rtype: booleano
 
         Query que borra un tipo de propiedad en la base de datos.
@@ -313,9 +310,8 @@ class Conexion:
     @staticmethod
     def cargarTipoProp():
         """
-
         :return: tipos de propiedad
-        :rtype: bytearray
+        :rtype: list
 
         Query que obtiene los tipos de propiedad de la base de datos.
         """
@@ -333,7 +329,6 @@ class Conexion:
     @staticmethod
     def altaPropiedad(propiedad):
         """
-
         :param propiedad: array con los datos de la propiedad
         :type propiedad: list
         :return: operación exitosa
@@ -393,11 +388,10 @@ class Conexion:
     @staticmethod
     def listadoPropiedades(self):
         """
-
         :param self: None
         :type self: None
         :return: listado de propiedades
-        :rtype: bytearray
+        :rtype: list
 
         Query que obtiene listado de propiedades en la base de datos.
         """
@@ -437,11 +431,10 @@ class Conexion:
     @staticmethod
     def datosOnePropiedad(codigo):
         """
-
         :param codigo: código de la propiedad
         :type codigo: str
         :return: datos de la propiedad
-        :rtype: bytearray
+        :rtype: list
 
         Query que obtiene los datos de una propiedad en la base de datos.
         """
@@ -461,10 +454,9 @@ class Conexion:
     @staticmethod
     def modifPropiedades(registro):
         """
-
         :param registro: datos de la propiedad
         :type registro: list
-        :return: true o false
+        :return: operación exitosa
         :rtype: booleano
 
         Query que modifica los datos de una propiedad en la base de datos.
@@ -513,10 +505,9 @@ class Conexion:
     @staticmethod
     def bajaPropiedad(datos):
         """
-
         :param datos: datos de la propiedad
         :type datos: list
-        :return: true o false
+        :return: operación exitosa
         :rtype: booleano
 
         Query que da de baja una propiedad en la base de datos.
@@ -533,11 +524,10 @@ class Conexion:
     @staticmethod
     def listadoFiltrado(datos):
         """
-
         :param datos: datos
         :type datos: list
         :return: listado de propiedades
-        :rtype: bytearray
+        :rtype: list
 
         Query que obtiene un listado de propiedades filtrado por tipo de propiedad y municipio.
         """
@@ -562,7 +552,6 @@ class Conexion:
     @staticmethod
     def altaVendedor(nuevoVendedor):
         """
-
         :param nuevoVendedor: datos del vendedor
         :type nuevoVendedor: list
         :return: true o false
@@ -593,7 +582,6 @@ class Conexion:
     @staticmethod
     def listadoVendedores(self):
         """
-
         :param self: None
         :type self: None
         :return: listado de vendedores
@@ -643,7 +631,6 @@ class Conexion:
     @staticmethod
     def listadoVendedoresNormal(self):
         """
-
         :param self: None
         :type self: None
         :return: listado de vendedores
@@ -668,7 +655,6 @@ class Conexion:
     @staticmethod
     def datosOneVendedor(self, idVendedor):
         """
-
         :param self: None
         :type self: None
         :param idVendedor: id del vendedor
@@ -694,7 +680,6 @@ class Conexion:
     @staticmethod
     def datosVendedoresByTelefono(self, telefono):
         """
-
         :param self: None
         :type self: None
         :param telefono: teléfono del vendedor
@@ -720,7 +705,6 @@ class Conexion:
     @staticmethod
     def modifVendedor(registro):
         """
-
         :param registro: datos del vendedor
         :type registro: list
         :return: operacion exitosa
@@ -749,7 +733,6 @@ class Conexion:
     @staticmethod
     def bajaVendedor(id, fecha):
         """
-
         :param id: id del vendedor
         :type id: str
         :param fecha: fecha de baja del vendedor
@@ -774,6 +757,14 @@ class Conexion:
 
     @staticmethod
     def guardarFactura(nuevaFactura):
+        """
+        :param nuevaFactura: datos de la factura a grabar
+        :type nuevaFactura: list
+        :return: operación exitosa
+        :rtype: booleano
+
+        Query que inserta una nueva factura en la base de datos
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
@@ -788,6 +779,12 @@ class Conexion:
 
     @staticmethod
     def listadoFacturas():
+        """
+        :return: listado de las facturas
+        :rtype: list
+
+        Query que obtiene un listado de todas las facturas en la base de datos
+        """
         try:
             listado = []
             query = QtSql.QSqlQuery()
@@ -802,23 +799,29 @@ class Conexion:
 
     @staticmethod
     def deleteFactura(id):
+        """
+        :param id: id de la factura a borrar
+        :type id: int
+        :return: operación exitosa
+        :rtype: boolean
+
+        Query que borra una factura de la base de datos a partir de la id
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("Delete from facturas where id = :id")
             query.bindValue(":id", str(id))
-            if query.exec():
-                return True
-            else:
-                return False
+            return query.exec()
         except Exception as error:
             print("Error al eliminar la factura", error)
 
     @staticmethod
     def getLastIdFactura():
         """
+        :return: id de la última factura guardada
+        :rtype: int
 
-        :return:
-        :rtype:
+        Query que obtiene el id de la última factura guardada en la base de datos
         """
         try:
             query = QtSql.QSqlQuery()
@@ -832,6 +835,14 @@ class Conexion:
 
     @staticmethod
     def grabarVenta(nuevaVenta):
+        """
+        :param nuevaVenta: datos de la venta a grabar
+        :type nuevaVenta: list
+        :return: operación exitosa
+        :rtype: boolean
+
+        Query que inserta una nueva venta en la base de datos
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("INSERT INTO VENTAS (facventa, codprop, agente) "
@@ -846,13 +857,12 @@ class Conexion:
     @staticmethod
     def cargarTablaVentas(idFactura):
         """
-
         :param idFactura: id de la factura
         :type idFactura: int
         :return: lista de ventas de la factura
         :rtype: list
 
-        Método que recupera la información de todas las ventas cuya factura es
+        Query que recupera la información de todas las ventas cuya factura es
         la identificada por el id pasado por parámetro
         """
         try:
@@ -870,3 +880,27 @@ class Conexion:
             return listado
         except Exception as error:
             print("Error al recuperar el listado de ventas")
+
+    @staticmethod
+    def obtenerTotalFactura(idFactura):
+        """
+        :param idFactura: id de la factura
+        :type idFactura: int
+        :return: total de la factura
+        :rtype: float
+
+        Query que recupera el total de la factura identificada por el id pasado por parámetro
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "select sum(p.prevenprop) "
+                "from ventas as v inner join propiedades as p on v.codprop = p.codigo "
+                "where v.facventa = :idFactura")
+            query.bindValue(":idFactura", idFactura)
+            if query.exec() and query.next():
+                return query.value(0)
+            else:
+                return 0
+        except Exception as error:
+            print("Error al recuperar el total de la factura", error)
