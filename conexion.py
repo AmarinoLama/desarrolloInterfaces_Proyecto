@@ -547,11 +547,41 @@ class Conexion:
 
     @staticmethod
     def ponerDisponiblePropiedad(idProp):
-        pass
+        """
+        :param datos: id de la propiedad
+        :type datos: int
+        :return: operación exitosa
+        :rtype: booleano
+
+        Query que pone una propiedad como disponible
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("UPDATE propiedades SET estadoprop = :estadoprop WHERE codigo = :codigo")
+            query.bindValue(":codigo", idProp)
+            query.bindValue(":estadoprop", "disponible")
+            return query.exec()
+        except Exception as e:
+            print("error ponerDisponiblePropiedad en conexion", e)
 
     @staticmethod
-    def ponerVendidaPropiedad(idProp, fechaHoy):
-        pass
+    def ponerVendidaPropiedad(idProp):
+        """
+        :param datos: id de la propiedad
+        :type datos: int
+        :return: operación exitosa
+        :rtype: booleano
+
+        Query que pone una propiedad como vendida
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("UPDATE propiedades SET estadoprop = :estadoprop WHERE codigo = :codigo")
+            query.bindValue(":codigo", idProp)
+            query.bindValue(":estadoprop", "vendida")
+            return query.exec()
+        except Exception as e:
+            print("error ponerVendidaPropiedad en conexion", e)
 
     '''
     ZONA VENDEDORES
@@ -579,10 +609,7 @@ class Conexion:
             query.bindValue(":mailVend", str(nuevoVendedor[4]))
             query.bindValue(":delegacionVend", str(nuevoVendedor[5]))
 
-            if query.exec():
-                return True
-            else:
-                return False
+            return query.exec()
 
         except Exception as e:
             print("error altaVendedor en conexion", e)

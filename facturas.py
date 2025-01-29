@@ -228,8 +228,7 @@ class Facturas:
             infoVenta = [var.ui.lblNumFactura.text(), Facturas.current_vendedor, Facturas.current_propiedad]
             if conexion.Conexion.grabarVenta(infoVenta):
                 eventos.Eventos.crearMensajeInfo("Informacion", "La venta se ha grabado exitosamente")
-                fecha_hoy = date.today()
-                # seguir
+
             else:
                 eventos.Eventos.crearMensajeError("Error", "La venta no se ha podido grabar")
             Facturas.limpiarFactura()
@@ -308,7 +307,8 @@ class Facturas:
         print(idVenta)
 
     # Hacer que cuando se hace una venta de una propiedad pase a estado vendida
-        # 232
+        # 232 - linea del codigo
     # Hacer que cuando se borra una venta de una propiedad pase a estado disponible
+    # Acabar funcion que deleteVenta
 
     # https://github.com/BuaTeijeiro/ProyectoDI/blob/main/facturas.py#L143
