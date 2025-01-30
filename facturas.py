@@ -1,9 +1,11 @@
+import datetime
 from datetime import date
 
 from PyQt6 import QtGui
 
 import conexion
 import eventos
+import propiedades
 import var
 from PyQt6 import QtWidgets, QtCore
 
@@ -228,7 +230,7 @@ class Facturas:
             infoVenta = [var.ui.lblNumFactura.text(), Facturas.current_vendedor, Facturas.current_propiedad]
             if conexion.Conexion.grabarVenta(infoVenta):
                 eventos.Eventos.crearMensajeInfo("Informacion", "La venta se ha grabado exitosamente")
-
+                conexion.Conexion.ponerVendidaPropiedad(var.ui.lblNumFactura.text())
             else:
                 eventos.Eventos.crearMensajeError("Error", "La venta no se ha podido grabar")
             Facturas.limpiarFactura()
@@ -302,13 +304,32 @@ class Facturas:
             print("Error al cargar los totales" + e)
 
     @staticmethod
-    def deleteVenta(idVenta):
-        print("hola paco")
-        print(idVenta)
+    def deleteVenta(idVenta, idprop):
+        """
+        :param idVenta: id de la venta
+        :type idVenta: int
+        :param idprop: id de la propiedad
+        :type idprop: int
 
-    # Hacer que cuando se hace una venta de una propiedad pase a estado vendida
-        # 232 - linea del codigo
-    # Hacer que cuando se borra una venta de una propiedad pase a estado disponible
-    # Acabar funcion que deleteVenta
+        Función que borra una venta de la base de datos y pone la propiedad asociada a la venta en estado disponible
+        """
+        try:
+            if conexion.Conexion.deleteVenta(idVenta):
+                eventos.Eventos.crearMensajeInfo("Informacion", "La venta se ha eliminado correctamente")
+                Facturas.cargarTablaVentasFactura()
+                conexion.Conexion.ponerDisponiblePropiedad(idprop)
+            else:
+                eventos.Eventos.crearMensajeError("Error", "La venta no se ha podido eliminar")
+        except Exception as e:
+            print("Error al eliminar la venta", e)
+
+
+
+    # Borrar todos los selfs
+    # Cargar tabla propiedades al crear o borrar una venta
+
+    # Hacer función limpiar panel ventas
+    # Cuando cambies los datos de una propiedad (baja o modificar) comprobar que no haya datos en la tabla de ventas
+        # Una función en propiedades que compruebe que no haya nada escrito en el otro panel y saque un mensaje de error
 
     # https://github.com/BuaTeijeiro/ProyectoDI/blob/main/facturas.py#L143

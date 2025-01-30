@@ -343,7 +343,7 @@ class Eventos():
         eventos.Eventos.cargarProv(self)
         eventos.Eventos.cargarTipoPropiedad(self)
         clientes.Clientes.cargaTablaClientes(self)
-        propiedades.Propiedades.cargarTablaPropiedades(self, 0)
+        propiedades.Propiedades.cargarTablaPropiedades(0)
 
     def abrirTipoProp(self):
         try:

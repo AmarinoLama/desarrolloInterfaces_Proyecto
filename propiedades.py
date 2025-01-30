@@ -411,6 +411,5 @@ class Propiedades():
         else:
             var.ui.rbtnDisponiblePro.setChecked(False)
             var.ui.rbtnDisponiblePro.setEnabled(False)
-            var.ui.rbtnAlquiladoPro.setChecked(True)
             var.ui.rbtnAlquiladoPro.setEnabled(True)
             var.ui.rbtnVendidoPro.setEnabled(True)

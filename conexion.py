@@ -1,4 +1,5 @@
 import os
+from datetime import datetime, date
 
 from PyQt6 import QtGui, QtSql, QtWidgets, QtCore
 
@@ -557,9 +558,10 @@ class Conexion:
         """
         try:
             query = QtSql.QSqlQuery()
-            query.prepare("UPDATE propiedades SET estadoprop = :estadoprop WHERE codigo = :codigo")
+            query.prepare("UPDATE propiedades SET estadoprop = :estadoprop, bajaprop = :bajaprop WHERE codigo = :codigo")
             query.bindValue(":codigo", idProp)
-            query.bindValue(":estadoprop", "disponible")
+            query.bindValue(":estadoprop", "Disponible")
+            query.bindValue(":bajaprop", None)
             return query.exec()
         except Exception as e:
             print("error ponerDisponiblePropiedad en conexion", e)
@@ -572,13 +574,16 @@ class Conexion:
         :return: operación exitosa
         :rtype: booleano
 
-        Query que pone una propiedad como vendida
+        Query que pone una propiedad como vendida y le asigna su fecha de baja del día de hoy
         """
         try:
             query = QtSql.QSqlQuery()
-            query.prepare("UPDATE propiedades SET estadoprop = :estadoprop WHERE codigo = :codigo")
+            fecha_hoy = date.today()
+            fecha_formateada = fecha_hoy.strftime("%d/%m/%Y")
+            query.prepare("UPDATE propiedades SET estadoprop = :estadoprop, bajaprop = :bajaprop WHERE codigo = :codigo")
             query.bindValue(":codigo", idProp)
-            query.bindValue(":estadoprop", "vendida")
+            query.bindValue(":estadoprop", "Vendido")
+            query.bindValue(":bajaprop", fecha_formateada)
             return query.exec()
         except Exception as e:
             print("error ponerVendidaPropiedad en conexion", e)
@@ -960,3 +965,21 @@ class Conexion:
                 return False
         except Exception as error:
             print("Error al comprobar si la factura tiene ventas", error)
+
+    @staticmethod
+    def deleteVenta(idVenta):
+        """
+        :param idVenta: id de la venta
+        :type idVenta: int
+        :return: operación exitosa
+        :rtype: boolean
+
+        Query que borra una venta de la base de datos a partir de la id
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("Delete from ventas where idventa = :idVenta")
+            query.bindValue(":idVenta", idVenta)
+            return query.exec()
+        except Exception as error:
+            print("Error al eliminar la venta", error)
