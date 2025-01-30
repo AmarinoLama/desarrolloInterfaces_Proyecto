@@ -328,7 +328,6 @@ class Facturas:
     # Borrar todos los selfs
     # Cargar tabla propiedades al crear o borrar una venta
 
-    # Hacer función limpiar panel ventas
     # Cuando cambies los datos de una propiedad (baja o modificar) comprobar que no haya datos en la tabla de ventas
         # Una función en propiedades que compruebe que no haya nada escrito en el otro panel y saque un mensaje de error
 

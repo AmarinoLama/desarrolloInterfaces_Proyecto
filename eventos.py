@@ -297,25 +297,33 @@ class Eventos():
             print("error en restaurar backup: ", error)
 
     def limpiarPanel(self):
+
+        # BORRAR PANEL CLIENTES
+
         objetosPanelcli = [
             var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli, var.ui.txtEmailcli,
             var.ui.txtMovilcli, var.ui.txtDireccioncli, var.ui.cmbProvinciacli, var.ui.cmbMunicipiocli,
             var.ui.txtBajacli
         ]
 
-        objetosPanelvend = [var.ui.txtIdVend, var.ui.txtDniVend, var.ui.txtNombreVend, var.ui.txtAltaVend,
-                   var.ui.txtBajaVend, var.ui.txtTelefonoVend, var.ui.txtEmailVend,
-                   var.ui.cmbDelegacionVend]
-
         for i, dato in enumerate(objetosPanelcli):
             if i not in (7, 8):
                 dato.setText("")
+
+        # BORRAR PANEL VENDEDORES
+
+        objetosPanelvend = [var.ui.txtIdVend, var.ui.txtDniVend, var.ui.txtNombreVend, var.ui.txtAltaVend,
+                            var.ui.txtBajaVend, var.ui.txtTelefonoVend, var.ui.txtEmailVend,
+                            var.ui.cmbDelegacionVend]
 
         for i, dato in enumerate(objetosPanelvend):
             if i not in (0, 7):
                 dato.setText("")
             elif i == 0:
                 var.ui.txtIdVend.setText("")
+
+
+        # BORRAR PANEL PROPIEDADES
 
         eventos.Eventos.cargarProv(self)
         var.ui.cmbMunicipiocli.clear()
@@ -342,8 +350,17 @@ class Eventos():
             var.ui.cbxIntercambioPro.setChecked(False)
         eventos.Eventos.cargarProv(self)
         eventos.Eventos.cargarTipoPropiedad(self)
-        clientes.Clientes.cargaTablaClientes(self)
-        propiedades.Propiedades.cargarTablaPropiedades(0)
+
+        # BORRAR PANEL VENTAS
+
+        objetosPanelVentas = [var.ui.lblNumFactura, var.ui.txtFechaFactura, var.ui.txtDniFactura,
+                              var.ui.txtApelClieVentas, var.ui.txtNomCliVentas, var.ui.lblCodigoPropVentas,
+                              var.ui.txtTipoPropVentas, var.ui.txtPrecioVentas, var.ui.txtDireccionPropVentas,
+                              var.ui.txtLocalidadVentas, var.ui.lblSubtotalVentas, var.ui.lblImpuestosVentas,
+                              var.ui.lblTotalVentas]
+        
+        for i, dato in enumerate(objetosPanelVentas):
+            dato.setText("")
 
     def abrirTipoProp(self):
         try:
