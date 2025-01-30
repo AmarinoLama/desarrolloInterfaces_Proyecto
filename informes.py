@@ -2,12 +2,16 @@ from PyQt6 import QtSql
 from reportlab.pdfgen import canvas
 from datetime import datetime
 from PIL import Image
-import os, shutil
+import os
 import var
+
 
 class Informes:
     @staticmethod
     def reportClientes():
+        """
+        Función que genera un informe en PDF con el listado de clientes
+        """
         try:
             rootPath = '.\\informes'
             if not os.path.exists(rootPath):
@@ -79,79 +83,101 @@ class Informes:
             print(error)
 
     def reportPropiedades(localidad):
-       try:
-           rootPath = '.\\informes'
-           if not os.path.exists(rootPath):
-               os.makedirs(rootPath)
-           fecha = datetime.today()
-           fecha = fecha.strftime("%Y_%m_%d_%H_%M_%S")
-           nomepdfProp = fecha + "_listadopropiedades.pdf"
-           pdf_path = os.path.join(rootPath, nomepdfProp)
-           var.report = canvas.Canvas(pdf_path)
-           titulo = "Listado Propiedades de " + str(localidad)
-           Informes.topInforme(titulo)
+        """
+        :param localidad: localidad de dónde se va a sacar el informe
+        :type localidad: str
 
-           # Calculate total pages
+        Función que genera un informe en PDF con el listado de propiedades a partir de una determinada localidad
+        """
+        try:
+            rootPath = '.\\informes'
+            if not os.path.exists(rootPath):
+                os.makedirs(rootPath)
+            fecha = datetime.today()
+            fecha = fecha.strftime("%Y_%m_%d_%H_%M_%S")
+            nomepdfProp = fecha + "_listadopropiedades.pdf"
+            pdf_path = os.path.join(rootPath, nomepdfProp)
+            var.report = canvas.Canvas(pdf_path)
+            titulo = "Listado Propiedades de " + str(localidad)
+            Informes.topInforme(titulo)
 
-           paginas = 0
-           query0 = QtSql.QSqlQuery()
-           query0.exec("select count(*) from propiedades where muniProp = :localidad")
-           query0.bindValue(':localidad', localidad)
-           if (query0.next()):
-               registros = int(query0.value(0))
-               paginas = int(registros / 20) + 1
-           Informes.footInforme(titulo, paginas)
-           items = ['CODIGO', 'DIRECCION', 'TIPO', 'OPERACION', 'VENTA €', 'ALQUILER €']
-           var.report.setFont('Helvetica-Bold', size=10)
-           var.report.drawString(55, 650, str(items[0]))   # CODIGO
-           var.report.drawString(110, 650, str(items[1]))  # DIRECCION
-           var.report.drawString(260, 650, str(items[2]))  # TIPO
-           var.report.drawString(310, 650, str(items[3]))  # TIPO OPERACION
-           var.report.drawString(415, 650, str(items[4]))  # PRECIO VENTA
-           var.report.drawString(470, 650, str(items[5]))  # PRECIO ALQUILER
-           var.report.line(50, 645, 525, 645)
-           query0.prepare("SELECT codigo, dirprop, tipoprop, tipooper, prevenprop, prealquiprop from propiedades where muniProp = :localidad order by codigo")
-           query0.bindValue(':localidad', localidad)
-           if query0.exec():
-               x = 60
-               y = 630
-               while query0.next():
-                   if y <= 90:
-                       var.report.setFont('Helvetica-Oblique', size=8)  # HELVETICA OBLIQUE PARA LA FUENTE ITALIC
-                       var.report.drawString(450, 80, 'Página siguiente...')
-                       var.report.showPage()  # CREAMOS UNA PAGINA NUEVA
-                       Informes.topInforme(titulo)
-                       Informes.footInforme(titulo, paginas)
-                       items = ['CODIGO', 'DIRECCION', 'TIPO', 'OPERACION', 'VENTA €', 'ALQUILER €']
-                       var.report.setFont('Helvetica-Bold', size=10)
-                       var.report.drawString(55, 650, str(items[0]))   # CODIGO
-                       var.report.drawString(120, 650, str(items[1]))  # DIRECCION
-                       var.report.drawString(250, 650, str(items[2]))  # TIPO
-                       var.report.drawString(325, 650, str(items[3]))  # TIPO OPERACION
-                       var.report.drawString(405, 650, str(items[4]))  # PRECIO VENTA
-                       var.report.drawString(475, 650, str(items[5]))  # PRECIO ALQUILER
-                       var.report.line(50, 645, 525, 645)
-                       x = 60
-                       y = 630
+            # Calculate total pages
 
-                   var.report.setFont('Helvetica', size=8)
-                   dni = str(query0.value(0))
-                   var.report.drawCentredString(x + 5, y, str(dni))         # CODIGO
-                   var.report.drawString(x + 60, y, str(query0.value(1)))   # DIRECCION
-                   var.report.drawString(x + 205, y, str(query0.value(2)))  # TIPO
-                   var.report.drawString(x + 250, y, str(query0.value(3)))  # TIPO OPERACION
-                   var.report.drawString(x + 370, y, str(query0.value(4)))  # PRECIO VENTA
-                   var.report.drawString(x + 420, y, str(query0.value(5)))  # PRECIO ALQUILER
-                   y = y - 25.
+            paginas = 0
+            query0 = QtSql.QSqlQuery()
+            query0.exec("select count(*) from propiedades where muniProp = :localidad")
+            query0.bindValue(':localidad', localidad)
+            if (query0.next()):
+                registros = int(query0.value(0))
+                paginas = int(registros / 20) + 1
+            Informes.footInforme(titulo, paginas)
+            items = ['CODIGO', 'DIRECCION', 'TIPO', 'OPERACION', 'VENTA €', 'ALQUILER €']
+            var.report.setFont('Helvetica-Bold', size=10)
+            var.report.drawString(55, 650, str(items[0]))  # CODIGO
+            var.report.drawString(110, 650, str(items[1]))  # DIRECCION
+            var.report.drawString(260, 650, str(items[2]))  # TIPO
+            var.report.drawString(310, 650, str(items[3]))  # TIPO OPERACION
+            var.report.drawString(415, 650, str(items[4]))  # PRECIO VENTA
+            var.report.drawString(470, 650, str(items[5]))  # PRECIO ALQUILER
+            var.report.line(50, 645, 525, 645)
+            query0.prepare(
+                "SELECT codigo, dirprop, tipoprop, tipooper, prevenprop, prealquiprop from propiedades where muniProp = :localidad order by codigo")
+            query0.bindValue(':localidad', localidad)
+            if query0.exec():
+                x = 60
+                y = 630
+                while query0.next():
+                    if y <= 90:
+                        var.report.setFont('Helvetica-Oblique', size=8)  # HELVETICA OBLIQUE PARA LA FUENTE ITALIC
+                        var.report.drawString(450, 80, 'Página siguiente...')
+                        var.report.showPage()  # CREAMOS UNA PAGINA NUEVA
+                        Informes.topInforme(titulo)
+                        Informes.footInforme(titulo, paginas)
+                        items = ['CODIGO', 'DIRECCION', 'TIPO', 'OPERACION', 'VENTA €', 'ALQUILER €']
+                        var.report.setFont('Helvetica-Bold', size=10)
+                        var.report.drawString(55, 650, str(items[0]))  # CODIGO
+                        var.report.drawString(120, 650, str(items[1]))  # DIRECCION
+                        var.report.drawString(250, 650, str(items[2]))  # TIPO
+                        var.report.drawString(325, 650, str(items[3]))  # TIPO OPERACION
+                        var.report.drawString(405, 650, str(items[4]))  # PRECIO VENTA
+                        var.report.drawString(475, 650, str(items[5]))  # PRECIO ALQUILER
+                        var.report.line(50, 645, 525, 645)
+                        x = 60
+                        y = 630
 
-           var.report.save()
-           for file in os.listdir(rootPath):
-               if file.endswith(nomepdfProp):
-                   os.startfile(pdf_path)
-       except Exception as error:
+                    var.report.setFont('Helvetica', size=8)
+                    dni = str(query0.value(0))
+                    var.report.drawCentredString(x + 5, y, str(dni))  # CODIGO
+                    var.report.drawString(x + 60, y, str(query0.value(1)))  # DIRECCION
+                    var.report.drawString(x + 205, y, str(query0.value(2)))  # TIPO
+                    var.report.drawString(x + 250, y, str(query0.value(3)))  # TIPO OPERACION
+                    var.report.drawString(x + 370, y, str(query0.value(4)))  # PRECIO VENTA
+                    var.report.drawString(x + 420, y, str(query0.value(5)))  # PRECIO ALQUILER
+                    y = y - 25.
+
+            var.report.save()
+            for file in os.listdir(rootPath):
+                if file.endswith(nomepdfProp):
+                    os.startfile(pdf_path)
+        except Exception as error:
             print(error)
 
+    def reportVentas(idFactura):
+        """
+        :param idFactura: id de la factura
+        :type idFactura: int
+
+        Función que genera un informe en PDF con el listado de ventas a partir de una determinada factura
+        """
+        pass
+
     def topInforme(titulo):
+        """
+        :param titulo: titulo del informe
+        :type titulo: str
+
+        Función que genera la cabecera del informe
+        """
         try:
             ruta_logo = '.\\img\\icono.png'
             logo = Image.open(ruta_logo)
@@ -178,8 +204,15 @@ class Informes:
         except Exception as error:
             print('Error en cabecera informe:', error)
 
-
     def footInforme(titulo, totalPaginas):
+        """
+        :param titulo: titulo del informe
+        :type titulo: str
+        :param totalPaginas: número total de páginas
+        :type totalPaginas: int
+
+        Función que genera el pie del informe
+        """
         try:
             total_pages = totalPaginas
             var.report.line(50, 50, 525, 50)

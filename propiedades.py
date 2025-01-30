@@ -212,6 +212,9 @@ class Propiedades():
     @staticmethod
     def modifPropiedad():
         try:
+            if Propiedades.checkNoEstaEnFacturas():
+                eventos.Eventos.crearMensajeError("Error", "No puedes modificar una propiedad que está en facturas")
+                return
             propiedad = [var.ui.txtPublicacionPro.text(), var.ui.txtDireccionPro.text(),
                          var.ui.cmbProvinciaPro.currentText(), var.ui.cmbMunicipioPro.currentText(),
                          var.ui.cmbTipoPro.currentText(), var.ui.spbHabitacionesPro.text(),
@@ -311,6 +314,9 @@ class Propiedades():
     @staticmethod
     def bajaPropiedad():
         try:
+            if Propiedades.checkNoEstaEnFacturas():
+                eventos.Eventos.crearMensajeError("Error", "No puedes modificar una propiedad que está en facturas")
+                return
             if var.ui.rbtnDisponiblePro.isChecked():
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
@@ -422,3 +428,13 @@ class Propiedades():
             var.ui.rbtnDisponiblePro.setEnabled(False)
             var.ui.rbtnAlquiladoPro.setEnabled(True)
             var.ui.rbtnVendidoPro.setEnabled(True)
+
+    @staticmethod
+    def checkNoEstaEnFacturas():
+        try:
+            if var.ui.lblCodigoPropVentas.text() == "":
+                return True
+            else:
+                return False
+        except Exception as error:
+            print("error checkNoEstaEnFacturas en propiedades", error)

@@ -5,6 +5,7 @@ from PyQt6 import QtGui
 
 import conexion
 import eventos
+import propiedades
 import var
 from PyQt6 import QtWidgets, QtCore
 
@@ -230,6 +231,7 @@ class Facturas:
             if conexion.Conexion.grabarVenta(infoVenta):
                 eventos.Eventos.crearMensajeInfo("Informacion", "La venta se ha grabado exitosamente")
                 conexion.Conexion.ponerVendidaPropiedad(var.ui.lblNumFactura.text())
+                propiedades.Propiedades.cargarTablaPropiedades(0)
             else:
                 eventos.Eventos.crearMensajeError("Error", "La venta no se ha podido grabar")
             Facturas.limpiarFactura()
@@ -317,17 +319,12 @@ class Facturas:
                 eventos.Eventos.crearMensajeInfo("Informacion", "La venta se ha eliminado correctamente")
                 Facturas.cargarTablaVentasFactura()
                 conexion.Conexion.ponerDisponiblePropiedad(idprop)
+                propiedades.Propiedades.cargarTablaPropiedades(0)
             else:
                 eventos.Eventos.crearMensajeError("Error", "La venta no se ha podido eliminar")
         except Exception as e:
             print("Error al eliminar la venta", e)
 
-
-
-    # Borrar todos los selfs
-    # Cargar tabla propiedades al crear o borrar una venta
-
-    # Cuando cambies los datos de una propiedad (baja o modificar) comprobar que no haya datos en la tabla de ventas
-        # Una función en propiedades que compruebe que no haya nada escrito en el otro panel y saque un mensaje de error
+    # Cuando esté seleccionada una propiedad y le deas a modificar o baja que se borren los campos de ventas
 
     # https://github.com/BuaTeijeiro/ProyectoDI/blob/main/facturas.py#L143
