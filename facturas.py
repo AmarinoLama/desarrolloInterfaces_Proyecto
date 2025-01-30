@@ -5,7 +5,6 @@ from PyQt6 import QtGui
 
 import conexion
 import eventos
-import propiedades
 import var
 from PyQt6 import QtWidgets, QtCore
 

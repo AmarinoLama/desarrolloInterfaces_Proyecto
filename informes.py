@@ -7,7 +7,7 @@ import var
 
 class Informes:
     @staticmethod
-    def reportClientes(self):
+    def reportClientes():
         try:
             rootPath = '.\\informes'
             if not os.path.exists(rootPath):

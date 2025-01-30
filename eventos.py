@@ -51,7 +51,8 @@ class Eventos():
         mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
         mbox.exec()
 
-    def mensajeSalir(self=None):
+    @staticmethod
+    def mensajeSalir():
         mbox = QtWidgets.QMessageBox()
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
         mbox.setWindowIcon(QtGui.QIcon('./img/icono.ico'))
@@ -67,22 +68,25 @@ class Eventos():
         else:
             mbox.hide()
 
-    def cargarProv(self):
+    @staticmethod
+    def cargarProv():
         var.ui.cmbProvinciacli.clear()
-        listado = conexion.Conexion.listaProv(self)
-        #listado = conexionserver.ConexionServer.listaProv(self)
+        listado = conexion.Conexion.listaProv()
+        #listado = conexionserver.ConexionServer.listaProv()
         var.ui.cmbProvinciacli.addItems(listado)
         var.ui.cmbProvinciaPro.addItems(listado)
         var.ui.cmbDelegacionVend.addItems(listado)
 
-    def cargarMunicipiosCli(self):
+    @staticmethod
+    def cargarMunicipiosCli():
         var.ui.cmbMunicipiocli.clear()
         provincia = var.ui.cmbProvinciacli.currentText()
         listado = conexion.Conexion.listaMunicipios(provincia)
         #listado = conexionserver.ConexionServer.listaMuniProv(provincia)
         var.ui.cmbMunicipiocli.addItems(listado)
 
-    def cargarMunicipiosPro(self):
+    @staticmethod
+    def cargarMunicipiosPro():
         var.ui.cmbMunicipioPro.clear()
         provincia = var.ui.cmbProvinciaPro.currentText()
         listado = conexion.Conexion.listaMunicipios(provincia)
@@ -248,7 +252,8 @@ class Eventos():
         except Exception as e:
             print("error en resize tabla clientes: ", e)
 
-    def crearBackup(self):
+    @staticmethod
+    def crearBackup():
         try:
             fecha = datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
             copia = str(fecha) + '_backup.zip'
@@ -272,7 +277,8 @@ class Eventos():
         except Exception as error:
             print("error en crear backup: ", error)
 
-    def restaurarBackup(self):
+    @staticmethod
+    def restaurarBackup():
         try:
             filename = var.dlgabrir.getOpenFileName(None, "Restaurar Copia Seguridad", '', '*.zip;;All Files(*)')
             file = filename[0]
@@ -290,13 +296,14 @@ class Eventos():
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
-                conexion.Conexion.db_conexion(self)
-                eventos.Eventos.cargarProv(self)
-                clientes.Clientes.cargaTablaClientes(self)
+                conexion.Conexion.db_conexion()
+                eventos.Eventos.cargarProv()
+                clientes.Clientes.cargaTablaClientes()
         except Exception as error:
             print("error en restaurar backup: ", error)
 
-    def limpiarPanel(self):
+    @staticmethod
+    def limpiarPanel():
 
         # BORRAR PANEL CLIENTES
 
@@ -325,7 +332,7 @@ class Eventos():
 
         # BORRAR PANEL PROPIEDADES
 
-        eventos.Eventos.cargarProv(self)
+        eventos.Eventos.cargarProv()
         var.ui.cmbMunicipiocli.clear()
 
         objetospanelprop = [var.ui.txtPublicacionPro, var.ui.txtFechabajaPro, var.ui.txtDireccionPro,
@@ -348,8 +355,9 @@ class Eventos():
             var.ui.cbxVentaPro.setChecked(False)
         if var.ui.cbxIntercambioPro.isChecked():
             var.ui.cbxIntercambioPro.setChecked(False)
-        eventos.Eventos.cargarProv(self)
-        eventos.Eventos.cargarTipoPropiedad(self)
+        eventos.Eventos.cargarProv()
+        eventos.Eventos.cargarTipoPropiedad()
+        eventos.Eventos.cargarTipoPropiedad()
 
         # BORRAR PANEL VENTAS
 
@@ -362,13 +370,15 @@ class Eventos():
         for i, dato in enumerate(objetosPanelVentas):
             dato.setText("")
 
-    def abrirTipoProp(self):
+    @staticmethod
+    def abrirTipoProp():
         try:
             var.dlggestion.show()
         except Exception as error:
             print("error en abrir gestion propiedades ", error)
 
-    def cargarTipoPropiedad(self):
+    @staticmethod
+    def cargarTipoPropiedad():
         try:
             registro = conexion.Conexion.cargarTipoProp()
             if registro:
@@ -377,7 +387,8 @@ class Eventos():
         except Exception as error:
             print("Error en cargar tipo propiedad: ", error)
 
-    def exportCSVprop(self):
+    @staticmethod
+    def exportCSVprop():
         try:
             fecha = datetime.today()
             fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
@@ -386,7 +397,7 @@ class Eventos():
             if fichero:
                 historicoGuardar = var.historicoProp
                 var.historicoProp = 1
-                registros = conexion.Conexion.listadoPropiedades(self)
+                registros = conexion.Conexion.listadoPropiedades()
                 var.historicoProp = historicoGuardar
                 with open(fichero, "w", newline="", encoding="utf-8") as csvfile:
                     writer = csv.writer(csvfile)
@@ -411,7 +422,8 @@ class Eventos():
         except Exception as e:
             print(e)
 
-    def exportJSONprop(self):
+    @staticmethod
+    def exportJSONprop():
         try:
             fecha = datetime.today()
             fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
@@ -423,7 +435,7 @@ class Eventos():
                         "Codigo Postal", "Observaciones", "Operacion", "Estado", "Propietario", "Movil"]
                 historicoGuardar = var.historicoProp
                 var.historicoProp = 1
-                registros = conexion.Conexion.listadoPropiedades(self)
+                registros = conexion.Conexion.listadoPropiedades()
                 var.historicoProp = historicoGuardar
                 listapropiedades = [dict(zip(keys, registro)) for registro in registros]
                 with open(fichero, "w", newline="", encoding="utf-8") as jsonfile:
@@ -443,19 +455,22 @@ class Eventos():
         except Exception as e:
             print(e)
 
-    def abrirAbout(self):
+    @staticmethod
+    def abrirAbout():
         try:
             var.dlgAbout.show()
         except Exception as error:
             print("error en abrir about ", error)
 
-    def abrirBuscarLocalidad(self):
+    @staticmethod
+    def abrirBuscarLocalidad():
         try:
             var.dlgLocalidad.show()
         except Exception as error:
             print("error en abrir BuscarLocalidad ", error)
 
-    def movimientoPaginas(self, avance, tabla):
+    @staticmethod
+    def movimientoPaginas(avance, tabla):
         try:
             if tabla == "Clientes":
                 if avance == 0:
@@ -463,25 +478,26 @@ class Eventos():
                         var.rowsClientes -= 15
                 else:
                     var.rowsClientes += 15
-                clientes.Clientes.cargaTablaClientes(self)
+                clientes.Clientes.cargaTablaClientes()
             elif tabla == "Propiedades":
                 if avance == 0:
                     if var.rowsPropiedades >= 11:
                         var.rowsPropiedades -= 11
                 else:
                     var.rowsPropiedades += 11
-                propiedades.Propiedades.cargarTablaPropiedades(self, 0)
+                propiedades.Propiedades.cargarTablaPropiedades(0)
             elif tabla == "Vendedores":
                 if avance == 0:
                     if var.rowsVendedores >= 10:
                         var.rowsVendedores -= 10
                 else:
                     var.rowsVendedores += 10
-                vendedores.Vendedores.cargarTablaVendedores(self)
+                vendedores.Vendedores.cargarTablaVendedores()
         except Exception as error:
             print("error en pagina clientes: ", error)
 
-    def exportJSONvendedores(self):
+    @staticmethod
+    def exportJSONvendedores():
         try:
             fecha = datetime.today()
             fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
@@ -491,7 +507,7 @@ class Eventos():
                 keys = ["Id", "Nombre", "Movil", "Delegacion", "Dni", "Alta", "Baja", "Mail"]
                 historicoGuardar = var.historicoVend
                 var.historicoVend = 1
-                registros = conexion.Conexion.listadoVendedoresNormal(self)
+                registros = conexion.Conexion.listadoVendedoresNormal()
                 var.historicoVend = historicoGuardar
                 listadoVendedores = [dict(zip(keys, registro)) for registro in registros]
                 with open(fichero, "w", newline="", encoding="utf-8") as jsonfile:

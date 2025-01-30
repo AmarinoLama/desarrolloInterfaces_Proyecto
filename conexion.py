@@ -9,10 +9,8 @@ import var
 class Conexion:
 
     @staticmethod
-    def db_conexion(self):
+    def db_conexion():
         """
-        :param self: None
-        :type self: None
         :return:  operación exitosa
         :rtype: bolean
 
@@ -48,10 +46,8 @@ class Conexion:
     '''
 
     @staticmethod
-    def listaProv(self):
+    def listaProv():
         """
-        :param self: None
-        :type self: None
         :return: lista provincias
         :rtype: bytearray
 
@@ -88,10 +84,8 @@ class Conexion:
             print("error lista municipios", e)
 
     @staticmethod
-    def listaTodosMunicipios(self):
+    def listaTodosMunicipios():
         """
-        :param self: None
-        :type self: None
         :return: lista municipios
         :rtype: list
 
@@ -143,10 +137,8 @@ class Conexion:
             print("error altaCliente en conexion", e)
 
     @staticmethod
-    def listadoClientes(self):
+    def listadoClientes():
         """
-        :param self: None
-        :type self: None
         :return: listado de clientes
         :rtype: list
 
@@ -387,10 +379,8 @@ class Conexion:
             print("error altaPropiedad en conexion", e)
 
     @staticmethod
-    def listadoPropiedades(self):
+    def listadoPropiedades():
         """
-        :param self: None
-        :type self: None
         :return: listado de propiedades
         :rtype: list
 
@@ -620,10 +610,8 @@ class Conexion:
             print("error altaVendedor en conexion", e)
 
     @staticmethod
-    def listadoVendedores(self):
+    def listadoVendedores():
         """
-        :param self: None
-        :type self: None
         :return: listado de vendedores
         :rtype: bytearray
 
@@ -669,10 +657,8 @@ class Conexion:
             print("Error al listar vendedores", e)
 
     @staticmethod
-    def listadoVendedoresNormal(self):
+    def listadoVendedoresNormal():
         """
-        :param self: None
-        :type self: None
         :return: listado de vendedores
         :rtype: bytearray
 
@@ -693,10 +679,8 @@ class Conexion:
             print("Error al listar vendedores", e)
 
     @staticmethod
-    def datosOneVendedor(self, idVendedor):
+    def datosOneVendedor(idVendedor):
         """
-        :param self: None
-        :type self: None
         :param idVendedor: id del vendedor
         :type idVendedor: str
         :return: datos del vendedor
@@ -718,10 +702,8 @@ class Conexion:
             print("error datosOneVendedor en conexion", e)
 
     @staticmethod
-    def datosVendedoresByTelefono(self, telefono):
+    def datosVendedoresByTelefono(telefono):
         """
-        :param self: None
-        :type self: None
         :param telefono: teléfono del vendedor
         :type telefono: str
         :return: datos del vendedor

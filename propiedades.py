@@ -22,12 +22,13 @@ class Propiedades():
         except Exception as error:
             print("error check cliente", error)
 
-    def altaTipoPropiedad(self):
+    @staticmethod
+    def altaTipoPropiedad():
         try:
             tipo = var.dlggestion.ui.txtGestipoprop.text().title()
             registro = conexion.Conexion.altaTipoPropiedad(tipo)
             if registro:
-                eventos.Eventos.cargarTipoPropiedad(self)
+                eventos.Eventos.cargarTipoPropiedad()
             else:
                 mbox = QtWidgets.QMessageBox()
                 mbox.setWindowTitle("Error")
@@ -39,12 +40,13 @@ class Propiedades():
         except Exception as error:
             print("Error en alta tipo propiedad: ", error)
 
-    def bajaTipoPropiedad(self):
+    @staticmethod
+    def bajaTipoPropiedad():
         try:
             tipo = var.dlggestion.ui.txtGestipoprop.text().title()
             registro = conexion.Conexion.bajaTipoPropiedad(tipo)
             if registro:
-                eventos.Eventos.cargarTipoPropiedad(self)
+                eventos.Eventos.cargarTipoPropiedad()
             else:
                 mbox = QtWidgets.QMessageBox()
                 mbox.setWindowTitle("Error")
@@ -56,7 +58,8 @@ class Propiedades():
         except Exception as error:
             print("Error en baja tipo propiedad: ", error)
 
-    def altaPropiedad(self):
+    @staticmethod
+    def altaPropiedad():
         try:
             # var.ui.txtFechabajaPro.text(), var.ui.txtPropietarioPro.text(), var.ui.txtMovilPro.text()
             propiedad = [var.ui.txtPublicacionPro.text(), var.ui.txtDireccionPro.text(),
@@ -101,16 +104,16 @@ class Propiedades():
             propiedad.append(var.ui.txtMovilPro.text())
 
             conexion.Conexion.altaPropiedad(propiedad)
-            Propiedades.cargarTablaPropiedades(self, 0)
+            Propiedades.cargarTablaPropiedades(0)
 
         except Exception as error:
             print(error)
 
     @staticmethod
-    def cargarTablaPropiedades(self, contexto):
+    def cargarTablaPropiedades(contexto):
         try:
             if contexto == 0:
-                listado = conexion.Conexion.listadoPropiedades(self)
+                listado = conexion.Conexion.listadoPropiedades()
             elif contexto == 1:
                 datosNecesarios = [var.ui.cmbTipoPro.currentText(), var.ui.cmbMunicipioPro.currentText()]
                 listado = conexion.Conexion.listadoFiltrado(datosNecesarios)
@@ -157,10 +160,10 @@ class Propiedades():
 
 
     @staticmethod
-    def cargaOnePropiedad(self):
+    def cargaOnePropiedad():
         try:
-            Propiedades.manageCheckbox(self)
-            Propiedades.manageRadioButtons(self)
+            Propiedades.manageCheckbox()
+            Propiedades.manageRadioButtons()
             fila = var.ui.tablaPropiedades.selectedItems()
             datos = [dato.text() for dato in fila]
             registro = conexion.Conexion.datosOnePropiedad(str(datos[0]))
@@ -201,12 +204,13 @@ class Propiedades():
                     casilla.setPlainText(str(registro[i]))
                 else:
                     casilla.setText(str(registro[i]))
-            Propiedades.manageCheckbox(self)
-            Propiedades.manageRadioButtons(self)
+            Propiedades.manageCheckbox()
+            Propiedades.manageRadioButtons()
         except Exception as e:
             print("error cargaOnePropiedad en propiedades", e)
 
-    def modifPropiedad(self):
+    @staticmethod
+    def modifPropiedad():
         try:
             propiedad = [var.ui.txtPublicacionPro.text(), var.ui.txtDireccionPro.text(),
                          var.ui.cmbProvinciaPro.currentText(), var.ui.cmbMunicipioPro.currentText(),
@@ -289,7 +293,7 @@ class Propiedades():
                     mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                     mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                     mbox.exec()
-                    Propiedades.cargarTablaPropiedades(self, 0)
+                    Propiedades.cargarTablaPropiedades(0)
                 else:
                     mbox = QtWidgets.QMessageBox()
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
@@ -300,11 +304,12 @@ class Propiedades():
                     mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                     mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                     mbox.exec()
-                Propiedades.cargarTablaPropiedades(self, 0)
+                Propiedades.cargarTablaPropiedades(0)
         except Exception as error:
             print("error modifPropiedad en propiedades", error)
 
-    def bajaPropiedad(self):
+    @staticmethod
+    def bajaPropiedad():
         try:
             if var.ui.rbtnDisponiblePro.isChecked():
                 mbox = QtWidgets.QMessageBox()
@@ -331,7 +336,7 @@ class Propiedades():
                         mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                         mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                         mbox.exec()
-                        Propiedades.cargarTablaPropiedades(self, 0)
+                        Propiedades.cargarTablaPropiedades(0)
                     else:
                         mbox = QtWidgets.QMessageBox()
                         mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
@@ -349,22 +354,24 @@ class Propiedades():
                     mbox.setText('La fecha de baja debe ser posterior a la fecha de publicación')
                     mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
                     mbox.exec()
-                Propiedades.cargarTablaPropiedades(self, 0)
+                Propiedades.cargarTablaPropiedades(0)
         except Exception as error:
             print("error bajaPropiedad en propiedades", error)
 
-    def historicoProp(self):
+    @staticmethod
+    def historicoProp():
         try:
             if var.ui.chkHistoricoPro.isChecked():
                 var.historicoProp = 1
             else:
                 var.historicoProp = 0
             var.rowsPropiedades = 11
-            Propiedades.cargarTablaPropiedades(self, 0)
+            Propiedades.cargarTablaPropiedades(0)
         except Exception as e:
             print("checkbox historico error ", e)
 
-    def filtrarPropiedades(self):
+    @staticmethod
+    def filtrarPropiedades():
         if not var.ui.cmbTipoPro.currentText() or not var.ui.cmbMunicipioPro.currentText():
             mbox = QtWidgets.QMessageBox()
             mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
@@ -377,12 +384,13 @@ class Propiedades():
             mbox.exec()
         elif var.lupaState == 0:
             var.lupaState = 1
-            Propiedades.cargarTablaPropiedades(self, 1)
+            Propiedades.cargarTablaPropiedades(1)
         elif var.lupaState == 1:
             var.lupaState = 0
-            Propiedades.cargarTablaPropiedades(self, 0)
+            Propiedades.cargarTablaPropiedades(0)
 
-    def manageCheckbox(self):
+    @staticmethod
+    def manageCheckbox():
 
         var.ui.cbxAlquilerPro.setEnabled(False)
         var.ui.cbxVentaPro.setEnabled(False)
@@ -400,7 +408,8 @@ class Propiedades():
         if var.ui.txtPrecioAlquilerPro.text() == "" and var.ui.txtPrecioVentaPro.text() == "":
             var.ui.cbxIntercambioPro.setChecked(True)
 
-    def manageRadioButtons(self):
+    @staticmethod
+    def manageRadioButtons():
         if var.ui.txtFechabajaPro.text() == "":
             var.ui.rbtnDisponiblePro.setEnabled(True)
             var.ui.rbtnDisponiblePro.setChecked(True)

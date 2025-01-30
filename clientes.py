@@ -12,7 +12,6 @@ class Clientes:
     @staticmethod
     def checkDNI(dni):
         """
-
         :param dni: dni del cliente
         :type dni: str
 
@@ -33,13 +32,12 @@ class Clientes:
             print("error en check cliente ", e)
 
     @staticmethod
-    def altaCliente(self):
+    def altaCliente():
         """
+        :return: Hacer que finalice la función
+        :rtype: None
 
-        :param self: None
-        :type self: None
-        :return:
-        :rtype:
+        Función que se encarga de dar de alta un cliente en la base de datos
         """
 
         try:
@@ -97,7 +95,7 @@ class Clientes:
                     mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
                     mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                     mbox.exec()
-                    Clientes.cargaTablaClientes(self)
+                    Clientes.cargaTablaClientes()
             except Exception as e:
                 print(e)
                 mbox = QtWidgets.QMessageBox()
@@ -143,9 +141,9 @@ class Clientes:
             print("error check cliente", error)
 
     @staticmethod
-    def cargaTablaClientes(self):
+    def cargaTablaClientes():
         try:
-            listado = conexion.Conexion.listadoClientes(self)
+            listado = conexion.Conexion.listadoClientes()
             if listado is None:
                 listado = []
             index = 0
@@ -181,7 +179,7 @@ class Clientes:
             print("error cargaTablaClientes", e)
 
     @staticmethod
-    def cargaOneCliente(self):
+    def cargaOneCliente():
         try:
             fila = var.ui.tablaClientes.selectedItems()
             datos = [dato.text() for dato in fila]
@@ -198,7 +196,7 @@ class Clientes:
             print("error cargaOneCliente en clientes", e)
 
     @staticmethod
-    def modifCliente(self):
+    def modifCliente():
         try:
             modifCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(),
                         var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(),
@@ -251,7 +249,7 @@ class Clientes:
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
-                Clientes.cargaTablaClientes(self)
+                Clientes.cargaTablaClientes()
             else:
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
@@ -267,7 +265,7 @@ class Clientes:
             print("error modifCliente en clientes", e)
 
     @staticmethod
-    def bajaCliente(self):
+    def bajaCliente():
         try:
             if var.ui.txtBajacli.text() == '':
                 eventos.Eventos.crearMensajeError("Error", "Falta escribir el DNI del cliente")
@@ -298,23 +296,23 @@ class Clientes:
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
-            Clientes.cargaTablaClientes(self)
+            Clientes.cargaTablaClientes()
         except Exception as e:
             print("error bajaCliente en clientes", e)
 
     @staticmethod
-    def historicoCli(self):
+    def historicoCli():
         try:
             if var.ui.chkHistoriacli.isChecked():
                 var.historicoCli = 1
             else:
                 var.historicoCli = 0
             var.rowsClientes = 15
-            Clientes.cargaTablaClientes(self)
+            Clientes.cargaTablaClientes()
         except Exception as e:
             print("checkbox historico error ", e)
 
-    def cargaClienteDni(self):
+    def cargaClienteDni():
         try:
             dni = var.ui.txtDnicli.text()
             registro = conexion.Conexion.datosOneCliente(dni)
