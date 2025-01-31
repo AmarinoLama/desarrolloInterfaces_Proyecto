@@ -217,6 +217,11 @@ class Facturas:
         var.ui.txtPrecioVentas.setText("")
         var.ui.txtLocalidadVentas.setText("")
         var.ui.txtVendedorVentas.setText("")
+        var.ui.lblNumFactura.setText("")
+        var.ui.txtFechaFactura.setText("")
+        var.ui.txtDniFactura.setText("")
+        Facturas.current_factura = None
+        Facturas.current_cliente = None
         Facturas.current_vendedor = None
         Facturas.current_propiedad = None
         Facturas.checkDatosFacturas()
@@ -325,6 +330,6 @@ class Facturas:
         except Exception as e:
             print("Error al eliminar la venta", e)
 
-    # Cuando esté seleccionada una propiedad y le deas a modificar o baja que se borren los campos de ventas
+    # Arreglar páginas del informe propiedades
 
     # https://github.com/BuaTeijeiro/ProyectoDI/blob/main/facturas.py#L143

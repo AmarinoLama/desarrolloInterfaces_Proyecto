@@ -110,6 +110,7 @@ class Vendedores:
                     eventos.Eventos.crearMensajeError("Error", "Error al modificado al vendedor, comprueba si ya existe uno con tu mismo dni")
                 Vendedores.cargarTablaVendedores()
             Vendedores.cargarTablaVendedores()
+            facturas.Facturas.limpiarFactura()
         except Exception as e:
             print(e)
 
@@ -130,6 +131,7 @@ class Vendedores:
             else:
                 eventos.Eventos.crearMensajeError("Mal", "Error al dar de baja")
             Vendedores.cargarTablaVendedores()
+            facturas.Facturas.limpiarFactura()
         except Exception as e:
             print("error bajaCliente en clientes", e)
 

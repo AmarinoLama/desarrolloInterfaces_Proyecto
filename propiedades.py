@@ -6,6 +6,8 @@ import conexion
 import eventos
 import facturas
 import var
+from facturas import Facturas
+
 
 class Propiedades():
 
@@ -308,6 +310,7 @@ class Propiedades():
                     mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                     mbox.exec()
                 Propiedades.cargarTablaPropiedades(0)
+                facturas.Facturas.limpiarFactura()
         except Exception as error:
             print("error modifPropiedad en propiedades", error)
 
@@ -361,6 +364,7 @@ class Propiedades():
                     mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
                     mbox.exec()
                 Propiedades.cargarTablaPropiedades(0)
+                facturas.Facturas.limpiarFactura()
         except Exception as error:
             print("error bajaPropiedad en propiedades", error)
 
