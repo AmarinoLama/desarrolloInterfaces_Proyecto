@@ -34,9 +34,6 @@ class Clientes:
     @staticmethod
     def altaCliente():
         """
-        :return: Hacer que finalice la función
-        :rtype: None
-
         Función que se encarga de dar de alta un cliente en la base de datos
         """
 
@@ -111,6 +108,12 @@ class Clientes:
 
     @staticmethod
     def checkEmail(mail):
+        """
+        :param mail: email del cliente
+        :type mail: string
+
+        Función que comprueba si un email es válido o no, cambiando el color de la caja de texto en caso de que sea incorrecto
+        """
         try:
             mail = str(var.ui.txtEmailcli.text())
             if eventos.Eventos.validarMail(mail):
@@ -128,6 +131,12 @@ class Clientes:
 
     @staticmethod
     def checkTelefono(telefono):
+        """
+        :param telefono: teléfono del cliente
+        :type telefono: str
+
+        Función que comprueba si un teléfono es válido o no, cambiando el color de la caja de texto en caso de que sea incorrecto
+        """
         try:
             telefono = str(var.ui.txtMovilcli.text())
             if eventos.Eventos.validarTelefono(telefono):
@@ -142,6 +151,9 @@ class Clientes:
 
     @staticmethod
     def cargaTablaClientes():
+        """
+        Función que carga la tabla de clientes, implementando la función de avanzar entre páginas
+        """
         try:
             listado = conexion.Conexion.listadoClientes()
             if listado is None:
@@ -180,6 +192,9 @@ class Clientes:
 
     @staticmethod
     def cargaOneCliente():
+        """
+        Función que carga los datos del cliente en pantalla al seleccionar uno en la tabla
+        """
         try:
             fila = var.ui.tablaClientes.selectedItems()
             datos = [dato.text() for dato in fila]
@@ -197,6 +212,10 @@ class Clientes:
 
     @staticmethod
     def modifCliente():
+        """
+        Función que modifica los datos de un cliente y valida que todos los campos sean correctos. En caso de que la operación falle por cualquier
+        motivo mandará un mensaje especificando el error
+        """
         try:
             modifCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(),
                         var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(),
@@ -266,6 +285,10 @@ class Clientes:
 
     @staticmethod
     def bajaCliente():
+        """
+        Función que da de baja a un cliente a partir del dni que esté seleccionado en la interfaz. Si la operación
+        falla o funciona mandará un mensaje informativo
+        """
         try:
             if var.ui.txtBajacli.text() == '':
                 eventos.Eventos.crearMensajeError("Error", "Falta escribir el DNI del cliente")
@@ -302,6 +325,9 @@ class Clientes:
 
     @staticmethod
     def historicoCli():
+        """
+        Función que gestiona el botón de histórico y el cambio de páginas
+        """
         try:
             if var.ui.chkHistoriacli.isChecked():
                 var.historicoCli = 1
@@ -312,7 +338,12 @@ class Clientes:
         except Exception as e:
             print("checkbox historico error ", e)
 
+    @staticmethod
     def cargaClienteDni():
+        """
+        Función que carga un cliente a partir de su dni, si lo encuentra carga sus datos y si no lo encuentra
+        salta un mensaje emergente diciendo que no se encontró
+        """
         try:
             dni = var.ui.txtDnicli.text()
             registro = conexion.Conexion.datosOneCliente(dni)
