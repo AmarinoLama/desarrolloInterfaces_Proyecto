@@ -965,3 +965,24 @@ class Conexion:
             return query.exec()
         except Exception as error:
             print("Error al eliminar la venta", error)
+
+    @staticmethod
+    def datosOneFactura(id):
+        """
+        :param id: id de la factura
+        :type id: int
+        :return: datos de la factura
+        :rtype: list
+
+        Función que recupera una lista con los datos de la factura cuyo id es el pasado por parámetros
+        """
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM facturas where id = :id")
+            query.bindValue(":id", str(id))
+            if query.exec() and query.next():
+                registro = [query.value(i) for i in range(query.record().count())]
+            return registro
+        except Exception as error:
+            print("Error al abrir el archivo")

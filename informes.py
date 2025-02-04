@@ -1,8 +1,12 @@
+import traceback
+
 from PyQt6 import QtSql
 from reportlab.pdfgen import canvas
 from datetime import datetime
 from PIL import Image
 import os
+
+import conexion
 import var
 
 
@@ -103,13 +107,13 @@ class Informes:
 
             # Calculate total pages
 
-            paginas = 0
+            paginas = 1
             query0 = QtSql.QSqlQuery()
             query0.exec("select count(*) from propiedades where muniProp = :localidad")
             query0.bindValue(':localidad', localidad)
             if (query0.next()):
                 registros = int(query0.value(0))
-                paginas = int(registros / 20) + 1
+                paginas = int(registros / 20)
             Informes.footInforme(titulo, paginas)
             items = ['CODIGO', 'DIRECCION', 'TIPO', 'OPERACION', 'VENTA €', 'ALQUILER €']
             var.report.setFont('Helvetica-Bold', size=10)
@@ -162,15 +166,85 @@ class Informes:
         except Exception as error:
             print(error)
 
-    def reportVentas(idFactura):
+    @staticmethod
+    def reportVentas(id):
         """
-        :param idFactura: id de la factura
-        :type idFactura: int
+        :param id: id de la factura
+        :type id: str
 
         Función que genera un informe en PDF con el listado de ventas a partir de una determinada factura
         """
-        pass
+        xidventa = 55
+        xidpropiedad = xidventa + 50
+        xdireccion = xidpropiedad + 80
+        xlocalidad = xdireccion + 150
+        xtipo = xlocalidad + 100
+        xprecio = xtipo + 50
+        ymax = 630
+        ymin = 90
+        ystep = 30
+        try:
+            rootPath = ".\\informes"
+            if not os.path.exists(rootPath):
+                os.makedirs(rootPath)
+            fecha = datetime.today().strftime("%Y_%m_%d_%H_%M_%S")
+            nomepdfventas = fecha + "_listadoventas.pdf"
+            pdf_path = os.path.join(rootPath, nomepdfventas)
+            print(pdf_path)
+            var.report = canvas.Canvas(pdf_path)
+            titulo = "Factura Código " + id
+            listado_ventas = conexion.Conexion.cargarTablaVentas(id)
+            Informes.topInforme(titulo)
+            Informes.footInforme(titulo, 1)
+            items = ["Venta", "Código", "Direccion", "Localidad", "Tipo", "Precio"]
+            var.report.setFont("Helvetica-Bold", size=10)
+            var.report.drawString(xidventa, 650, str(items[0]))
+            var.report.drawString(xidpropiedad, 650, str(items[1]))
+            var.report.drawString(xdireccion, 650, str(items[2]))
+            var.report.drawString(xlocalidad, 650, str(items[3]))
+            var.report.drawString(xtipo, 650, str(items[4]))
+            var.report.drawString(xprecio, 650, str(items[5]))
+            var.report.line(50, 645, 525, 645)
+            cliente = conexion.Conexion.datosOneCliente(conexion.Conexion.datosOneFactura(id)[2])
+            Informes.topDatosCliente(cliente)
+            y = ymax
+            for registro in listado_ventas:
+                var.report.setFont("Helvetica", size=8)
+                var.report.drawCentredString(xidventa + 10, y, str(registro[0]))
+                var.report.drawCentredString(xidpropiedad + 15, y, str(registro[1]).title())
+                var.report.drawString(xdireccion, y, str(registro[2]).title())
+                var.report.drawString(xlocalidad, y, str(registro[3]).title())
+                var.report.drawString(xtipo, y, str(registro[4]).title())
+                var.report.drawCentredString(xprecio + 15, y, str(registro[5]).title() + " €")
+                y -= ystep
 
+            xmenuinferior = 400
+            xtotal = 450
+            y = 180
+            subtotal = conexion.Conexion.obtenerTotalFactura(id)
+            iva = 10 * subtotal / 100
+            total = subtotal + iva
+            var.report.drawString(xmenuinferior, y, "Subtotal")
+            var.report.drawString(xtotal, y, f"{subtotal:,.2f}" + " €")
+            y -= ystep
+            var.report.drawString(xmenuinferior, y, "Impuestos")
+            var.report.drawString(xtotal, y, f"{iva:,.2f}" + " €")
+            y -= ystep
+            var.report.drawString(xmenuinferior, y, "Total")
+            var.report.drawString(xtotal, y, f"{total:,.2f}" + " €")
+            y -= ystep
+
+            var.report.save()
+
+            for file in os.listdir(rootPath):
+                if file.endswith(nomepdfventas):
+                    os.startfile(pdf_path)
+
+        except Exception as error:
+            print(error)
+            traceback.print_exc()
+
+    @staticmethod
     def topInforme(titulo):
         """
         :param titulo: titulo del informe
@@ -204,6 +278,7 @@ class Informes:
         except Exception as error:
             print('Error en cabecera informe:', error)
 
+    @staticmethod
     def footInforme(titulo, totalPaginas):
         """
         :param titulo: titulo del informe
@@ -224,3 +299,22 @@ class Informes:
             var.report.drawString(490, 40, f'Página {var.report.getPageNumber()} / {total_pages}')
         except Exception as error:
             print('Error en pie informe de cualquier tipo: ', error)
+
+    @staticmethod
+    def topDatosCliente(cliente):
+        """
+        :param cliente: id del cliente
+        :type cliente: str
+
+        Función que genera la cabecera del informe de factura con el cliente
+        """
+        try:
+            var.report.setFont('Helvetica', size=9)
+            var.report.drawString(55, 770, 'CIF: A12345678')
+            var.report.drawString(55, 755, 'Avda. Galicia - 101')
+            var.report.drawString(55, 740, 'Vigo - 36216 - España')
+            var.report.drawString(55, 725, 'Teléfono: 986 132 456')
+            var.report.drawString(55, 710, 'e-mail: cartesteisr@mail.com')
+            var.report.drawString(55, 695, 'Cliente: ' + cliente[2])
+        except Exception as error:
+            print('Error en cabecera informe:', error)

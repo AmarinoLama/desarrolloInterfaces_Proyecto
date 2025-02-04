@@ -2526,12 +2526,16 @@
            <x>40</x>
            <y>60</y>
            <width>261</width>
-           <height>111</height>
+           <height>113</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_7">
           <item row="2" column="1">
-           <widget class="QLineEdit" name="txtDniFactura"/>
+           <widget class="QLineEdit" name="txtDniFactura">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
           <item row="1" column="1">
            <widget class="QLineEdit" name="txtFechaFactura"/>
@@ -2634,6 +2638,32 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="btnInformeVentas">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>25</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>30</width>
+              <height>25</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(215, 239, 246);</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>../img/file.png</normaloff>../img/file.png</iconset>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -3204,6 +3234,7 @@
     </property>
     <addaction name="actionListado_Clientes"/>
     <addaction name="actionListado_Propiedades"/>
+    <addaction name="actionListado_Vendedores"/>
    </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuGesti_n"/>
@@ -3326,6 +3357,11 @@
   <action name="actionListado_Propiedades">
    <property name="text">
     <string>Listado Propiedades</string>
+   </property>
+  </action>
+  <action name="actionListado_Vendedores">
+   <property name="text">
+    <string>Listado Vendedores</string>
    </property>
   </action>
  </widget>

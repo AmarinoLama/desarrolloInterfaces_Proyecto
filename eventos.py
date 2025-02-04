@@ -12,6 +12,7 @@ import re
 import clientes
 import conexion
 import eventos
+import informes
 import propiedades
 import var
 import locale
@@ -531,3 +532,11 @@ class Eventos():
         mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Sí')
         mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText('No')
         return mbox.exec()
+
+    @staticmethod
+    def checkFactura():
+        if var.ui.lblNumFactura.text() == "":
+            eventos.Eventos.crearMensajeError("Advertencia", "Debes seleccionar una factura para poder generar el informe de ventas")
+            return
+        else:
+            informes.Informes.reportVentas(var.ui.lblNumFactura.text())

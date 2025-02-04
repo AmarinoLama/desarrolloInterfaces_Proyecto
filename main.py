@@ -1,6 +1,7 @@
 from ctypes.wintypes import VARIANT_BOOL
 
 import clientes
+import eventos
 import facturas
 import styles
 import vendedores
@@ -67,6 +68,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionExportar_Vendedores_JSON.triggered.connect(eventos.Eventos.exportJSONvendedores)
         var.ui.actionListado_Clientes.triggered.connect(informes.Informes.reportClientes)
         var.ui.actionListado_Propiedades.triggered.connect(eventos.Eventos.abrirBuscarLocalidad)
+        var.ui.actionListado_Vendedores.triggered.connect(eventos.Eventos.checkFactura)
 
         '''
         EVENTOS DE BOTONES
@@ -96,6 +98,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnCalendarVentas.clicked.connect(lambda: eventos.Eventos.abrirCalendar(6))
         var.ui.btnGrabarFactura.clicked.connect(facturas.Facturas.altaFactura)
         var.ui.btnGrabarVenta.clicked.connect(facturas.Facturas.altaVenta)
+        var.ui.btnInformeVentas.clicked.connect(eventos.Eventos.checkFactura)
         #var.ui.btnAnteriorVend.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(0, "Vendedores"))
         #var.ui.btnSiguienteVend.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(1, "Vendedores"))
 
