@@ -2526,7 +2526,7 @@
            <x>40</x>
            <y>60</y>
            <width>261</width>
-           <height>113</height>
+           <height>121</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_7">

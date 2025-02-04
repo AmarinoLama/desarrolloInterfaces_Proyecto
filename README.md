@@ -1,6 +1,6 @@
 # TAREAS A REALIZAR
 
-- Arreglar las páginas de los informes
-- Hacer informes ventas
+- Comprobar el informe cuando no se encuentran datos
 - Arreglar los frames de vendedores
-- Hacer panel vendedores
+- Boton subir factura?
+- Hacer panel alquileres

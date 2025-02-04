@@ -785,7 +785,7 @@ class Ui_venPrincipal(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Shadow.Plain)
         self.frame.setObjectName("frame")
         self.gridLayoutWidget = QtWidgets.QWidget(parent=self.frame)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(40, 60, 261, 113))
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(40, 60, 261, 121))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
         self.gridLayout_7 = QtWidgets.QGridLayout(self.gridLayoutWidget)
         self.gridLayout_7.setContentsMargins(0, 0, 0, 0)
