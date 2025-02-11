@@ -207,6 +207,7 @@ class Clientes:
                 else:
                     listado[i].setText(registro[i])
             var.ui.txtDniFactura.setText(registro[0])
+            var.ui.txtDniClienteContrato.setText(registro[0])
         except Exception as e:
             print("error cargaOneCliente en clientes", e)
 

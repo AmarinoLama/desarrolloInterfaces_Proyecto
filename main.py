@@ -1,5 +1,6 @@
 from ctypes.wintypes import VARIANT_BOOL
 
+import alquileres
 import clientes
 import eventos
 import facturas
@@ -48,7 +49,9 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.resizeTablaPropiedades()
         eventos.Eventos.resizeTablaVendedores()
         eventos.Eventos.resizeTablaFacturas()
+        eventos.Eventos.resizeTablaMensualidades()
         eventos.Eventos.resizeTablaVentas()
+        eventos.Eventos.resizeTablaContratos()
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
         var.ui.tablaPropiedades.clicked.connect(propiedades.Propiedades.cargaOnePropiedad)
         var.ui.tablaVendedores.clicked.connect(vendedores.Vendedores.cargarOneVendedor)
@@ -96,9 +99,12 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnBajaCalVend.clicked.connect(lambda: eventos.Eventos.abrirCalendar(4))
         var.ui.btnFiltrarVend.clicked.connect(vendedores.Vendedores.filtrarPorTelefono)
         var.ui.btnCalendarVentas.clicked.connect(lambda: eventos.Eventos.abrirCalendar(6))
+        var.ui.btnFechaInicioMensualidad.clicked.connect(lambda: eventos.Eventos.abrirCalendar(7))
+        var.ui.btnFechaFinMensualidad.clicked.connect(lambda: eventos.Eventos.abrirCalendar(8))
         var.ui.btnGrabarFactura.clicked.connect(facturas.Facturas.altaFactura)
         var.ui.btnGrabarVenta.clicked.connect(facturas.Facturas.altaVenta)
         var.ui.btnInformeVentas.clicked.connect(eventos.Eventos.checkFactura)
+        var.ui.btnAltaContrato.clicked.connect(alquileres.Alquileres.altaContrato)
         #var.ui.btnAnteriorVend.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(0, "Vendedores"))
         #var.ui.btnSiguienteVend.clicked.connect(lambda: eventos.Eventos.movimientoPaginas(1, "Vendedores"))
 

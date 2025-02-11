@@ -143,6 +143,10 @@ class Eventos():
                 var.ui.txtAltaVend.setText(str(data))
             elif var.btn == 6:
                 var.ui.txtFechaFactura.setText(str(data))
+            elif var.btn == 7:
+                var.ui.txtFechaInicioMensualidad.setText(str(data))
+            elif var.btn == 8:
+                var.ui.txtFechaFinMensualidad.setText(str(data))
             time.sleep(0.125)
             var.uicalendar.hide()
             return data
@@ -170,6 +174,9 @@ class Eventos():
 
     @staticmethod
     def resizeTablaClientes():
+        """
+        Función que se encarga de redimensionar las columnas de la tabla de clientes
+        """
         try:
             header = var.ui.tablaClientes.horizontalHeader()
             for i in range(header.count()):
@@ -186,6 +193,9 @@ class Eventos():
 
     @staticmethod
     def resizeTablaPropiedades():
+        """
+        Función que se encarga de redimensionar las columnas de la tabla de propiedades
+        """
         try:
             header = var.ui.tablaPropiedades.horizontalHeader()
             for i in range(header.count()):
@@ -202,6 +212,9 @@ class Eventos():
 
     @staticmethod
     def resizeTablaVendedores():
+        """
+        Función que se encarga de redimensionar las columnas de la tabla de vendedores
+        """
         try:
             header = var.ui.tablaVendedores.horizontalHeader()
             for i in range(header.count()):
@@ -216,7 +229,7 @@ class Eventos():
     @staticmethod
     def resizeTablaFacturas():
         """
-
+        Función que se encarga de redimensionar las columnas de la tabla de facturas
         """
         try:
             header = var.ui.tablaFacturas.horizontalHeader()
@@ -236,7 +249,7 @@ class Eventos():
     @staticmethod
     def resizeTablaVentas():
         """
-
+        Función que se encarga de redimensionar las columnas de la tabla de ventas
         """
         try:
             header = var.ui.tablaVentas.horizontalHeader()
@@ -247,6 +260,42 @@ class Eventos():
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
 
                 header_item = var.ui.tablaVentas.horizontalHeaderItem(i)
+                font = header_item.font()
+                font.setBold(True)
+                header_item.setFont(font)
+        except Exception as e:
+            print("error en resize tabla clientes: ", e)
+
+    @staticmethod
+    def resizeTablaContratos():
+        """
+        Función que se encarga de redimensionar las columnas de la tabla de contratos
+        """
+        try:
+            header = var.ui.tablaContratos.horizontalHeader()
+            for i in range(header.count()):
+                if i == 1:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+
+                header_item = var.ui.tablaContratos.horizontalHeaderItem(i)
+                font = header_item.font()
+                font.setBold(True)
+                header_item.setFont(font)
+        except Exception as e:
+            print("error en resize tabla clientes: ", e)
+
+    @staticmethod
+    def resizeTablaMensualidades():
+        """
+        Función que se encarga de redimensionar las columnas de la tabla de mensualidades
+        """
+        try:
+            header = var.ui.tablaMensualidades.horizontalHeader()
+            for i in range(header.count()):
+                header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                header_item = var.ui.tablaMensualidades.horizontalHeaderItem(i)
                 font = header_item.font()
                 font.setBold(True)
                 header_item.setFont(font)

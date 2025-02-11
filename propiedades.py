@@ -208,6 +208,9 @@ class Propiedades():
                     casilla.setText(str(registro[i]))
             Propiedades.manageCheckbox()
             Propiedades.manageRadioButtons()
+
+            var.ui.txtPropiedadContrato.setText(var.ui.lblCodigoProp.text())
+
         except Exception as e:
             print("error cargaOnePropiedad en propiedades", e)
 

@@ -74,7 +74,7 @@ class Vendedores:
                 if conexion.Conexion.altaVendedor(nuevoVendedor):
                     eventos.Eventos.crearMensajeInfo("Operacion exitosa", "El vendedor se ha dado de alta correctamente")
                 else:
-                    eventos.Eventos.crearMensajeError("Error", "Error al dar de alta al vendedor, comprueba si ya existe uno con tu mismo dni")
+                    eventos.Eventos.crearMensajeError("Error", "Error al dar de alta al vendedor, comprueba si ya existe uno con tu mismo dni o teléfono")
                 Vendedores.cargarTablaVendedores()
         except Exception as e:
             print(e)
@@ -94,6 +94,9 @@ class Vendedores:
                 else:
                     listado[i].setText(registro[i])
             facturas.Facturas.cargaVendedorVenta(var.ui.txtIdVend.text())
+
+            var.ui.txtVendedorContrato.setText(var.ui.txtIdVend.text())
+
         except Exception as e:
             print("error cargarOneVendedor en vendedores", e)
 
@@ -107,7 +110,7 @@ class Vendedores:
                 if conexion.Conexion.modifVendedor(datosModificar):
                     eventos.Eventos.crearMensajeInfo("Operacion exitosa", "El vendedor se ha modificado correctamente")
                 else:
-                    eventos.Eventos.crearMensajeError("Error", "Error al modificado al vendedor, comprueba si ya existe uno con tu mismo dni")
+                    eventos.Eventos.crearMensajeError("Error", "Error al modificado al vendedor, comprueba si ya existe uno con tu mismo dni o teléfono")
                 Vendedores.cargarTablaVendedores()
             Vendedores.cargarTablaVendedores()
             facturas.Facturas.limpiarFactura()

@@ -986,3 +986,29 @@ class Conexion:
             return registro
         except Exception as error:
             print("Error al abrir el archivo")
+
+    '''
+    ZONA ALQUILERES
+    '''
+
+    @staticmethod
+    def grabarContrato(infoContrato):
+        """
+        :param infoContrato: información del contrato a subir en la bbdd
+        :type infoContrato: list
+        :return: operación exitosa
+        :rtype: boolean
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("INSERT INTO ALQUILERES (idPropiedad, idPropiedad, idAgente, fechaInicio, fechaFin, precioAlquiler) "
+                "VALUES (:idPropiedad, :idPropiedad, :idAgente, :fechaInicio, :fechaFin, :precioAlquiler)")
+            query.bindValue(":idPropiedad", str(infoContrato[0]))
+            query.bindValue(":idPropiedad", str(infoContrato[1]))
+            query.bindValue(":idAgente", str(infoContrato[2]))
+            query.bindValue(":fechaInicio", str(infoContrato[3]))
+            query.bindValue(":fechaFin", str(infoContrato[4]))
+            query.bindValue(":precioAlquiler", str(Conexion.datosOnePropiedad(infoContrato[0])[10]))
+            return query.exec()
+        except Exception as exec:
+            print("Error al guardar el contrato", exec)
