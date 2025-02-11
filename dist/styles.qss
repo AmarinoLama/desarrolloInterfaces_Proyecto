@@ -1,0 +1,48 @@
+/* ---- Estilo para QMainWindows ---- */
+QMainWindow {
+    background-color: #d7eff6;
+}
+
+/* ---- Estilo para QTabWidget ---- */
+QTabWidget {
+    background-color: none;
+}
+
+/* ---- Estilo para QMenuBar ---- */
+QMenuBar {
+    background-color: whitesmoke;
+    color: black;
+}
+
+/* ---- Estilo para QPushButtons (no la usaremos) ---- */
+QPushButton {
+    background-color: #13b2a6;
+    font-weight: bold;
+    color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+QHeaderView::section {
+    background-color: #b5e5e5;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+QTableWidget::item:selected {
+    background-color: #eaf7fb;
+    color: black;
+}
+
+QToolBar {
+    background-color: #eeeeee;
+}
+
+QPushButton::disabled {
+    background-color: #D3D3D3;  /* Gris claro */
+    color: #A9A9A9;             /* Gris oscuro */
+}
