@@ -235,7 +235,7 @@ class Facturas:
             infoVenta = [var.ui.lblNumFactura.text(), Facturas.current_vendedor, Facturas.current_propiedad]
             if conexion.Conexion.grabarVenta(infoVenta):
                 eventos.Eventos.crearMensajeInfo("Informacion", "La venta se ha grabado exitosamente")
-                conexion.Conexion.ponerVendidaPropiedad(var.ui.lblNumFactura.text())
+                conexion.Conexion.cambiarEstadoPropiedad(var.ui.lblNumFactura.text(), 1)
                 propiedades.Propiedades.cargarTablaPropiedades(0)
             else:
                 eventos.Eventos.crearMensajeError("Error", "La venta no se ha podido grabar")
@@ -323,7 +323,7 @@ class Facturas:
             if conexion.Conexion.deleteVenta(idVenta):
                 eventos.Eventos.crearMensajeInfo("Informacion", "La venta se ha eliminado correctamente")
                 Facturas.cargarTablaVentasFactura()
-                conexion.Conexion.ponerDisponiblePropiedad(idprop)
+                conexion.Conexion.cambiarEstadoPropiedad(idprop, 0)
                 propiedades.Propiedades.cargarTablaPropiedades(0)
             else:
                 eventos.Eventos.crearMensajeError("Error", "La venta no se ha podido eliminar")

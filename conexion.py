@@ -537,46 +537,29 @@ class Conexion:
             print("error listadoFiltrado en conexion", e)
 
     @staticmethod
-    def ponerDisponiblePropiedad(idProp):
+    def cambiarEstadoPropiedad(idProp, estadoProp):
         """
-        :param datos: id de la propiedad
-        :type datos: int
+        :param idProp: id de la propiedad
+        :type idProp: int
+        :param estadoProp: estado de la propiedad
+        :type estadoProp: int
         :return: operación exitosa
         :rtype: booleano
-
-        Query que pone una propiedad como disponible
         """
         try:
+            if estadoProp == 0:
+                nuevoEstado = "Disponible"
+            elif estadoProp == 1:
+                nuevoEstado = "Vendido"
+            elif estadoProp == 2:
+                nuevoEstado = "Alquilado"
             query = QtSql.QSqlQuery()
-            query.prepare("UPDATE propiedades SET estadoprop = :estadoprop, bajaprop = :bajaprop WHERE codigo = :codigo")
+            query.prepare("UPDATE propiedades SET estadoprop = :estadoprop WHERE codigo = :codigo")
             query.bindValue(":codigo", idProp)
-            query.bindValue(":estadoprop", "Disponible")
-            query.bindValue(":bajaprop", None)
+            query.bindValue(":estadoprop", nuevoEstado)
             return query.exec()
         except Exception as e:
-            print("error ponerDisponiblePropiedad en conexion", e)
-
-    @staticmethod
-    def ponerVendidaPropiedad(idProp):
-        """
-        :param datos: id de la propiedad
-        :type datos: int
-        :return: operación exitosa
-        :rtype: booleano
-
-        Query que pone una propiedad como vendida y le asigna su fecha de baja del día de hoy
-        """
-        try:
-            query = QtSql.QSqlQuery()
-            fecha_hoy = date.today()
-            fecha_formateada = fecha_hoy.strftime("%d/%m/%Y")
-            query.prepare("UPDATE propiedades SET estadoprop = :estadoprop, bajaprop = :bajaprop WHERE codigo = :codigo")
-            query.bindValue(":codigo", idProp)
-            query.bindValue(":estadoprop", "Vendido")
-            query.bindValue(":bajaprop", fecha_formateada)
-            return query.exec()
-        except Exception as e:
-            print("error ponerVendidaPropiedad en conexion", e)
+            print("error cambiarEstadoPropiedad en conexion", e)
 
     '''
     ZONA VENDEDORES
@@ -1001,10 +984,10 @@ class Conexion:
         """
         try:
             query = QtSql.QSqlQuery()
-            query.prepare("INSERT INTO ALQUILERES (idPropiedad, idPropiedad, idAgente, fechaInicio, fechaFin, precioAlquiler) "
+            query.prepare("INSERT INTO ALQUILERES (idPropiedad, clienteDNI, idAgente, fechaInicio, fechaFin, precioAlquiler) "
                 "VALUES (:idPropiedad, :idPropiedad, :idAgente, :fechaInicio, :fechaFin, :precioAlquiler)")
             query.bindValue(":idPropiedad", str(infoContrato[0]))
-            query.bindValue(":idPropiedad", str(infoContrato[1]))
+            query.bindValue(":clienteDNI", str(infoContrato[1]))
             query.bindValue(":idAgente", str(infoContrato[2]))
             query.bindValue(":fechaInicio", str(infoContrato[3]))
             query.bindValue(":fechaFin", str(infoContrato[4]))

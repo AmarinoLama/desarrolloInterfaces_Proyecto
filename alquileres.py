@@ -1,11 +1,9 @@
 from datetime import datetime
-
 from docutils.io import NullInput
 
 import conexion
 import eventos
 import var
-
 
 class Alquileres:
 
@@ -17,8 +15,8 @@ class Alquileres:
         try:
             if not Alquileres.checkCampos():
                 return
-            infoContrato = [var.ui.txtDniClienteContrato.text(),
-                            var.ui.txtPropiedadContrato.text(),
+            infoContrato = [var.ui.txtPropiedadContrato.text(),
+                            var.ui.txtDniClienteContrato.text(),
                             var.ui.txtVendedorContrato.text(),
                             var.ui.txtFechaInicioMensualidad.text(),
                             var.ui.txtFechaFinMensualidad.text()]
@@ -26,9 +24,20 @@ class Alquileres:
                 eventos.Eventos.crearMensajeInfo("Informacion", "El contrato se ha grabado exitosamente")
             else:
                 eventos.Eventos.crearMensajeError("Error", "El contrato no se ha podido grabar")
+            conexion.Conexion.cambiarEstadoPropiedad(var.ui.txtPropiedadContrato.text(), 2)
             # Cargar tabla
         except Exception as error:
             print('Error altaContrato: %s' % str(error))
+
+    @staticmethod
+    def cargarContratos():
+        """
+        Función que carga los contratos en la tabla de contratos
+        """
+        try:
+            print("hola")
+        except Exception as error:
+            print('Error cargarContratos: %s' % str(error))
 
     @staticmethod
     def checkCampos():
@@ -51,8 +60,13 @@ class Alquileres:
                     eventos.Eventos.crearMensajeError("Error", "Todos los campos son obligatorios")
                     return False
 
-            if conexion.Conexion.datosOnePropiedad(var.ui.txtPropiedadContrato.text())[10] == "":
+            propiedad = conexion.Conexion.datosOnePropiedad(var.ui.txtPropiedadContrato.text())
+
+            if propiedad[10] == "":
                 eventos.Eventos.crearMensajeError("Error", "La propiedad debe de tener un precio de alquiler")
+                return False
+            elif propiedad[15] != "Disponible":
+                eventos.Eventos.crearMensajeError("Error", "La propiedad no está disponible")
                 return False
 
             fechaInicio = datetime.strptime(var.ui.txtFechaInicioMensualidad.text(), '%d/%m/%Y')
@@ -64,4 +78,3 @@ class Alquileres:
             return True
         except Exception as error:
             print('Error checkCamposRellenados: %s' % str(error))
-
