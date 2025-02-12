@@ -547,6 +547,10 @@ class Conexion:
         :rtype: booleano
         """
         try:
+            nuevoEstado = ""
+            fecha_hoy = date.today()
+            fecha_formateada = fecha_hoy.strftime("%d/%m/%Y")
+
             if estadoProp == 0:
                 nuevoEstado = "Disponible"
             elif estadoProp == 1:
@@ -554,8 +558,9 @@ class Conexion:
             elif estadoProp == 2:
                 nuevoEstado = "Alquilado"
             query = QtSql.QSqlQuery()
-            query.prepare("UPDATE propiedades SET estadoprop = :estadoprop WHERE codigo = :codigo")
+            query.prepare("UPDATE propiedades SET estadoprop = :estadoprop, bajaprop = :bajaprop WHERE codigo = :codigo")
             query.bindValue(":codigo", idProp)
+            query.bindValue(":bajaprop", fecha_formateada)
             query.bindValue(":estadoprop", nuevoEstado)
             return query.exec()
         except Exception as e:
@@ -985,7 +990,7 @@ class Conexion:
         try:
             query = QtSql.QSqlQuery()
             query.prepare("INSERT INTO ALQUILERES (idPropiedad, clienteDNI, idAgente, fechaInicio, fechaFin, precioAlquiler) "
-                "VALUES (:idPropiedad, :idPropiedad, :idAgente, :fechaInicio, :fechaFin, :precioAlquiler)")
+                "VALUES (:idPropiedad, :clienteDNI, :idAgente, :fechaInicio, :fechaFin, :precioAlquiler)")
             query.bindValue(":idPropiedad", str(infoContrato[0]))
             query.bindValue(":clienteDNI", str(infoContrato[1]))
             query.bindValue(":idAgente", str(infoContrato[2]))
@@ -995,3 +1000,17 @@ class Conexion:
             return query.exec()
         except Exception as exec:
             print("Error al guardar el contrato", exec)
+
+    @staticmethod
+    def listadoAlquileres():
+        try:
+            listado = []
+            query = QtSql.QSqlQuery()
+            query.prepare("select id, clienteDNI from alquileres")
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+            return listado
+        except Exception as error:
+            print("Error al recuperar el listado de ventas")

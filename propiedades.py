@@ -6,7 +6,6 @@ import conexion
 import eventos
 import facturas
 import var
-from facturas import Facturas
 
 
 class Propiedades():
@@ -217,9 +216,7 @@ class Propiedades():
     @staticmethod
     def modifPropiedad():
         try:
-            if Propiedades.checkNoEstaEnFacturas():
-                eventos.Eventos.crearMensajeError("Error", "No puedes modificar una propiedad que está en facturas")
-                return
+            facturas.Facturas.limpiarFactura()
             propiedad = [var.ui.txtPublicacionPro.text(), var.ui.txtDireccionPro.text(),
                          var.ui.cmbProvinciaPro.currentText(), var.ui.cmbMunicipioPro.currentText(),
                          var.ui.cmbTipoPro.currentText(), var.ui.spbHabitacionesPro.text(),
@@ -314,15 +311,15 @@ class Propiedades():
                     mbox.exec()
                 Propiedades.cargarTablaPropiedades(0)
                 facturas.Facturas.limpiarFactura()
+                Propiedades.manageCheckbox()
+                Propiedades.manageRadioButtons()
         except Exception as error:
             print("error modifPropiedad en propiedades", error)
 
     @staticmethod
     def bajaPropiedad():
         try:
-            if Propiedades.checkNoEstaEnFacturas():
-                eventos.Eventos.crearMensajeError("Error", "No puedes modificar una propiedad que está en facturas")
-                return
+            facturas.Facturas.limpiarFactura()
             if var.ui.rbtnDisponiblePro.isChecked():
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
@@ -368,6 +365,8 @@ class Propiedades():
                     mbox.exec()
                 Propiedades.cargarTablaPropiedades(0)
                 facturas.Facturas.limpiarFactura()
+                Propiedades.manageCheckbox()
+                Propiedades.manageRadioButtons()
         except Exception as error:
             print("error bajaPropiedad en propiedades", error)
 
@@ -419,29 +418,35 @@ class Propiedades():
             var.ui.cbxVentaPro.setChecked(True)
 
         if var.ui.txtPrecioAlquilerPro.text() == "" and var.ui.txtPrecioVentaPro.text() == "":
-            var.ui.cbxIntercambioPro.setChecked(True)
+            var.ui.cbxIntercambioPro.setChecked(False)
 
     @staticmethod
     def manageRadioButtons():
+        var.ui.rbtnDisponiblePro.setEnabled(False)
+
         if var.ui.txtFechabajaPro.text() == "":
-            var.ui.rbtnDisponiblePro.setEnabled(True)
             var.ui.rbtnDisponiblePro.setChecked(True)
             var.ui.rbtnAlquiladoPro.setChecked(False)
             var.ui.rbtnVendidoPro.setChecked(False)
             var.ui.rbtnAlquiladoPro.setEnabled(False)
             var.ui.rbtnVendidoPro.setEnabled(False)
         else:
-            var.ui.rbtnDisponiblePro.setChecked(False)
-            var.ui.rbtnDisponiblePro.setEnabled(False)
-            var.ui.rbtnAlquiladoPro.setEnabled(True)
-            var.ui.rbtnVendidoPro.setEnabled(True)
 
-    @staticmethod
-    def checkNoEstaEnFacturas():
-        try:
-            if var.ui.lblCodigoPropVentas.text() == "":
-                return True
+            if conexion.Conexion.datosOnePropiedad(var.ui.lblCodigoProp.text())[15] == "Alquilado":
+                var.ui.rbtnAlquiladoPro.setEnabled(True)
+                var.ui.rbtnAlquiladoPro.setChecked(False)
+                var.ui.rbtnVendidoPro.setEnabled(True)
+                var.ui.rbtnVendidoPro.setChecked(False)
+
+            elif conexion.Conexion.datosOnePropiedad(var.ui.lblCodigoProp.text())[15] == "Vendido":
+                var.ui.rbtnAlquiladoPro.setEnabled(True)
+                var.ui.rbtnAlquiladoPro.setChecked(False)
+                var.ui.rbtnVendidoPro.setEnabled(True)
+                var.ui.rbtnVendidoPro.setChecked(False)
+
             else:
-                return False
-        except Exception as error:
-            print("error checkNoEstaEnFacturas en propiedades", error)
+                var.ui.rbtnDisponiblePro.setChecked(False)
+                var.ui.rbtnAlquiladoPro.setEnabled(True)
+                var.ui.rbtnAlquiladoPro.setChecked(False)
+                var.ui.rbtnVendidoPro.setEnabled(True)
+                var.ui.rbtnVendidoPro.setChecked(True)

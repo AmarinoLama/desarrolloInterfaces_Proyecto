@@ -1,11 +1,15 @@
 from datetime import datetime
-from docutils.io import NullInput
+from PyQt6 import QtWidgets, QtCore, QtGui
 
 import conexion
 import eventos
+import propiedades
 import var
 
 class Alquileres:
+
+    chkPagado = []
+    botonesdel = []
 
     @staticmethod
     def altaContrato():
@@ -20,24 +24,56 @@ class Alquileres:
                             var.ui.txtVendedorContrato.text(),
                             var.ui.txtFechaInicioMensualidad.text(),
                             var.ui.txtFechaFinMensualidad.text()]
+            print(infoContrato)
             if conexion.Conexion.grabarContrato(infoContrato):
                 eventos.Eventos.crearMensajeInfo("Informacion", "El contrato se ha grabado exitosamente")
             else:
                 eventos.Eventos.crearMensajeError("Error", "El contrato no se ha podido grabar")
             conexion.Conexion.cambiarEstadoPropiedad(var.ui.txtPropiedadContrato.text(), 2)
-            # Cargar tabla
+            Alquileres.cargarTablaAlquileres()
+            propiedades.Propiedades.cargarTablaPropiedades(0)
         except Exception as error:
             print('Error altaContrato: %s' % str(error))
 
     @staticmethod
-    def cargarContratos():
+    def cargarTablaAlquileres():
         """
-        Función que carga los contratos en la tabla de contratos
+
+        Función que recupera la lista de alquileres mediante Conexion.listadoAlquileres
+        y muestra dicha información en la tabla de alquileres
+
         """
         try:
-            print("hola")
-        except Exception as error:
-            print('Error cargarContratos: %s' % str(error))
+            listado = conexion.Conexion.listadoAlquileres()
+            print(listado)
+            var.ui.tablaContratos.setRowCount(len(listado))
+            index = 0
+
+            Alquileres.botonesdel = []
+            for registro in listado:
+                container = QtWidgets.QWidget()
+                layout = QtWidgets.QVBoxLayout()
+                Alquileres.botonesdel.append(QtWidgets.QPushButton())
+                Alquileres.botonesdel[-1].setFixedSize(30, 20)
+                Alquileres.botonesdel[-1].setIcon(QtGui.QIcon("./img/papelera.ico"))
+                Alquileres.botonesdel[-1].setStyleSheet("background-color: #efefef;")
+                Alquileres.botonesdel[-1].clicked.connect(
+                    lambda checked, idFactura=str(registro[0]): Alquileres.borrarContratoAlquiler(idFactura))
+                layout.addWidget(Alquileres.botonesdel[-1])
+                layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                layout.setContentsMargins(0, 0, 0, 0)
+                layout.setSpacing(0)
+                container.setLayout(layout)
+                var.ui.tablaContratos.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
+                var.ui.tablaContratos.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))
+                var.ui.tablaContratos.setCellWidget(index, 2, container)
+
+                var.ui.tablaContratos.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaContratos.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
+                index += 1
+        except Exception as e:
+            print("Error al cargar la tabla de facturas", e)
 
     @staticmethod
     def checkCampos():
@@ -78,3 +114,7 @@ class Alquileres:
             return True
         except Exception as error:
             print('Error checkCamposRellenados: %s' % str(error))
+
+    @staticmethod
+    def borrarContratoAlquiler(idFactura):
+        print("hola paco" + idFactura)
