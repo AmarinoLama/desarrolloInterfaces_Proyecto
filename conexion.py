@@ -1039,3 +1039,24 @@ class Conexion:
             return query.exec()
         except Exception as exec:
             print("Error al guardar el contrato", exec)
+
+    @staticmethod
+    def datosOneContrato(id):
+        """
+        :param id: id del contrato
+        :type id: int
+        :return: datos del contrato
+        :rtype: list
+
+        Query que recupera los datos de un contrato a partir de su id
+        """
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM ALQUILERES where id = :id")
+            query.bindValue(":id", str(id))
+            if query.exec() and query.next():
+                registro = [query.value(i) for i in range(query.record().count())]
+            return registro
+        except Exception as error:
+            print("Error al abrir el archivo" + error)

@@ -44,7 +44,6 @@ class Alquileres:
         """
         try:
             listado = conexion.Conexion.listadoAlquileres()
-            print(listado)
             var.ui.tablaContratos.setRowCount(len(listado))
             index = 0
 
@@ -132,3 +131,21 @@ class Alquileres:
             propiedades.Propiedades.cargarTablaPropiedades(0)
         except Exception as error:
             print('Error borrarContratoAlquiler: %s' % str(error))
+
+    @staticmethod
+    def cargarOneContrato():
+        """
+        Función que carga la información de un contrato en el formulario de contratos
+        """
+        try:
+            fila = var.ui.tablaContratos.selectedItems()
+            if conexion.Conexion.datosOneContrato(fila[0].text()):
+                fila = [dato.text() for dato in fila]
+                contrato = conexion.Conexion.datosOneContrato(fila[0])
+                var.ui.txtPropiedadContrato.setText(contrato[1])
+                var.ui.txtDniClienteContrato.setText(contrato[2])
+                var.ui.txtVendedorContrato.setText(contrato[3])
+                var.ui.txtFechaInicioMensualidad.setText(contrato[4])
+                var.ui.txtFechaFinMensualidad.setText(contrato[5])
+        except Exception as error:
+            print('Error cargarOneContrato: %s' % str(error))
