@@ -404,7 +404,7 @@ class Conexion:
             else:
                 query = QtSql.QSqlQuery()
                 query.prepare(
-                    "SELECT * FROM propiedades WHERE bajaprop IS NULL ORDER BY muniprop ASC LIMIT 11 OFFSET :offset")
+                    "SELECT * FROM propiedades WHERE bajaprop IS NULL OR bajaprop = '' ORDER BY muniprop ASC LIMIT 11 OFFSET :offset")
                 query.bindValue(":offset", offset)
                 if query.exec():
                     while query.next():
@@ -550,14 +550,19 @@ class Conexion:
             nuevoEstado = ""
             fecha_hoy = date.today()
             fecha_formateada = fecha_hoy.strftime("%d/%m/%Y")
+            query = QtSql.QSqlQuery()
 
             if estadoProp == 0:
                 nuevoEstado = "Disponible"
+                query.prepare("UPDATE propiedades SET estadoprop = :estadoprop, bajaprop = :bajaprop WHERE codigo = :codigo")
+                query.bindValue(":codigo", idProp)
+                query.bindValue(":bajaprop", "")
+                query.bindValue(":estadoprop", nuevoEstado)
+                return query.exec()
             elif estadoProp == 1:
                 nuevoEstado = "Vendido"
             elif estadoProp == 2:
                 nuevoEstado = "Alquilado"
-            query = QtSql.QSqlQuery()
             query.prepare("UPDATE propiedades SET estadoprop = :estadoprop, bajaprop = :bajaprop WHERE codigo = :codigo")
             query.bindValue(":codigo", idProp)
             query.bindValue(":bajaprop", fecha_formateada)
@@ -1003,6 +1008,9 @@ class Conexion:
 
     @staticmethod
     def listadoAlquileres():
+        """
+        Función que recupera un listado de todos los alquileres de la base de datos
+        """
         try:
             listado = []
             query = QtSql.QSqlQuery()
@@ -1014,3 +1022,20 @@ class Conexion:
             return listado
         except Exception as error:
             print("Error al recuperar el listado de ventas")
+
+    @staticmethod
+    def borrarContrato(idFactura):
+        """
+        :param idFactura: id de la factura a borrar
+        :type idFactura: int
+        :return: operación exitosa
+        :rtype: boolean
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "DELETE FROM ALQUILERES WHERE id = :idFactura")
+            query.bindValue(":idFactura", str(idFactura))
+            return query.exec()
+        except Exception as exec:
+            print("Error al guardar el contrato", exec)

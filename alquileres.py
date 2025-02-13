@@ -24,7 +24,6 @@ class Alquileres:
                             var.ui.txtVendedorContrato.text(),
                             var.ui.txtFechaInicioMensualidad.text(),
                             var.ui.txtFechaFinMensualidad.text()]
-            print(infoContrato)
             if conexion.Conexion.grabarContrato(infoContrato):
                 eventos.Eventos.crearMensajeInfo("Informacion", "El contrato se ha grabado exitosamente")
             else:
@@ -117,4 +116,19 @@ class Alquileres:
 
     @staticmethod
     def borrarContratoAlquiler(idFactura):
-        print("hola paco" + idFactura)
+        """
+        :param idFactura: id de la factura a borrar
+        :type idFactura: int
+
+        Función que borra un contrato de la base de datos y actualiza la tabla de contratos
+        """
+        try:
+            if conexion.Conexion.borrarContrato(idFactura):
+                eventos.Eventos.crearMensajeInfo("Informacion", "El contrato se ha eliminado exitosamente")
+            else:
+                eventos.Eventos.crearMensajeError("Error", "El contrato no se ha podido eliminar")
+            Alquileres.cargarTablaAlquileres()
+            conexion.Conexion.cambiarEstadoPropiedad(idFactura, 0)
+            propiedades.Propiedades.cargarTablaPropiedades(0)
+        except Exception as error:
+            print('Error borrarContratoAlquiler: %s' % str(error))
