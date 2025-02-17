@@ -122,13 +122,14 @@ class Alquileres:
         Función que borra un contrato de la base de datos y actualiza la tabla de contratos
         """
         try:
+            idPropiedad = conexion.Conexion.datosOneContrato(idFactura)[1]
             if conexion.Conexion.borrarContrato(idFactura):
                 eventos.Eventos.crearMensajeInfo("Informacion", "El contrato se ha eliminado exitosamente")
+                Alquileres.cargarTablaAlquileres()
+                conexion.Conexion.cambiarEstadoPropiedad(idPropiedad, 0)
+                propiedades.Propiedades.cargarTablaPropiedades(0)
             else:
                 eventos.Eventos.crearMensajeError("Error", "El contrato no se ha podido eliminar")
-            Alquileres.cargarTablaAlquileres()
-            conexion.Conexion.cambiarEstadoPropiedad(idFactura, 0)
-            propiedades.Propiedades.cargarTablaPropiedades(0)
         except Exception as error:
             print('Error borrarContratoAlquiler: %s' % str(error))
 
@@ -149,3 +150,28 @@ class Alquileres:
                 var.ui.txtFechaFinMensualidad.setText(contrato[5])
         except Exception as error:
             print('Error cargarOneContrato: %s' % str(error))
+
+    @staticmethod
+    def crearMensualidades(fechainicio, fechafin, idPropiedad):
+        """
+        Función que crea las mensualidades de un contrato
+        """
+        try:
+
+            # alquileres.Alquileres.crearMensualidades("24/11/2024", "24/11/2025", 0)
+            # ['11-2024', '12-2024', '01-2025', '02-2025', '03-2025', '04-2025', '05-2025', '06-2025', '07-2025', '08-2025', '09-2025', '10-2025', '11-2025']
+
+            listaMeses = []
+            fecha_inicio = datetime.strptime(fechainicio, '%d/%m/%Y')
+            fecha_fin = datetime.strptime(fechafin, '%d/%m/%Y')
+
+            while fecha_inicio <= fecha_fin:
+                listaMeses.append(fecha_inicio.strftime('%m-%Y'))
+                if fecha_inicio.month == 12:
+                    fecha_inicio = fecha_inicio.replace(year=fecha_inicio.year + 1, month=1)
+                else:
+                    fecha_inicio = fecha_inicio.replace(month=fecha_inicio.month + 1)
+            print(listaMeses)
+            return listaMeses
+        except Exception as error:
+            print('Error crearMensualidades: %s' % str(error))

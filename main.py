@@ -148,6 +148,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.chkHistoricoPro.stateChanged.connect(propiedades.Propiedades.historicoProp)
         var.ui.chkHistoricoVend.stateChanged.connect(vendedores.Vendedores.historicoVend)
 
+        alquileres.Alquileres.crearMensualidades("24/11/2024", "24/11/2025", 0)
+
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     window = Main()
