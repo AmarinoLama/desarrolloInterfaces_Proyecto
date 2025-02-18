@@ -235,12 +235,13 @@ class Facturas:
             infoVenta = [var.ui.lblNumFactura.text(), Facturas.current_vendedor, Facturas.current_propiedad]
             if conexion.Conexion.grabarVenta(infoVenta):
                 eventos.Eventos.crearMensajeInfo("Informacion", "La venta se ha grabado exitosamente")
-                conexion.Conexion.cambiarEstadoPropiedad(var.ui.lblNumFactura.text(), 1)
+                conexion.Conexion.cambiarEstadoPropiedad(Facturas.current_propiedad, 1)
                 propiedades.Propiedades.cargarTablaPropiedades(0)
             else:
                 eventos.Eventos.crearMensajeError("Error", "La venta no se ha podido grabar")
             Facturas.limpiarFactura()
             Facturas.cargarTablaVentasFactura()
+
         except Exception as error:
             print('Error altaVenta: %s' % str(error))
 
