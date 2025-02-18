@@ -57,6 +57,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.tablaPropiedades.clicked.connect(propiedades.Propiedades.cargaOnePropiedad)
         var.ui.tablaVendedores.clicked.connect(vendedores.Vendedores.cargarOneVendedor)
         var.ui.tablaFacturas.clicked.connect(facturas.Facturas.cargaOneFactura)
+        var.ui.tablaContratos.clicked.connect(alquileres.Alquileres.cargarOneContrato)
+        var.ui.tablaContratos.clicked.connect(alquileres.Alquileres.cargarTablaMensualidades)
 
         '''
         EVENTOS DEL MENUBAR
@@ -147,8 +149,6 @@ class Main(QtWidgets.QMainWindow):
         var.ui.chkHistoriacli.stateChanged.connect(clientes.Clientes.historicoCli)
         var.ui.chkHistoricoPro.stateChanged.connect(propiedades.Propiedades.historicoProp)
         var.ui.chkHistoricoVend.stateChanged.connect(vendedores.Vendedores.historicoVend)
-
-        alquileres.Alquileres.crearMensualidades("24/11/2024", "24/11/2025", 0)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

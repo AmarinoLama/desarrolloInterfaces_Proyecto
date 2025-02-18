@@ -1,3 +1,4 @@
+from calendar import Month
 from datetime import datetime
 from PyQt6 import QtWidgets, QtCore, QtGui
 
@@ -31,16 +32,16 @@ class Alquileres:
             conexion.Conexion.cambiarEstadoPropiedad(var.ui.txtPropiedadContrato.text(), 2)
             Alquileres.cargarTablaAlquileres()
             propiedades.Propiedades.cargarTablaPropiedades(0)
+            idContrato = conexion.Conexion.obtenerUltimoContrato()
+            Alquileres.crearMensualidades(var.ui.txtFechaInicioMensualidad.text(), var.ui.txtFechaFinMensualidad.text(), idContrato)
         except Exception as error:
             print('Error altaContrato: %s' % str(error))
 
     @staticmethod
     def cargarTablaAlquileres():
         """
-
         Función que recupera la lista de alquileres mediante Conexion.listadoAlquileres
         y muestra dicha información en la tabla de alquileres
-
         """
         try:
             listado = conexion.Conexion.listadoAlquileres()
@@ -123,7 +124,7 @@ class Alquileres:
         """
         try:
             idPropiedad = conexion.Conexion.datosOneContrato(idFactura)[1]
-            if conexion.Conexion.borrarContrato(idFactura):
+            if conexion.Conexion.borrarContrato(idFactura) and conexion.Conexion.borrarMensualidadesContrato(idFactura):
                 eventos.Eventos.crearMensajeInfo("Informacion", "El contrato se ha eliminado exitosamente")
                 Alquileres.cargarTablaAlquileres()
                 conexion.Conexion.cambiarEstadoPropiedad(idPropiedad, 0)
@@ -143,23 +144,30 @@ class Alquileres:
             if conexion.Conexion.datosOneContrato(fila[0].text()):
                 fila = [dato.text() for dato in fila]
                 contrato = conexion.Conexion.datosOneContrato(fila[0])
-                var.ui.txtPropiedadContrato.setText(contrato[1])
-                var.ui.txtDniClienteContrato.setText(contrato[2])
-                var.ui.txtVendedorContrato.setText(contrato[3])
-                var.ui.txtFechaInicioMensualidad.setText(contrato[4])
-                var.ui.txtFechaFinMensualidad.setText(contrato[5])
+                var.ui.lblNumContrato.setText(str(contrato[0]))
+                var.ui.txtPropiedadContrato.setText(str(contrato[1]))
+                var.ui.txtDniClienteContrato.setText(str(contrato[2]))
+                var.ui.txtVendedorContrato.setText(str(contrato[3]))
+                var.ui.txtFechaInicioMensualidad.setText(str(contrato[4]))
+                var.ui.txtFechaFinMensualidad.setText(str(contrato[5]))
         except Exception as error:
             print('Error cargarOneContrato: %s' % str(error))
 
     @staticmethod
-    def crearMensualidades(fechainicio, fechafin, idPropiedad):
+    def crearMensualidades(fechainicio, fechafin, idContrato):
         """
+        :param fechainicio: fecha de inicio del contrato
+        :type fechainicio: str
+        :param fechafin: ficha final del contrato
+        :type fechafin: str
+        :param idContrato: id del contrato
+        :type idContrato: int
+        :return: None
+        :rtype: none
+
         Función que crea las mensualidades de un contrato
         """
         try:
-
-            # alquileres.Alquileres.crearMensualidades("24/11/2024", "24/11/2025", 0)
-            # ['11-2024', '12-2024', '01-2025', '02-2025', '03-2025', '04-2025', '05-2025', '06-2025', '07-2025', '08-2025', '09-2025', '10-2025', '11-2025']
 
             listaMeses = []
             fecha_inicio = datetime.strptime(fechainicio, '%d/%m/%Y')
@@ -171,7 +179,70 @@ class Alquileres:
                     fecha_inicio = fecha_inicio.replace(year=fecha_inicio.year + 1, month=1)
                 else:
                     fecha_inicio = fecha_inicio.replace(month=fecha_inicio.month + 1)
-            print(listaMeses)
-            return listaMeses
+
+            for mes in listaMeses:
+                if conexion.Conexion.grabarMensualidadesContrato(mes, idContrato):
+                    pass
+                else:
+                    eventos.Eventos.crearMensajeError("Error", "No se han podido grabar las mensualidades")
+                    return
+            return
+
         except Exception as error:
             print('Error crearMensualidades: %s' % str(error))
+
+    @staticmethod
+    def cargarTablaMensualidades():
+        """
+        Función que carga la tabla de mensualidades de un alquiler
+        """
+        idAlquiler = var.ui.tablaContratos.selectedItems()[0]
+        listado = conexion.Conexion.listadoMensualidadesAlquiler(idAlquiler.text())
+        if listado:
+            propiedad = conexion.Conexion.datosOnePropiedad(conexion.Conexion.datosOneContrato(idAlquiler)[1])
+        try:
+            var.ui.tablaMensualidades.setRowCount(len(listado))
+            index = 0
+            Alquileres.chkPagado = []
+            for registro in listado:
+                container = QtWidgets.QWidget()
+                layout = QtWidgets.QVBoxLayout()
+                chkbox = QtWidgets.QCheckBox()
+                chkbox.setChecked(registro[3] == 1)
+                chkbox.stateChanged.connect(
+                    lambda checked, idMensualidad=str(registro[0]): Alquileres.pagarMensualidad(idMensualidad, checked))
+                Alquileres.chkPagado.append(chkbox)
+                layout.addWidget(chkbox)
+                layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                layout.setContentsMargins(0, 0, 0, 0)
+                layout.setSpacing(0)
+                container.setLayout(layout)
+
+                var.ui.tablaMensualidades.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
+                var.ui.tablaMensualidades.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[4])))
+                mes = Month(int(registro[2]), int(registro[1]))
+                var.ui.tablaMensualidades.setItem(index, 2, QtWidgets.QTableWidgetItem(str(mes)))
+                var.ui.tablaMensualidades.setItem(index, 3, QtWidgets.QTableWidgetItem(propiedad[10] + " €"))
+                var.ui.tablaMensualidades.setCellWidget(index, 4, container)
+
+                var.ui.tablaMensualidades.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaMensualidades.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaMensualidades.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaMensualidades.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
+                index += 1
+            eventos.Eventos.resizeTablaMensualidades()
+
+        except Exception as e:
+            print("Error al cargar la tabla de ventas", e)
+
+    @staticmethod
+    def pagarMensualidad(idMensualidad, pagada):
+        if pagada:
+            if conexion.Conexion.setMensualidadPagada(idMensualidad, pagada):
+                eventos.Eventos.crearMensajeInfo("Todo bien","Se ha registrado el nuevo estado de pago")
+            else:
+                eventos.Eventos.crearMensajeError("Error", "No se ha podido registrar el estado de pago")
+        else:
+            eventos.Eventos.crearMensajeError("Error", "No se puede eliminar un pago")
+        #Alquileres.cargaOneAlquiler()

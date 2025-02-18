@@ -213,6 +213,7 @@ class Ui_venPrincipal(object):
         self.line.setObjectName("line")
         self.verticalLayout.addWidget(self.line)
         self.tablaClientes = QtWidgets.QTableWidget(parent=self.pClientres)
+        self.tablaClientes.setEnabled(True)
         self.tablaClientes.setMinimumSize(QtCore.QSize(860, 510))
         self.tablaClientes.setMaximumSize(QtCore.QSize(16777215, 510))
         self.tablaClientes.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers)
@@ -1277,7 +1278,7 @@ class Ui_venPrincipal(object):
         self.toolBar.addAction(self.actionbarSalir)
 
         self.retranslateUi(venPrincipal)
-        self.panPrincipal.setCurrentIndex(4)
+        self.panPrincipal.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(venPrincipal)
 
     def retranslateUi(self, venPrincipal):

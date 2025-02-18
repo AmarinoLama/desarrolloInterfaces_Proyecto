@@ -1030,6 +1030,8 @@ class Conexion:
         :type idFactura: int
         :return: operación exitosa
         :rtype: boolean
+
+        Función que borra un contrato de la base de datos a partir de su id
         """
         try:
             query = QtSql.QSqlQuery()
@@ -1060,3 +1062,121 @@ class Conexion:
             return registro
         except Exception as error:
             print("Error al abrir el archivo" + error)
+
+    @staticmethod
+    def grabarMensualidadesContrato(fecha, idContrato):
+        """
+        :param fecha: fecha del mes de esa mensualidad
+        :type fecha: str
+        :param idContrato: id del contrato
+        :type idContrato: int
+        :return: operación exitosa
+        :rtype: boolean
+
+        Query que inserta una nueva mensualidad en la base de datos
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("INSERT INTO MENSUALIDADES (idAlquiler, mes, pagado) "
+                "VALUES (:idAlquiler, :fecha, :pagado)")
+            query.bindValue(":idAlquiler", idContrato)
+            query.bindValue(":fecha", fecha)
+            query.bindValue(":pagado", 0)
+            if not query.exec():
+                print("Error SQL:", query.lastError().text())  # <-- Esto muestra el error real
+                return False
+            return True
+        except Exception as exec:
+            print("Error al guardar las mensualidades del contrato", exec)
+
+    @staticmethod
+    def borrarMensualidadesContrato(idContrato):
+        """
+        :param idContrato: id del contrato
+        :type idContrato: int
+        :return: operación exitosa
+        :rtype: boolean
+
+        Query que borra las mensualidades de un contrato a partir de su id
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "DELETE FROM MENSUALIDADES WHERE idAlquiler = :idContrato")
+            query.bindValue(":idContrato", str(idContrato))
+            return query.exec()
+        except Exception as exec:
+            print("Error al borrar las mensualidades del contrato", exec)
+
+    @staticmethod
+    def listadoMensualidadesAlquiler(id):
+        try:
+            """
+            :param id: id del contrato
+            :type id: int
+            :return: listado de mensualidades del contrato
+            :rtype: list
+            
+            Query que recupera las mensualidades de un contrato a partir de su id
+            """
+            listado = []
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "select idmensualidad, idalquiler, mes, pagado from mensualidades where idalquiler = :idalquiler")
+            query.bindValue(":idalquiler", id)
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+            else:
+                print("Error en listadoMensualidadesAlquiler" + query.lastError().text())
+            return listado
+        except Exception as error:
+            print("Error al recuperar el listado de mensualidades")
+
+    @staticmethod
+    def setMensualidadPagada(codigo, pagado):
+        """
+        :param codigo: codigo de la mensualidad
+        :type codigo: int
+        :param pagado: si está pagado o no
+        :type pagado: boolean
+        :return: operación exitosa
+        :rtype: boolean
+
+        Query que marca una mensualidad como pagada o no pagada
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("update mensualidades set pagado = :pagado where id = :codigo")
+            query.bindValue(":codigo", codigo)
+            if pagado:
+                query.bindValue(":pagado", 1)
+            else:
+                query.bindValue(":pagado", 0)
+            if query.exec():
+                QtSql.QSqlDatabase.database().commit()
+                return True
+            else:
+                print("Error en setMensualidad pagada" + query.lastError().text())
+                return False
+        except Exception as error:
+            print("Error al marcar la mensualidad como pagada", error)
+
+    @staticmethod
+    def obtenerUltimoContrato():
+        """
+        :return: id del último contrato
+        :rtype: int
+
+        Query que recupera el id del último contrato guardado en la base de datos
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("select id from alquileres order by id desc limit 1")
+            if query.exec() and query.next():
+                return query.value(0)
+            else:
+                return 0
+        except Exception as error:
+            print("Error al recuperar el último contrato", error)
