@@ -1148,12 +1148,9 @@ class Conexion:
         """
         try:
             query = QtSql.QSqlQuery()
-            query.prepare("update mensualidades set pagado = :pagado where id = :codigo")
+            query.prepare("update mensualidades set pagado = :pagado where idmensualidad = :codigo")
             query.bindValue(":codigo", codigo)
-            if pagado:
-                query.bindValue(":pagado", 1)
-            else:
-                query.bindValue(":pagado", 0)
+            query.bindValue(":pagado", 1 if pagado else 0)
             if query.exec():
                 QtSql.QSqlDatabase.database().commit()
                 return True
@@ -1180,3 +1177,29 @@ class Conexion:
                 return 0
         except Exception as error:
             print("Error al recuperar el último contrato", error)
+
+    @staticmethod
+    def listadoMensualidadesSinPagar(id):
+        try:
+            """
+            :param id: id del contrato
+            :type id: int
+            :return: listado de mensualidades del contrato
+            :rtype: list
+
+            Query que recupera las mensualidades no pagadas de un contrato a partir de su id
+            """
+            listado = []
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                "select idmensualidad, idalquiler, mes from mensualidades where idalquiler = :idalquiler and pagado = 0")
+            query.bindValue(":idalquiler", id)
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+            else:
+                print("Error en listadoMensualidadesSinPagar" + query.lastError().text())
+            return listado
+        except Exception as error:
+            print("Error al recuperar el listado de mensualidades sin pagar")

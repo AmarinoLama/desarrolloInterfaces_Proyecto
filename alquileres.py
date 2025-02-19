@@ -196,15 +196,19 @@ class Alquileres:
         """
         Función que carga la tabla de mensualidades de un alquiler
         """
-        idAlquiler = var.ui.tablaContratos.selectedItems()[0]
-        listado = conexion.Conexion.listadoMensualidadesAlquiler(idAlquiler.text())
-        if listado:
-            propiedad = conexion.Conexion.datosOnePropiedad(conexion.Conexion.datosOneContrato(idAlquiler)[1])
         try:
+            idAlquiler = var.ui.tablaContratos.selectedItems()[0]
+            listado = conexion.Conexion.listadoMensualidadesAlquiler(idAlquiler.text())
+            if listado:
+                propiedad = conexion.Conexion.datosOnePropiedad(conexion.Conexion.datosOneContrato(idAlquiler.text())[1])
+            else:
+                return
+
             var.ui.tablaMensualidades.setRowCount(len(listado))
             index = 0
             Alquileres.chkPagado = []
             for registro in listado:
+
                 container = QtWidgets.QWidget()
                 layout = QtWidgets.QVBoxLayout()
                 chkbox = QtWidgets.QCheckBox()
@@ -219,9 +223,9 @@ class Alquileres:
                 container.setLayout(layout)
 
                 var.ui.tablaMensualidades.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
-                var.ui.tablaMensualidades.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[4])))
-                mes = Month(int(registro[2]), int(registro[1]))
-                var.ui.tablaMensualidades.setItem(index, 2, QtWidgets.QTableWidgetItem(str(mes)))
+                var.ui.tablaMensualidades.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))
+                mes = registro[2]
+                var.ui.tablaMensualidades.setItem(index, 2, QtWidgets.QTableWidgetItem(mes))
                 var.ui.tablaMensualidades.setItem(index, 3, QtWidgets.QTableWidgetItem(propiedad[10] + " €"))
                 var.ui.tablaMensualidades.setCellWidget(index, 4, container)
 
@@ -234,7 +238,7 @@ class Alquileres:
             eventos.Eventos.resizeTablaMensualidades()
 
         except Exception as e:
-            print("Error al cargar la tabla de ventas", e)
+            print("Error al cargar la tabla de mensualidades:", e)
 
     @staticmethod
     def pagarMensualidad(idMensualidad, pagada):
@@ -244,5 +248,6 @@ class Alquileres:
             else:
                 eventos.Eventos.crearMensajeError("Error", "No se ha podido registrar el estado de pago")
         else:
+            print(pagada)
             eventos.Eventos.crearMensajeError("Error", "No se puede eliminar un pago")
         #Alquileres.cargaOneAlquiler()

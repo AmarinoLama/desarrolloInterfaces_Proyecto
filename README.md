@@ -2,4 +2,4 @@
 
 - Comprobar el informe cuando no se encuentran datos
 - Hacer panel alquileres
-- Cargar one contrato?
+- Hacer histórico en panel alquileres

@@ -62,7 +62,7 @@
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="pClientres">
        <attribute name="title">
@@ -3504,6 +3504,22 @@
            </property>
            <property name="text">
             <string>Alta Contrato</string>
+           </property>
+          </widget>
+          <widget class="QCheckBox" name="chkHistoricoMensualidades">
+           <property name="geometry">
+            <rect>
+             <x>790</x>
+             <y>130</y>
+             <width>100</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="text">
+            <string>Historico</string>
            </property>
           </widget>
          </widget>
