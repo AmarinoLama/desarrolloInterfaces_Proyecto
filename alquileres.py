@@ -11,6 +11,7 @@ class Alquileres:
 
     chkPagado = []
     botonesdel = []
+    idAlquiler = 0
 
     @staticmethod
     def altaContrato():
@@ -197,17 +198,31 @@ class Alquileres:
         Función que carga la tabla de mensualidades de un alquiler
         """
         try:
-            idAlquiler = var.ui.tablaContratos.selectedItems()[0]
-            listado = conexion.Conexion.listadoMensualidadesAlquiler(idAlquiler.text())
-            if listado:
-                propiedad = conexion.Conexion.datosOnePropiedad(conexion.Conexion.datosOneContrato(idAlquiler.text())[1])
-            else:
+            selected_items = var.ui.tablaContratos.selectedItems()
+            if not selected_items or len(selected_items) < 1:
+                print("No hay elementos seleccionados en la tabla de contratos.")
                 return
+
+            idAlquiler = selected_items[0]
+            if not var.ui.chkHistoricoMensualidades.isChecked():
+                listado = conexion.Conexion.listadoMensualidadesSinPagar(idAlquiler.text())
+            else:
+                listado = conexion.Conexion.listadoMensualidadesAlquiler(idAlquiler.text())
+
+            if not listado:
+                print("No hay mensualidades para mostrar.")
+                return
+
+            propiedad = conexion.Conexion.datosOnePropiedad(
+                conexion.Conexion.datosOneContrato(idAlquiler.text())[1])
 
             var.ui.tablaMensualidades.setRowCount(len(listado))
             index = 0
             Alquileres.chkPagado = []
             for registro in listado:
+                if len(registro) < 4:
+                    print(f"Registro incompleto: {registro}")
+                    continue
 
                 container = QtWidgets.QWidget()
                 layout = QtWidgets.QVBoxLayout()
@@ -242,12 +257,26 @@ class Alquileres:
 
     @staticmethod
     def pagarMensualidad(idMensualidad, pagada):
+        """
+        :param idMensualidad: id de la mensualidad
+        :type idMensualidad: int
+        :param pagada: si está pagada o no
+        :type pagada: boolean
+
+        Función que cambia el estado de pago de una mensualidad
+        """
         if pagada:
             if conexion.Conexion.setMensualidadPagada(idMensualidad, pagada):
                 eventos.Eventos.crearMensajeInfo("Todo bien","Se ha registrado el nuevo estado de pago")
             else:
                 eventos.Eventos.crearMensajeError("Error", "No se ha podido registrar el estado de pago")
         else:
-            print(pagada)
             eventos.Eventos.crearMensajeError("Error", "No se puede eliminar un pago")
-        #Alquileres.cargaOneAlquiler()
+            for row in range(var.ui.tablaMensualidades.rowCount()):
+                item = var.ui.tablaMensualidades.item(row, 0)
+                if item and item.text() == str(idMensualidad):
+                    checkbox = var.ui.tablaMensualidades.cellWidget(row, 4).layout().itemAt(0).widget()
+                    checkbox.setChecked(not pagada)
+                    break
+
+        Alquileres.cargarTablaMensualidades()

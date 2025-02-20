@@ -1180,26 +1180,27 @@ class Conexion:
 
     @staticmethod
     def listadoMensualidadesSinPagar(id):
-        try:
-            """
-            :param id: id del contrato
-            :type id: int
-            :return: listado de mensualidades del contrato
-            :rtype: list
+        """
+        :param id: id del contrato
+        :type id: int
+        :return: listado de mensualidades del contrato
+        :rtype: list
 
-            Query que recupera las mensualidades no pagadas de un contrato a partir de su id
-            """
+        Query que recupera las mensualidades no pagadas de un contrato a partir de su id
+        """
+        try:
             listado = []
             query = QtSql.QSqlQuery()
             query.prepare(
-                "select idmensualidad, idalquiler, mes from mensualidades where idalquiler = :idalquiler and pagado = 0")
+                "SELECT idmensualidad, idalquiler, mes, pagado FROM mensualidades WHERE idalquiler = :idalquiler AND pagado = 0")
             query.bindValue(":idalquiler", id)
             if query.exec():
                 while query.next():
                     fila = [query.value(i) for i in range(query.record().count())]
                     listado.append(fila)
             else:
-                print("Error en listadoMensualidadesSinPagar" + query.lastError().text())
+                print("Error en listadoMensualidadesSinPagar:", query.lastError().text())
             return listado
         except Exception as error:
-            print("Error al recuperar el listado de mensualidades sin pagar")
+            print("Error al recuperar el listado de mensualidades sin pagar:", error)
+            return []

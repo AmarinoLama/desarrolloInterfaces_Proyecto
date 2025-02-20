@@ -1183,6 +1183,10 @@ class Ui_venPrincipal(object):
         self.btnAltaContrato.setMaximumSize(QtCore.QSize(100, 16777215))
         self.btnAltaContrato.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.btnAltaContrato.setObjectName("btnAltaContrato")
+        self.chkHistoricoMensualidades = QtWidgets.QCheckBox(parent=self.frame_4)
+        self.chkHistoricoMensualidades.setGeometry(QtCore.QRect(790, 130, 100, 17))
+        self.chkHistoricoMensualidades.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
+        self.chkHistoricoMensualidades.setObjectName("chkHistoricoMensualidades")
         self.gridLayout_13.addWidget(self.frame_4, 0, 0, 1, 2)
         self.panPrincipal.addTab(self.pAlquileres, "")
         self.gridLayout_2.addWidget(self.panPrincipal, 1, 6, 1, 1)
@@ -1278,7 +1282,7 @@ class Ui_venPrincipal(object):
         self.toolBar.addAction(self.actionbarSalir)
 
         self.retranslateUi(venPrincipal)
-        self.panPrincipal.setCurrentIndex(0)
+        self.panPrincipal.setCurrentIndex(4)
         QtCore.QMetaObject.connectSlotsByName(venPrincipal)
 
     def retranslateUi(self, venPrincipal):
@@ -1458,6 +1462,7 @@ class Ui_venPrincipal(object):
         self.label_42.setText(_translate("venPrincipal", "Propiedad:"))
         self.label_43.setText(_translate("venPrincipal", "Vendedor:"))
         self.btnAltaContrato.setText(_translate("venPrincipal", "Alta Contrato"))
+        self.chkHistoricoMensualidades.setText(_translate("venPrincipal", "Historico"))
         self.panPrincipal.setTabText(self.panPrincipal.indexOf(self.pAlquileres), _translate("venPrincipal", "ALQUILERES"))
         self.menuArchivo.setTitle(_translate("venPrincipal", "Archivo"))
         self.menuHerramientas.setTitle(_translate("venPrincipal", "Herramientas"))
