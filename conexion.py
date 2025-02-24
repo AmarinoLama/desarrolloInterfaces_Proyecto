@@ -1054,6 +1054,7 @@ class Conexion:
         """
         try:
             registro = []
+            var.ui.chkHistoricoMensualidades.setEnabled(True)
             query = QtSql.QSqlQuery()
             query.prepare("SELECT * FROM ALQUILERES where id = :id")
             query.bindValue(":id", str(id))
@@ -1110,15 +1111,15 @@ class Conexion:
 
     @staticmethod
     def listadoMensualidadesAlquiler(id):
+        """
+        :param id: id del contrato
+        :type id: int
+        :return: listado de mensualidades del contrato
+        :rtype: list
+
+        Query que recupera las mensualidades de un contrato a partir de su id
+        """
         try:
-            """
-            :param id: id del contrato
-            :type id: int
-            :return: listado de mensualidades del contrato
-            :rtype: list
-            
-            Query que recupera las mensualidades de un contrato a partir de su id
-            """
             listado = []
             query = QtSql.QSqlQuery()
             query.prepare(

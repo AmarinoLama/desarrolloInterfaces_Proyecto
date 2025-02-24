@@ -425,6 +425,9 @@ class Eventos():
         objetosPanelContratos = [var.ui.lblNumContrato, var.ui.txtPropiedadContrato, var.ui.txtDniClienteContrato,
                                  var.ui.txtVendedorContrato, var.ui.txtFechaInicioMensualidad, var.ui.txtFechaFinMensualidad]
 
+        var.ui.chkHistoricoMensualidades.setChecked(False)
+        var.ui.chkHistoricoMensualidades.setEnabled(False)
+
         for i, dato in enumerate(objetosPanelContratos):
             dato.setText("")
 

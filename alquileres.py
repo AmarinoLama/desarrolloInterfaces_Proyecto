@@ -6,11 +6,14 @@ import conexion
 import eventos
 import propiedades
 import var
+from informes import Informes
+
 
 class Alquileres:
 
     chkPagado = []
     botonesdel = []
+    botonesInforme = []
     idAlquiler = 0
 
     @staticmethod
@@ -50,9 +53,11 @@ class Alquileres:
             index = 0
 
             Alquileres.botonesdel = []
+
             for registro in listado:
                 container = QtWidgets.QWidget()
                 layout = QtWidgets.QVBoxLayout()
+
                 Alquileres.botonesdel.append(QtWidgets.QPushButton())
                 Alquileres.botonesdel[-1].setFixedSize(30, 20)
                 Alquileres.botonesdel[-1].setIcon(QtGui.QIcon("./img/papelera.ico"))
@@ -60,6 +65,7 @@ class Alquileres:
                 Alquileres.botonesdel[-1].clicked.connect(
                     lambda checked, idFactura=str(registro[0]): Alquileres.borrarContratoAlquiler(idFactura))
                 layout.addWidget(Alquileres.botonesdel[-1])
+
                 layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 layout.setContentsMargins(0, 0, 0, 0)
                 layout.setSpacing(0)
@@ -219,30 +225,47 @@ class Alquileres:
             var.ui.tablaMensualidades.setRowCount(len(listado))
             index = 0
             Alquileres.chkPagado = []
+            Alquileres.botonesInforme = []
             for registro in listado:
                 if len(registro) < 4:
                     print(f"Registro incompleto: {registro}")
                     continue
 
-                container = QtWidgets.QWidget()
-                layout = QtWidgets.QVBoxLayout()
                 chkbox = QtWidgets.QCheckBox()
                 chkbox.setChecked(registro[3] == 1)
                 chkbox.stateChanged.connect(
                     lambda checked, idMensualidad=str(registro[0]): Alquileres.pagarMensualidad(idMensualidad, checked))
                 Alquileres.chkPagado.append(chkbox)
-                layout.addWidget(chkbox)
-                layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                layout.setContentsMargins(0, 0, 0, 0)
-                layout.setSpacing(0)
-                container.setLayout(layout)
+
+                chkbox_container = QtWidgets.QWidget()
+                chkbox_layout = QtWidgets.QHBoxLayout()
+                chkbox_layout.addWidget(chkbox)
+                chkbox_layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                chkbox_layout.setContentsMargins(0, 0, 0, 0)
+                chkbox_container.setLayout(chkbox_layout)
+
+                btnInforme = QtWidgets.QPushButton()
+                btnInforme.setFixedSize(30, 20)
+                btnInforme.setIcon(QtGui.QIcon("./img/file.png"))
+                btnInforme.setStyleSheet("background-color: #efefef;")
+                btnInforme.clicked.connect(
+                    lambda checked, idFactura=str(registro[0]): Informes.reportMensualidades(idFactura))
+                Alquileres.botonesInforme.append(btnInforme)
+
+                btnInforme_container = QtWidgets.QWidget()
+                btnInforme_layout = QtWidgets.QHBoxLayout()
+                btnInforme_layout.addWidget(btnInforme)
+                btnInforme_layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                btnInforme_layout.setContentsMargins(0, 0, 0, 0)
+                btnInforme_container.setLayout(btnInforme_layout)
 
                 var.ui.tablaMensualidades.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
                 var.ui.tablaMensualidades.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))
                 mes = registro[2]
                 var.ui.tablaMensualidades.setItem(index, 2, QtWidgets.QTableWidgetItem(mes))
                 var.ui.tablaMensualidades.setItem(index, 3, QtWidgets.QTableWidgetItem(propiedad[10] + " €"))
-                var.ui.tablaMensualidades.setCellWidget(index, 4, container)
+                var.ui.tablaMensualidades.setCellWidget(index, 4, chkbox_container)
+                var.ui.tablaMensualidades.setCellWidget(index, 5, btnInforme_container)
 
                 var.ui.tablaMensualidades.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaMensualidades.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
@@ -278,5 +301,4 @@ class Alquileres:
                     checkbox = var.ui.tablaMensualidades.cellWidget(row, 4).layout().itemAt(0).widget()
                     checkbox.setChecked(not pagada)
                     break
-
         Alquileres.cargarTablaMensualidades()

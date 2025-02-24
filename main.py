@@ -149,6 +149,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.chkHistoriacli.stateChanged.connect(clientes.Clientes.historicoCli)
         var.ui.chkHistoricoPro.stateChanged.connect(propiedades.Propiedades.historicoProp)
         var.ui.chkHistoricoVend.stateChanged.connect(vendedores.Vendedores.historicoVend)
+        var.ui.chkHistoricoMensualidades.stateChanged.connect(alquileres.Alquileres.cargarTablaMensualidades)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

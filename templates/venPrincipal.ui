@@ -3273,6 +3273,11 @@
              <string>Gestión</string>
             </property>
            </column>
+           <column>
+            <property name="text">
+             <string>Informe</string>
+            </property>
+           </column>
           </widget>
          </widget>
         </item>
@@ -3507,10 +3512,13 @@
            </property>
           </widget>
           <widget class="QCheckBox" name="chkHistoricoMensualidades">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="geometry">
             <rect>
-             <x>790</x>
-             <y>130</y>
+             <x>1110</x>
+             <y>140</y>
              <width>100</width>
              <height>17</height>
             </rect>
@@ -3519,7 +3527,7 @@
             <enum>Qt::LeftToRight</enum>
            </property>
            <property name="text">
-            <string>Historico</string>
+            <string>Pendientes</string>
            </property>
           </widget>
          </widget>

@@ -245,6 +245,71 @@ class Informes:
             traceback.print_exc()
 
     @staticmethod
+    def reportMensualidad(id):
+        """
+        :param id: id de la mensualidad
+        :type id: str
+
+        Función que genera el informe de las mensualidades
+        """
+        print("GENERANDO INFORME ..." + id)
+
+    @staticmethod
+    def reportMensualidades(mensualidad):
+        """
+
+        """
+        xid = 55
+        xmes = xid + 70
+        xdireccion = xmes + 70
+        xlocalidad = xdireccion + 120
+        xtipo = xlocalidad + 100
+        xprecio = xtipo + 65
+        ymax = 630
+        ymin = 90
+        ystep = 30
+        try:
+            rootPath = ".\\recibosAlquiler"
+            if not os.path.exists(rootPath):
+                os.makedirs(rootPath)
+            fecha = datetime.today().strftime("%Y_%m_%d_%H_%M_%S")
+            mes = mensualidad[2]
+            anno = mensualidad[3]
+            nomepdfcli = "alquiler_" + str(mensualidad[1]) + "_recibo_" + str(mes) + str(anno) + ".pdf"
+            pdf_path = os.path.join(rootPath, nomepdfcli)
+            print(pdf_path)
+            var.report = canvas.Canvas(pdf_path)
+            titulo = "Recibo Alquiler Mensualidad"
+            alquiler = conexion.Conexion.datosOneContrato(mensualidad[1])
+            cliente = conexion.Conexion.datosOneCliente(alquiler[2])
+            propiedad = conexion.Conexion.datosOnePropiedad(alquiler[1])
+            Informes.topInforme(titulo)
+            Informes.topDatosCliente(cliente, "")
+            Informes.footInforme(titulo, 1)
+            var.report.setFont('Helvetica', size=9)
+            var.report.drawString(55, 600, 'Propiedad: ' + str(propiedad[0]))
+            var.report.drawString(55, 580, 'Dirección: ' + str(propiedad[4]))
+            var.report.drawString(55, 560, 'Localidad: ' + str(propiedad[6]))
+            var.report.drawString(55, 540, 'Provincia: ' + str(propiedad[5]))
+            var.report.drawString(355, 600, 'Fecha Mensualidad: ' + "1-" + str(mes) + "-" + str(anno))
+            var.report.drawString(355, 580, 'Contrato nº: ' + str(alquiler[0]))
+            var.report.drawString(355, 560, 'Recibo nº: ' + str(mensualidad[0]))
+            var.report.drawString(355, 540, 'Precio Alquiler: ' + str(propiedad[11]) + " €")
+            estado = "pagado" if mensualidad[4] else "no pagado"
+            var.report.drawString(355, 520, 'Estado: ' + estado)
+
+            var.report.line(50, 170, 525, 170)
+
+            var.report.save()
+
+            for file in os.listdir(rootPath):
+                if file.endswith(nomepdfcli):
+                    os.startfile(pdf_path)
+
+        except Exception as error:
+            print("Error al general el recibo de la mensualidad" + str(error))
+
+    @staticmethod
     def topInforme(titulo):
         """
         :param titulo: titulo del informe
