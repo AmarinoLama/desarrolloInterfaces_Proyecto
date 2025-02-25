@@ -1,3 +1,4 @@
+import calendar
 from calendar import Month
 from datetime import datetime
 from PyQt6 import QtWidgets, QtCore, QtGui
@@ -249,7 +250,7 @@ class Alquileres:
                 btnInforme.setIcon(QtGui.QIcon("./img/file.png"))
                 btnInforme.setStyleSheet("background-color: #efefef;")
                 btnInforme.clicked.connect(
-                    lambda checked, idFactura=str(registro[0]): Informes.reportMensualidades(idFactura))
+                    lambda checked, idFactura=str(registro[0]): Alquileres.crearInformeMensualidades(idFactura))
                 Alquileres.botonesInforme.append(btnInforme)
 
                 btnInforme_container = QtWidgets.QWidget()
@@ -302,3 +303,23 @@ class Alquileres:
                     checkbox.setChecked(not pagada)
                     break
         Alquileres.cargarTablaMensualidades()
+
+    @staticmethod
+    def crearInformeMensualidades(idMensualidad):
+        """
+        :param idMensualidad: id de la mensualidad
+        :type idMensualidad: str
+
+        Función que crea un informe de una mensualidad
+        """
+        try:
+            mensualidad = conexion.Conexion.datosOneMensualidad(idMensualidad)
+            mensualidadInforme = [mensualidad[0], mensualidad[1]]
+            mes, ano = mensualidad[2].split("-")
+            nombre_mes = calendar.month_name[int(mes)]
+            mensualidadInforme.append(nombre_mes.capitalize())
+            mensualidadInforme.append(ano)
+            mensualidadInforme.append(mensualidad[3])
+            Informes.reportMensualidad(mensualidadInforme)
+        except Exception as e:
+            print("Error al crear el informe de mensualidades:", e)

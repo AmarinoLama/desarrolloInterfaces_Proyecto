@@ -74,7 +74,8 @@ class Conexion:
         try:
             listamunicipios = []
             query = QtSql.QSqlQuery()
-            query.prepare("SELECT * FROM municipios where idprov = (select idprov from provincias where provincia = :provincia)")
+            query.prepare(
+                "SELECT * FROM municipios where idprov = (select idprov from provincias where provincia = :provincia)")
             query.bindValue(":provincia", provincia)
             if query.exec():
                 while query.next():
@@ -345,10 +346,11 @@ class Conexion:
                 return False
 
             query = QtSql.QSqlQuery()
-            query.prepare(" INSERT into PROPIEDADES (altaprop, dirprop, provprop, muniprop, tipoprop, habprop, banprop, "
-                          " superprop, prealquiprop, prevenprop, cpprop, obserprop, tipooper, estadoprop, nomeprop, movilprop) "
-                          " VALUES (:altaprop, :dirprop, :provprop, :muniprop, :tipoprop, :habprop, :banprop, :superprop, "
-                          " :prealquiprop, :prevenprop, :cpprop, :obserprop, :tipooper, :estadoprop, :nomeprop, :movilprop)")
+            query.prepare(
+                " INSERT into PROPIEDADES (altaprop, dirprop, provprop, muniprop, tipoprop, habprop, banprop, "
+                " superprop, prealquiprop, prevenprop, cpprop, obserprop, tipooper, estadoprop, nomeprop, movilprop) "
+                " VALUES (:altaprop, :dirprop, :provprop, :muniprop, :tipoprop, :habprop, :banprop, :superprop, "
+                " :prealquiprop, :prevenprop, :cpprop, :obserprop, :tipooper, :estadoprop, :nomeprop, :movilprop)")
             query.bindValue(":altaprop", str(propiedad[0]))
             query.bindValue(":dirprop", str(propiedad[1]))
             query.bindValue(":provprop", str(propiedad[2]))
@@ -554,7 +556,8 @@ class Conexion:
 
             if estadoProp == 0:
                 nuevoEstado = "Disponible"
-                query.prepare("UPDATE propiedades SET estadoprop = :estadoprop, bajaprop = :bajaprop WHERE codigo = :codigo")
+                query.prepare(
+                    "UPDATE propiedades SET estadoprop = :estadoprop, bajaprop = :bajaprop WHERE codigo = :codigo")
                 query.bindValue(":codigo", idProp)
                 query.bindValue(":bajaprop", "")
                 query.bindValue(":estadoprop", nuevoEstado)
@@ -563,7 +566,8 @@ class Conexion:
                 nuevoEstado = "Vendido"
             elif estadoProp == 2:
                 nuevoEstado = "Alquilado"
-            query.prepare("UPDATE propiedades SET estadoprop = :estadoprop, bajaprop = :bajaprop WHERE codigo = :codigo")
+            query.prepare(
+                "UPDATE propiedades SET estadoprop = :estadoprop, bajaprop = :bajaprop WHERE codigo = :codigo")
             query.bindValue(":codigo", idProp)
             query.bindValue(":bajaprop", fecha_formateada)
             query.bindValue(":estadoprop", nuevoEstado)
@@ -613,17 +617,17 @@ class Conexion:
         try:
             listado = []
 
-            #numRows = var.rowsVendedores
+            # numRows = var.rowsVendedores
 
-            #offset = (numRows - 10) if numRows >= 10 else 0
+            # offset = (numRows - 10) if numRows >= 10 else 0
 
             if var.historicoVend == 1:
                 query = QtSql.QSqlQuery()
                 query.prepare("SELECT idVendedo, nombreVendedor, movilVendedor, delegacionVendedor "
-                             "FROM vendedores ORDER BY idVendedo ASC")
-                #query.prepare("SELECT idVendedo, nombreVendedor, movilVendedor, delegacionVendedor "
+                              "FROM vendedores ORDER BY idVendedo ASC")
+                # query.prepare("SELECT idVendedo, nombreVendedor, movilVendedor, delegacionVendedor "
                 #              "FROM vendedores ORDER BY idVendedo ASC LIMIT 10 OFFSET :offset")
-                #query.bindValue(":offeset", offset)
+                # query.bindValue(":offeset", offset)
                 if query.exec():
                     while query.next():
                         fila = [query.value(i) for i in range(query.record().count())]
@@ -633,16 +637,16 @@ class Conexion:
                 query.prepare(
                     "SELECT idVendedo, nombreVendedor, movilVendedor, delegacionVendedor "
                     "FROM vendedores WHERE bajaVendedor IS NULL or bajaVendedor = '' ORDER BY idVendedo ASC")
-                #query.prepare(
+                # query.prepare(
                 #    "SELECT idVendedo, nombreVendedor, movilVendedor, delegacionVendedor "
                 #    "FROM vendedores WHERE bajaVendedor IS NULL or bajaVendedor = '' ORDER BY idVendedo ASC LIMIT 10 OFFSET :offset")
-                #query.bindValue(":offeset", offset)
+                # query.bindValue(":offeset", offset)
                 if query.exec():
                     while query.next():
                         fila = [query.value(i) for i in range(query.record().count())]
                         listado.append(fila)
 
-            #if not listado:
+            # if not listado:
             #   var.rowsVendedores -= 10
 
             return listado
@@ -707,7 +711,8 @@ class Conexion:
         try:
             registro = []
             query = QtSql.QSqlQuery()
-            query.prepare("SELECT idVendedo, nombreVendedor, movilVendedor, delegacionVendedor FROM VENDEDORES WHERE movilVendedor = :movilVendedor")
+            query.prepare(
+                "SELECT idVendedo, nombreVendedor, movilVendedor, delegacionVendedor FROM VENDEDORES WHERE movilVendedor = :movilVendedor")
             query.bindValue(":movilVendedor", str(telefono))
             if query.exec():
                 while query.next():
@@ -861,7 +866,7 @@ class Conexion:
         try:
             query = QtSql.QSqlQuery()
             query.prepare("INSERT INTO VENTAS (facventa, codprop, agente) "
-                "VALUES (:factura, :propiedad, :vendedor)")
+                          "VALUES (:factura, :propiedad, :vendedor)")
             query.bindValue(":factura", str(nuevaVenta[0]))
             query.bindValue(":propiedad", str(nuevaVenta[2]))
             query.bindValue(":vendedor", str(nuevaVenta[1]))
@@ -994,7 +999,8 @@ class Conexion:
         """
         try:
             query = QtSql.QSqlQuery()
-            query.prepare("INSERT INTO ALQUILERES (idPropiedad, clienteDNI, idAgente, fechaInicio, fechaFin, precioAlquiler) "
+            query.prepare(
+                "INSERT INTO ALQUILERES (idPropiedad, clienteDNI, idAgente, fechaInicio, fechaFin, precioAlquiler) "
                 "VALUES (:idPropiedad, :clienteDNI, :idAgente, :fechaInicio, :fechaFin, :precioAlquiler)")
             query.bindValue(":idPropiedad", str(infoContrato[0]))
             query.bindValue(":clienteDNI", str(infoContrato[1]))
@@ -1079,7 +1085,7 @@ class Conexion:
         try:
             query = QtSql.QSqlQuery()
             query.prepare("INSERT INTO MENSUALIDADES (idAlquiler, mes, pagado) "
-                "VALUES (:idAlquiler, :fecha, :pagado)")
+                          "VALUES (:idAlquiler, :fecha, :pagado)")
             query.bindValue(":idAlquiler", idContrato)
             query.bindValue(":fecha", fecha)
             query.bindValue(":pagado", 0)
@@ -1204,4 +1210,26 @@ class Conexion:
             return listado
         except Exception as error:
             print("Error al recuperar el listado de mensualidades sin pagar:", error)
+            return []
+
+    @staticmethod
+    def datosOneMensualidad(idMensaulidad):
+        """
+        :param idMensaulidad: id de la mensualidad
+        :type idMensaulidad: str
+        :return: datos de la mensualidad a buscar
+        :rtype: list
+
+        Función que devuelve los datos de una mensualidad a partir de su id
+        """
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM MENSUALIDADES WHERE idmensualidad = :idmensualidad")
+            query.bindValue(":idmensualidad", idMensaulidad)
+            if query.exec() and query.next():
+                registro = [query.value(i) for i in range(query.record().count())]
+            return registro
+        except Exception as error:
+            print("Error al obtener mensualidad por id: ", error)
             return []
