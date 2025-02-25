@@ -598,5 +598,8 @@ class Eventos():
         if var.ui.lblNumFactura.text() == "":
             eventos.Eventos.crearMensajeError("Advertencia", "Debes seleccionar una factura para poder generar el informe de ventas")
             return
+        elif var.ui.tablaVentas.rowCount() == 0:
+            eventos.Eventos.crearMensajeError("Advertencia", "La factura seleccionada no tiene ventas asociadas")
+            return
         else:
             informes.Informes.reportVentas(var.ui.lblNumFactura.text())
