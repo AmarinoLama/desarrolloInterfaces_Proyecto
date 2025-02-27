@@ -1494,4 +1494,4 @@ class Ui_venPrincipal(object):
         self.actionExportar_Vendedores_JSON.setText(_translate("venPrincipal", "Exportar Vendedores JSON"))
         self.actionListado_Clientes.setText(_translate("venPrincipal", "Listado Clientes"))
         self.actionListado_Propiedades.setText(_translate("venPrincipal", "Listado Propiedades"))
-        self.actionListado_Vendedores.setText(_translate("venPrincipal", "Listado Vendedores"))
+        self.actionListado_Vendedores.setText(_translate("venPrincipal", "Listado Ventas"))

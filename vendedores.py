@@ -1,12 +1,11 @@
+from datetime import datetime
+from PyQt6 import QtWidgets, QtCore
+
 import conexion
 import eventos
 import facturas
 import var
 import vendedores
-from datetime import datetime
-
-from PyQt6 import QtWidgets, QtGui, QtCore
-
 
 class Vendedores:
 

@@ -330,7 +330,3 @@ class Facturas:
                 eventos.Eventos.crearMensajeError("Error", "La venta no se ha podido eliminar")
         except Exception as e:
             print("Error al eliminar la venta", e)
-
-    # Arreglar páginas del informe propiedades
-
-    # https://github.com/BuaTeijeiro/ProyectoDI/blob/main/facturas.py#L143

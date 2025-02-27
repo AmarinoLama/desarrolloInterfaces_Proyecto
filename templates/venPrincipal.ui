@@ -3731,7 +3731,7 @@
   </action>
   <action name="actionListado_Vendedores">
    <property name="text">
-    <string>Listado Vendedores</string>
+    <string>Listado Ventas</string>
    </property>
   </action>
  </widget>

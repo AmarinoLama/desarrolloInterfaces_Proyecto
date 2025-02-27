@@ -372,6 +372,14 @@ class Informes:
 
     @staticmethod
     def topDatosClienteMensualidad(cliente, fecha):
+        """
+        :param cliente: información del cliente
+        :type cliente: list
+        :param fecha: fecha de la mensualidad
+        :type fecha: string
+
+        Función que hace un top arriba a la derecha del informe con la información detallada del cliente
+        """
         try:
             var.report.setFont('Helvetica-Bold', size=8)
             var.report.drawString(300, 770, 'DNI Cliente:')
