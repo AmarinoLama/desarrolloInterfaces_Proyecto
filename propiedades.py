@@ -422,6 +422,7 @@ class Propiedades():
 
     @staticmethod
     def manageRadioButtons():
+
         var.ui.rbtnDisponiblePro.setEnabled(False)
 
         if var.ui.txtFechabajaPro.text() == "":
@@ -430,7 +431,11 @@ class Propiedades():
             var.ui.rbtnVendidoPro.setChecked(False)
             var.ui.rbtnAlquiladoPro.setEnabled(False)
             var.ui.rbtnVendidoPro.setEnabled(False)
+
         else:
+
+            if (var.ui.lblCodigoProp.text() == ""):
+                return
 
             if conexion.Conexion.datosOnePropiedad(var.ui.lblCodigoProp.text())[15] == "Alquilado":
                 var.ui.rbtnAlquiladoPro.setEnabled(True)

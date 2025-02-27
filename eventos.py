@@ -134,7 +134,7 @@ class Eventos():
             elif var.btn == 1:
                 var.ui.txtBajacli.setText(str(data))
             elif var.btn == 2:
-                var.ui.txtPublicacionPro .setText(str(data))
+                var.ui.txtPublicacionPro.setText(str(data))
             elif var.btn == 3:
                 var.ui.txtFechabajaPro.setText(str(data))
             elif var.btn == 4:
