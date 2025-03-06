@@ -9,9 +9,11 @@ import sys
 import time
 import re
 
+import alquileres
 import clientes
 import conexion
 import eventos
+import facturas
 import informes
 import propiedades
 import var
@@ -349,6 +351,10 @@ class Eventos():
                 conexion.Conexion.db_conexion()
                 eventos.Eventos.cargarProv()
                 clientes.Clientes.cargaTablaClientes()
+                propiedades.Propiedades.cargarTablaPropiedades(0)
+                vendedores.Vendedores.cargarTablaVendedores()
+                alquileres.Alquileres.cargarTablaAlquileres()
+                facturas.Facturas.cargarTablaFacturas()
         except Exception as error:
             print("error en restaurar backup: ", error)
 

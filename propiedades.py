@@ -72,7 +72,7 @@ class Propiedades():
 
             obligatorios = [var.ui.txtDireccionPro.text(), var.ui.txtPropietarioPro, var.ui.txtMovilPro,
                             var.ui.cmbProvinciaPro.currentText(), var.ui.cmbMunicipioPro.currentText(),
-                            var.ui.cmbTipoPro.currentText(), var.ui.txtSuperficiePro.text(), var.ui.txtCpPro.text()]
+                            var.ui.cmbTipoPro.currentText(), var.ui.txtSuperficiePro.text(), var.ui.txtCpPro.text(), var.ui.txtPublicacionPro.text()]
 
             for i in obligatorios:
                 if i == "":
@@ -226,7 +226,7 @@ class Propiedades():
 
             obligatorios = [var.ui.txtDireccionPro.text(), var.ui.txtPropietarioPro, var.ui.txtMovilPro,
                             var.ui.cmbProvinciaPro.currentText(), var.ui.cmbMunicipioPro.currentText(),
-                            var.ui.cmbTipoPro.currentText(), var.ui.txtSuperficiePro.text(), var.ui.txtCpPro.text()]
+                            var.ui.cmbTipoPro.currentText(), var.ui.txtSuperficiePro.text(), var.ui.txtCpPro.text(), var.ui.txtPublicacionPro.text()]
 
             for i in obligatorios:
                 if obligatorios[2] == "telefono no válido":
@@ -253,6 +253,7 @@ class Propiedades():
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
+                return
             else:
                 tipoper = []
                 if var.ui.cbxAlquilerPro.isChecked():
@@ -287,6 +288,7 @@ class Propiedades():
                         mbox.setText('La fecha de baja debe ser posterior a la fecha de publicación')
                         mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
                         mbox.exec()
+                        return
 
                 if conexion.Conexion.modifPropiedades(propiedad):
                     mbox = QtWidgets.QMessageBox()
@@ -309,6 +311,7 @@ class Propiedades():
                     mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                     mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                     mbox.exec()
+                    return
                 Propiedades.cargarTablaPropiedades(0)
                 facturas.Facturas.limpiarFactura()
                 Propiedades.manageCheckbox()

@@ -62,7 +62,7 @@
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="pClientres">
        <attribute name="title">
@@ -73,6 +73,9 @@
          <layout class="QGridLayout" name="gridLayout">
           <item row="0" column="9">
            <widget class="QLineEdit" name="txtAltacli">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="minimumSize">
              <size>
               <width>100</width>
@@ -272,6 +275,9 @@
           </item>
           <item row="1" column="9">
            <widget class="QLineEdit" name="txtBajacli">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="minimumSize">
              <size>
               <width>100</width>
@@ -283,6 +289,9 @@
               <width>100</width>
               <height>20</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 255, 255);</string>
             </property>
            </widget>
           </item>
@@ -677,6 +686,9 @@
             <height>510</height>
            </size>
           </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
+          </property>
           <property name="editTriggers">
            <set>QAbstractItemView::NoEditTriggers</set>
           </property>
@@ -882,11 +894,17 @@
             </item>
             <item row="1" column="16">
              <widget class="QLineEdit" name="txtPublicacionPro">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>150</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 252, 220);</string>
               </property>
              </widget>
             </item>
@@ -1295,7 +1313,14 @@
              </widget>
             </item>
             <item row="0" column="16">
-             <widget class="QLineEdit" name="txtFechabajaPro"/>
+             <widget class="QLineEdit" name="txtFechabajaPro">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -1663,6 +1688,9 @@
         </item>
         <item>
          <widget class="QTableWidget" name="tablaPropiedades">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -1674,6 +1702,9 @@
             <width>16777215</width>
             <height>400</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
           </property>
           <property name="selectionBehavior">
            <enum>QAbstractItemView::SelectRows</enum>
@@ -2121,11 +2152,17 @@
             </item>
             <item row="0" column="10">
              <widget class="QLineEdit" name="txtAltaVend">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>120</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);</string>
               </property>
              </widget>
             </item>
@@ -2161,11 +2198,17 @@
             </item>
             <item row="1" column="10">
              <widget class="QLineEdit" name="txtBajaVend">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>120</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);</string>
               </property>
              </widget>
             </item>
@@ -2378,6 +2421,9 @@
         </item>
         <item>
          <widget class="QTableWidget" name="tablaVendedores">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -2389,6 +2435,9 @@
             <width>16777215</width>
             <height>400</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
           </property>
           <property name="selectionBehavior">
            <enum>QAbstractItemView::SelectRows</enum>
@@ -2494,6 +2543,9 @@
        <layout class="QGridLayout" name="gridLayout_11">
         <item row="1" column="0">
          <widget class="QTableWidget" name="tablaFacturas">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="minimumSize">
            <size>
             <width>331</width>
@@ -2505,6 +2557,9 @@
             <width>331</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
           </property>
           <property name="selectionBehavior">
            <enum>QAbstractItemView::SelectRows</enum>
@@ -2575,7 +2630,14 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLineEdit" name="txtFechaFactura"/>
+             <widget class="QLineEdit" name="txtFechaFactura">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);</string>
+              </property>
+             </widget>
             </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label_4">
@@ -2718,6 +2780,9 @@
            <enum>QFrame::Plain</enum>
           </property>
           <widget class="QTableWidget" name="tablaVentas">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
            <property name="geometry">
             <rect>
              <x>0</x>
@@ -2731,6 +2796,9 @@
              <width>939</width>
              <height>0</height>
             </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);</string>
            </property>
            <property name="selectionBehavior">
             <enum>QAbstractItemView::SelectRows</enum>
@@ -3168,6 +3236,9 @@
        <layout class="QGridLayout" name="gridLayout_13">
         <item row="1" column="0">
          <widget class="QTableWidget" name="tablaContratos">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="minimumSize">
            <size>
             <width>331</width>
@@ -3179,6 +3250,9 @@
             <width>331</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);</string>
           </property>
           <property name="selectionBehavior">
            <enum>QAbstractItemView::SelectRows</enum>
@@ -3221,6 +3295,9 @@
            <enum>QFrame::Plain</enum>
           </property>
           <widget class="QTableWidget" name="tablaMensualidades">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
            <property name="geometry">
             <rect>
              <x>0</x>
@@ -3234,6 +3311,9 @@
              <width>939</width>
              <height>514</height>
             </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);</string>
            </property>
            <property name="selectionBehavior">
             <enum>QAbstractItemView::SelectRows</enum>
@@ -3300,8 +3380,11 @@
            <layout class="QGridLayout" name="gridLayout_12">
             <item row="0" column="1">
              <widget class="QLineEdit" name="txtFechaInicioMensualidad">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="styleSheet">
-               <string notr="true"/>
+               <string notr="true">background-color: rgb(255, 255, 255);</string>
               </property>
              </widget>
             </item>
@@ -3372,7 +3455,14 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLineEdit" name="txtFechaFinMensualidad"/>
+             <widget class="QLineEdit" name="txtFechaFinMensualidad">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
