@@ -547,6 +547,8 @@ class Conexion:
         :type estadoProp: int
         :return: operación exitosa
         :rtype: booleano
+
+        Query que cambia el estado de una propiedad en la base de datos.
         """
         try:
             nuevoEstado = ""

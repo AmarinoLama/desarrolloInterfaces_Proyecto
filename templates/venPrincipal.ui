@@ -74,7 +74,7 @@
           <item row="0" column="9">
            <widget class="QLineEdit" name="txtAltacli">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="minimumSize">
              <size>
@@ -276,7 +276,7 @@
           <item row="1" column="9">
            <widget class="QLineEdit" name="txtBajacli">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="minimumSize">
              <size>
@@ -895,7 +895,7 @@
             <item row="1" column="16">
              <widget class="QLineEdit" name="txtPublicacionPro">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="maximumSize">
                <size>
@@ -1315,7 +1315,7 @@
             <item row="0" column="16">
              <widget class="QLineEdit" name="txtFechabajaPro">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="styleSheet">
                <string notr="true">background-color: rgb(255, 255, 255);</string>
@@ -2153,7 +2153,7 @@
             <item row="0" column="10">
              <widget class="QLineEdit" name="txtAltaVend">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="maximumSize">
                <size>
@@ -2199,7 +2199,7 @@
             <item row="1" column="10">
              <widget class="QLineEdit" name="txtBajaVend">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="maximumSize">
                <size>
@@ -2632,7 +2632,7 @@
             <item row="1" column="1">
              <widget class="QLineEdit" name="txtFechaFactura">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="styleSheet">
                <string notr="true">background-color: rgb(255, 255, 255);</string>
@@ -3381,7 +3381,7 @@
             <item row="0" column="1">
              <widget class="QLineEdit" name="txtFechaInicioMensualidad">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="styleSheet">
                <string notr="true">background-color: rgb(255, 255, 255);</string>
@@ -3457,7 +3457,7 @@
             <item row="1" column="1">
              <widget class="QLineEdit" name="txtFechaFinMensualidad">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="styleSheet">
                <string notr="true">background-color: rgb(255, 255, 255);</string>
