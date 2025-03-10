@@ -131,6 +131,12 @@ class Alquileres:
         Función que borra un contrato de la base de datos y actualiza la tabla de contratos
         """
         try:
+
+            if len(conexion.Conexion.listadoMensualidadesAlquiler(idFactura)) != len(
+                    conexion.Conexion.listadoMensualidadesSinPagar(idFactura)):
+                eventos.Eventos.crearMensajeError("Error", "No se puede borrar un contrato con mensualidades pagadas")
+                return
+
             idPropiedad = conexion.Conexion.datosOneContrato(idFactura)[1]
             if conexion.Conexion.borrarContrato(idFactura) and conexion.Conexion.borrarMensualidadesContrato(idFactura):
                 eventos.Eventos.crearMensajeInfo("Informacion", "El contrato se ha eliminado exitosamente")
